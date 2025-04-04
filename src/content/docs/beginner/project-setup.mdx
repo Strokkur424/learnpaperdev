@@ -297,7 +297,7 @@ is not need to go into detail on that for now.
 If you were to try to compile the project right now, it would still not include the Paper API, as Gradle doesn't know where to look — the internet is huge after all. For this we have the
 `repositories` block. Here, we declare all paths where Gradle should look for dependencies.
 
-Paper's repository is refered to with [https://repo.papermc.io/repository/maven-public/](https://repo.papermc.io/#browse/browse:maven-public). If we add this as an repository to our build file,
+Paper's repository is referred to with [https://repo.papermc.io/repository/maven-public/](https://repo.papermc.io/#browse/browse:maven-public). If we add this as an repository to our build file,
 our Paper API dependency will be found. That would look like this:
 
 ```kts title="build.gradle.kts"
@@ -386,7 +386,7 @@ And **Plugin B** has these files in their src:
 Now, both plugins declare a **PluginUtils.java** file. These may have different contents though. So how can the server, when loading both plugins, know which of these two `PluginUtil.java`
 files one of the plugins references? The answer is: It just cannot. But if we separate them into different folders, each plugin will always be able to reference its specific one.
 
-So yeah, now that you have craeted your folder structure, you can create your first source file: `BeginnerPlugin.java`. The empty source file should look like this:
+So yeah, now that you have created your folder structure, you can create your first source file: `BeginnerPlugin.java`. The empty source file should look like this:
 
 ```java
 // Again, replace with your own group id — this should match the folder structure
