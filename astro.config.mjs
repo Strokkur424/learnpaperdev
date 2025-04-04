@@ -16,7 +16,7 @@ export default defineConfig({
       },
       sidebar: [
         {
-          label: "Beginner Guides",
+          label: "Beginner Guide",
           items: [
             { label: "Introduction", link: "/beginner/introduction/" },
             { label: "Project Setup", link: "/beginner/project-setup/" },
