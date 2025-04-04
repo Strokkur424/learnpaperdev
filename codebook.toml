@@ -1,5 +1,3 @@
-// Zed extension: Codebook Spell Checker
-
 dictionaries = []
 words = [
     "astrojs",
@@ -12,10 +10,13 @@ words = [
     "jvm",
     "kts",
     "learnpaperdev",
+    "mc's",
     "mkdir",
     "papermc",
+    "penilla",
     "sdkman",
     "showlinenumbers",
+    "yml",
 ]
 flag_words = []
 ignore_paths = []

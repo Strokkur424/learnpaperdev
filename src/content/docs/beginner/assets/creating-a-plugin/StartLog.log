@@ -1,0 +1,85 @@
+[2mjava -jar paper-1.21.4-222.jar nogui[0m
+Starting org.bukkit.craftbukkit.Main
+[22:08:43 INFO]: [bootstrap] Running Java 21 (Java HotSpot(TM) 64-Bit Server VM 21.0.6+8-LTS-188; Oracle Corporation null) on Windows 11 10.0 (amd64)
+[22:08:43 INFO]: [bootstrap] Loading Paper 1.21.4-222-main@9b1798d (2025-03-27T13:35:40Z) for Minecraft 1.21.4
+[22:08:43 INFO]: [PluginInitializerManager] Initializing plugins...
+[22:08:44 INFO]: [PluginInitializerManager] Initialized 1 plugin
+[22:08:44 INFO]: [PluginInitializerManager] Paper plugins (1):
+ - BeginnerPlugin (1.0-SNAPSHOT)
+[22:08:47 INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[22:08:49 INFO]: Loaded 1370 recipes
+[22:08:49 INFO]: Loaded 1481 advancements
+[22:08:49 INFO]: [MCTypeRegistry] Initialising converters for DataConverter...
+[22:08:49 INFO]: [MCTypeRegistry] Finished initialising converters for DataConverter in 134,8ms
+[22:08:49 INFO]: Starting minecraft server version 1.21.4
+[22:08:49 INFO]: Loading properties
+[22:08:49 INFO]: This server is running Paper version 1.21.4-222-main@9b1798d (2025-03-27T13:35:40Z) (Implementing API version 1.21.4-R0.1-SNAPSHOT)
+[22:08:49 INFO]: [spark] This server bundles the spark profiler. For more information please visit https://docs.papermc.io/paper/profiling
+[22:08:49 INFO]: Server Ping Player Sample Count: 12
+[22:08:49 INFO]: Using 4 threads for Netty based IO
+[22:08:49 INFO]: [MoonriseCommon] Paper is using 5 worker threads, 1 I/O threads
+[22:08:49 INFO]: [ChunkTaskScheduler] Chunk system is using population gen parallelism: true
+[22:08:50 INFO]: Default game type: SURVIVAL
+[22:08:50 INFO]: Generating keypair
+[22:08:50 INFO]: Starting Minecraft server on *:25565
+[22:08:50 INFO]: Using default channel type
+[22:08:50 INFO]: Paper: Using Java compression from Velocity.
+[22:08:50 INFO]: Paper: Using Java cipher from Velocity.
+[22:08:50 INFO]: [BeginnerPlugin] Loading server plugin BeginnerPlugin v1.0-SNAPSHOT
+[22:08:50 INFO]: [BeginnerPlugin] Our plugin has loaded!
+[22:08:50 INFO]: Server permissions file permissions.yml is empty, ignoring it
+[22:08:50 INFO]: Preparing level "world"
+[22:08:50 INFO]: Preparing start region for dimension minecraft:overworld
+[22:08:50 INFO]: Preparing spawn area: 0%
+[22:08:51 INFO]: Preparing spawn area: 2%
+[22:08:51 INFO]: Time elapsed: 692 ms
+[22:08:51 INFO]: Preparing start region for dimension minecraft:the_nether
+[22:08:51 INFO]: Preparing spawn area: 0%
+[22:08:51 INFO]: Time elapsed: 82 ms
+[22:08:51 INFO]: Preparing start region for dimension minecraft:the_end
+[22:08:51 INFO]: Preparing spawn area: 0%
+[22:08:51 INFO]: Time elapsed: 103 ms
+[22:08:51 INFO]: [BeginnerPlugin] Enabling BeginnerPlugin v1.0-SNAPSHOT
+[33m[22:08:51 WARN]: [BeginnerPlugin] Our plugin has been enabled![0m
+[22:08:51 INFO]: [spark] Starting background profiler...
+[22:08:51 INFO]: [spark] The async-profiler engine is not supported for your os/arch (windows11/amd64), so the built-in Java engine will be used instead.
+[22:08:51 INFO]: Done preparing level "world" (1.472s)
+[22:08:51 INFO]: Running delayed init tasks
+[22:08:51 INFO]: Done (8.831s)! For help, type "help"
+> stop
+[22:08:56 INFO]: Stopping the server
+[22:08:56 INFO]: Stopping server
+[22:08:56 INFO]: [BeginnerPlugin] Disabling BeginnerPlugin v1.0-SNAPSHOT
+[31m[22:08:56 ERROR]: [BeginnerPlugin] Our plugin has been disabled![0m
+[22:08:56 INFO]: Saving players
+[22:08:56 INFO]: Saving worlds
+[22:08:56 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[22:08:56 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'world'
+[22:08:56 INFO]: [ChunkHolderManager] Halted chunk system for world 'world'
+[22:08:56 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'world'
+[22:08:56 INFO]: [ChunkHolderManager] Saved 49 block chunks, 49 entity chunks, 0 poi chunks in world 'world' in 0,23s
+[22:08:56 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'world'
+[22:08:56 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'world'
+[22:08:56 INFO]: Saving chunks for level 'ServerLevel[world_nether]'/minecraft:the_nether
+[22:08:56 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'world_nether'
+[22:08:56 INFO]: [ChunkHolderManager] Halted chunk system for world 'world_nether'
+[22:08:56 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'world_nether'
+[22:08:56 INFO]: [ChunkHolderManager] Saved 49 block chunks, 49 entity chunks, 0 poi chunks in world 'world_nether' in 0,04s
+[22:08:56 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'world_nether'
+[22:08:56 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'world_nether'
+[22:08:56 INFO]: Saving chunks for level 'ServerLevel[world_the_end]'/minecraft:the_end
+[22:08:56 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'world_the_end'
+[22:08:56 INFO]: [ChunkHolderManager] Halted chunk system for world 'world_the_end'
+[22:08:56 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'world_the_end'
+[22:08:56 INFO]: [ChunkHolderManager] Saved 49 block chunks, 49 entity chunks, 0 poi chunks in world 'world_the_end' in 0,05s
+[22:08:56 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'world_the_end'
+[22:08:56 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'world_the_end'
+[22:08:56 INFO]: ThreadedAnvilChunkStorage (world): All chunks are saved
+[22:08:56 INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[22:08:56 INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[22:08:56 INFO]: ThreadedAnvilChunkStorage: All dimensions are saved
+[22:08:56 INFO]: Waiting for I/O tasks to complete...
+[22:08:56 INFO]: All I/O tasks to complete
+[22:08:56 INFO]: [MoonriseCommon] Awaiting termination of worker pool for up to 60s...
+> 2025-04-04T20:08:56.867222200Z Log4j2-AsyncAppenderEventDispatcher-1-Async WARN Advanced terminal features are not available in this environment
+[22:08:56 INFO]: [MoonriseCommon] Awaiting termination of I/O pool for up to 60s...
