@@ -1,0 +1,111 @@
+---
+title: Project Setup
+next: false
+---
+
+import { Tabs, TabItem, FileTree, Steps } from "@astrojs/starlight/components";
+import JetBrainsToolbox from "./assets/JetBrainsToolbox.png";
+import EnvironmentVariables from "./assets/EnvironmentVariables.png";
+import EnvironmentVariablesEdit from "./assets/EnvironmentVariablesEdit.png";
+
+In order to start writing plugins, we first have to setup our project and our IDE. For this, [IntelliJ Idea](https://www.jetbrains.com/idea/)
+is the most widely used one. IntelliJ IDEA provides all tools and plugins necessary for efficient Java development and also provides native support for build tooling, like
+[Gradle](https://gradle.org), which will be our choice of build tooling, as it is the suggested one by the PaperMC team.
+
+## Installation
+
+It is not necessary to install Gradle with IntelliJ together, as IntelliJ includes Gradle. But if you prefer to setup projects using a **CLI**, you may also
+install Gradle with it.
+
+<Tabs syncKey="setupWay">
+    <TabItem label="IntelliJ">
+        *Main article: https://www.jetbrains.com/help/idea/installation-guide.html*
+
+        I personally recommend installing IntelliJ via the [JetBrains Toolbox App](https://www.jetbrains.com/toolbox-app/), as it allows quick and easy
+        updates of IntelliJ.
+
+        Once you have installed the JetBrains Toolbox App, you will want to install **IntelliJ IDEA Community Edition**.
+
+        <details>
+          <summary>JetBrains Toolbox App</summary>
+          <img src={JetBrainsToolbox.src}/>
+        </details>
+
+    </TabItem>
+    <TabItem label="Gradle CLI">
+        *Main article: https://gradle.org/install/*
+
+        <Tabs syncKey="os">
+            <TabItem label="Windows">
+                On Windows, you first want to download the latest Gradle distribution. It is enough for you to just download the [binaries](https://gradle.org/next-steps/?version=8.13&format=bin).
+                Once you have done that, you will want to unpack the zip into a new folder: `C:\Program Files\Gradle`. The file tree should look like this:
+
+                <FileTree>
+                    - `C:\Program Files\Gradle`
+                        - gradle-8.13
+                            - bin/
+                            - init.d/
+                            - lib/
+                            - LICENSE
+                            - NOTICE
+                            - README
+                </FileTree>
+
+                After this, you want to add a new `PATH` environment variable entry. For this you can just search for `environment variables` in the start menu and open the first entry.
+
+                <details>
+                    <summary>Environment variables in the start menu</summary>
+                    <img src={EnvironmentVariables.src}/>
+                </details>
+
+
+                You will then want to add an entry into your `Path`, pointing to `C:\Program Files\Gradle\gradle-8.13\bin`:
+
+                <Steps>
+
+                1. Click on `Environment Variables...` in the bottom right.
+
+                2. In the user variables, select the `Path` variable.
+
+                3. Click `Edit...`
+
+                4. Click `New` to add a new entry
+
+                5. Paste `C:\Program Files\Gradle\gradle-8.13\bin` and click `OK`
+
+                </Steps>
+
+                <details>
+                    <summary>Visual Preview</summary>
+                    <img src={EnvironmentVariablesEdit.src}/>
+                </details>
+
+
+                If you have done these steps correctly, you might have to close all open terminal processes for it to take effect.
+                Now, you can run `gradle -v` in a new terminal session to verify your installed Gradle version.
+
+                ```shell
+                C:\>gradle -v
+
+                ------------------------------------------------------------
+                Gradle 8.13
+                ------------------------------------------------------------
+                ```
+
+            </TabItem>
+
+            <TabItem label="Linux">
+                The recommended way to install Gradle on Linux is using [SDKMAN!](https://sdkman.io), which also allows for managing multiple JDK installations:
+                ```bash showlinenumbers=false
+                $ curl -s "https://get.sdkman.io" | bash
+                ```
+
+                After you have install SDKMAN!, you can now install Gradle.
+                ```bash showlinenumbers=false
+                $ sdk install gradle 1.13
+                ```
+            </TabItem>
+        </Tabs>
+    </TabItem>
+</Tabs>
+
