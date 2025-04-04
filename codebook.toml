@@ -1,0 +1,23 @@
+// Zed extension: Codebook Spell Checker
+
+dictionaries = []
+words = [
+    "astrojs",
+    "dsl",
+    "gitattributes",
+    "gradle",
+    "gradlew",
+    "intelli",
+    "jdk",
+    "jvm",
+    "kts",
+    "learnpaperdev",
+    "mkdir",
+    "papermc",
+    "sdkman",
+    "showlinenumbers",
+]
+flag_words = []
+ignore_paths = []
+ignore_patterns = []
+use_global = true
