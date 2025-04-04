@@ -3,12 +3,19 @@ title: Project Setup
 next: false
 ---
 
-import { Tabs, TabItem, FileTree, Steps } from "@astrojs/starlight/components";
+import {
+  Tabs,
+  TabItem,
+  FileTree,
+  Steps,
+  Aside,
+} from "@astrojs/starlight/components";
 import JetBrainsToolbox from "./assets/JetBrainsToolbox.png";
 import EnvironmentVariables from "./assets/EnvironmentVariables.png";
 import EnvironmentVariablesEdit from "./assets/EnvironmentVariablesEdit.png";
 import IntelliJNewProject from "./assets/IntelliJNewProject.png";
 import IntelliJMinecraftDevelopmentPlugin from "./assets/IntelliJMinecraftDevelopmentPlugin.png";
+import GradleTasks from "./assets/GradleTasks.png";
 
 In order to start writing plugins, we first have to setup our project and our IDE. For this, [IntelliJ Idea](https://www.jetbrains.com/idea/)
 is the most widely used one. IntelliJ IDEA provides all tools and plugins necessary for efficient Java development and also provides native support for build tooling, like
@@ -131,11 +138,11 @@ install Gradle with it.
         |---------------------------|----------------------------------------------------------------------------------------------------------------------------------|
         | Name                      | This is the name of your project/plugin.                                                                                         |
         | Location                  | Where the project will be located. I usually put my projects under `C:\Dev\`.                                                    |
-        | 🔳 Create Git repository | Whether to initialize a git repository. You may have to install git for this to work.                                            |
+        | 🔳 Create Git repository  | Whether to initialize a git repository. You may have to install git for this to work.                                            |
         | Build system              | We will be using `Gradle` throughout this whole guide.                                                                           |
         | JDK                       | Make sure to choose/install a `JDK 21`, as that is the version required for developing plugins past version 1.20.5.              |
         | Gradle DSL                | We will be using `Kotlin`, so make sure to choose that.                                                                          |
-        | 🔳 Add sample code       | Whether to include some basic starter code files. You should disable this, as we will be building everything up from the ground. |
+        | 🔳 Add sample code        | Whether to include some basic starter code files. You should disable this, as we will be building everything up from the ground. |
         | Gradle distribution       | You should choose `Wrapper` as that allows your project to be build from the command line even without having Gradle installed.  |
         | Gradle version            | It is good practise to keep this up-to-date. Make sure to choose **at least** `8.12`.                                            |
         | GroupId                   | This is essentially an unique identifier for your projects. It typically represents a domain in the reverse order. You may choose any group id, but it is good practise to choose one where you also own the domain. |
@@ -163,6 +170,13 @@ install Gradle with it.
             - gradlew.bat
             - settings.gradle.kts
         </FileTree>
+
+        You can safely delete the `src` folder for now, as it contains stuff which we do not need yet.
+
+        <Aside type="note">
+        Whilst you can create projects using the Minecraft Development plugins, which include a few more settings and do more for you, I chose to instead create an
+        empty project so that I can explain everything from the start without some (possibly overwhelming) preset.
+        </Aside>
     </TabItem>
 
     <TabItem label="Gradle CLI">
@@ -176,7 +190,7 @@ install Gradle with it.
 
         It then will ask a few questions, in which you will want to choose `4`, `BeginnerPlugin`, `1`, and `no` respectively:
 
-        ```bash
+        ```ansi showlinenumbers=false
         Select type of build to generate:
           1: Application
           2: Library
@@ -197,7 +211,7 @@ install Gradle with it.
         > Task :init
         Learn more about Gradle by exploring our Samples at https://docs.gradle.org/8.13/samples
 
-        BUILD SUCCESSFUL in 30s
+        [32mBUILD SUCCESSFUL[0m in 30s
         1 actionable task: 1 executed
         ```
 
@@ -217,4 +231,203 @@ install Gradle with it.
 
         You can now safely open this project with IntelliJ IDEA or any other IDE/code editor of your choice.
     </TabItem>
+
+</Tabs>
+
+## Finishing the project setup
+
+Currently, whether you created the project with IntelliJ or with Gradle, we are not done yet! There is still a few things missing. For once, our `build.gradle.kts` file doesn't contain anything
+particularly useful. You should replace all of the content in it with the following:
+
+```kts title="build.gradle.kts"
+plugins {
+    id("java")
+}
+
+group = "com.learnpaperdev.beginner" // Replace with your own id
+version = "1.0-SNAPSHOT" // Our project version
+
+repositories {
+    // You can declare remote repositories here
+}
+
+dependencies {
+    // You can declare dependencies here
+}
+```
+
+### Setting up Gradle
+
+You may be wondering: "What are dependencies and where do we get them from?" Basically, a dependency is just other Java code which you **compile against**. That means you can use their
+code inside your own code. There are multiple types of dependencies, but the only relevant one for us for now is a compile-only dependency, which means that the other's code **is not
+included in our own**. You will learn more about how this exactly works later, but for now, we will only be using `compileOnly(...)`.
+
+Furtermore, there is two main ways on hwo you can depend on another's code. The first is using a **local file dependencies** — that means you just include their compiled or source
+`jar-file` in your project. You can declare a jar-file dependency like this:
+
+```kts title="build.gradle.kts"
+dependencies {
+    compileOnly(files("path/to/dependency/file", "other/path", "..."))
+}
+```
+
+The second possible dependency is a **remote dependency**. Those are declared like this:
+
+```kts title="build.gradle.kts"
+dependencies {
+    compileOnly("group.io:project-id:version")
+}
+```
+
+The nototation inside the `compileOnly(...)` function is called `maven coordinates`. In simple terms, you could say that the `group.io` refers to "who", the `project-id` to "what",
+and the `version` to the version.
+
+If we want to compile against the **Paper API**, we have to declare our dependency like this:
+
+```kts title="build.gradle.kts"
+dependencies {
+    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
+}
+```
+
+As said before, `io.papermc.paper` refers to the group id of Paper, `paper-api` is the project id of the Paper API, and `1.21.4-R0.1-SNAPSHOT` is the version of the server we will primarily
+be compiling against (1.21.4). The `-R0.1-SNAPSHOT` part is something that has been part of the version for a really long time from way before Paper times. It has its reasons, but there
+is not need to go into detail on that for now.
+
+If you were to try to compile the project right now, it would still not include the Paper API, as Gradle doesn't know where to look — the internet is huge after all. For this we have the
+`repositories` block. Here, we declare all paths where Gradle should look for dependencies.
+
+Paper's repository is refered to with [https://repo.papermc.io/repository/maven-public/](https://repo.papermc.io/#browse/browse:maven-public). If we add this as an repository to our build file,
+our Paper API dependency will be found. That would look like this:
+
+```kts title="build.gradle.kts"
+repositories {
+    maven("https://repo.papermc.io/repository/maven-public/")
+}
+```
+
+#### The finished `build.gradle.kts`
+
+Your build file should look like this now:
+
+```kts title="build.gradle.kts"
+plugins {
+    id("java")
+}
+
+group = "com.learnpaperdev.beginner" // Replace with your own id
+version = "1.0-SNAPSHOT" // Our project version
+
+repositories {
+    maven("https://repo.papermc.io/repository/maven-public/")
+}
+
+dependencies {
+    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
+}
+```
+
+### Setting up our source files
+
+Currently, there are no Java-source files in our project. We add those inside the `src/main/java` directory. You should create that directory now.
+The file structure should look like this:
+
+<FileTree>
+  - BeginnerPlugin
+    - src
+        - main
+            - java/
+    - build.gradle.kts
+    - ...
+</FileTree>
+
+What is the reason for this obscure structure? What do you need `main` for? And why an explicit `java` directory? Well, the reason for the `main` directory is that you can also have
+stuff under `src/test`, which is typically the directory with all your unit test. This just helps separate files which should be compiled into the final output file from the test files.
+And the reason for the explicit `java` directory is that you can also code plugins in other languages! There is a lot of other JVM-based languages, like `Groovy` or `Kotlin`. Those would
+each have their own sub folder in the source folder. For example, for `Kotlin` you would choose `src/main/kotlin`.
+
+Now, to create your first source file, we need even more directories. Inside the `java` directory, you should now create a few directories based on your `group-id`. In general,
+you separate your group-id by its dots and make each of them a directory.
+
+For example, for `com.learnpaperdev.beginner`, you would create the following directories:
+
+<FileTree>
+  - BeginnerPlugin
+    - src
+        - main
+            - java
+                - **com**
+                    - **learnpaperdev**
+                        - **beginner/**
+    - build.gradle.kts
+    - ...
+</FileTree>
+
+The reason for this tedious amount of folders is so that we can effectively separate the files of different plugins. Imagine that **Plugin A** has these files in their src:
+
+<FileTree>
+  - src
+    - main
+        - java
+            - APlugin.java
+                - PluginUtils.java
+</FileTree>
+
+And **Plugin B** has these files in their src:
+
+<FileTree>
+  - src
+    - main
+        - java
+            - BPlugin.java
+                - PluginUtils.java
+</FileTree>
+
+Now, both plugins declare a **PluginUtils.java** file. These may have different contents though. So how can the server, when loading both plugins, know which of these two `PluginUtil.java`
+files one of the plugins references? The answer is: It just cannot. But if we separate them into different folders, each plugin will always be able to reference its specific one.
+
+So yeah, now that you have craeted your folder structure, you can create your first source file: `BeginnerPlugin.java`. The empty source file should look like this:
+
+```java
+// Again, replace with your own group id — this should match the folder structure
+package com.learningpaperdev.beginner;
+
+public class BeginnerPlugin {
+}
+```
+
+## Compiling our project
+<Tabs syncKey="setupWay">
+  <TabItem label="IntelliJ">
+      In the top of the sidebar in the right, notice the small Gradle (Elephant) icon. When you click on that, a menu should appear. When you now expand the entries `BeginnerPlugin >
+      Tasks > build` you can see all of the tasks you can run. When you now double-click the `build` task, Gradle should compile your plugin and you should be able to find the output
+      under `build/libs/BeginnerPlugin-1.0-SNAPSHOT.jar`.
+      <img src={GradleTasks.src}/>
+  </TabItem>
+  <TabItem label="Gradle CLI">
+      <Tabs syncKey="os">
+          <TabItem label="Windows">
+              You can run `.\gradlew build` in the project's root folder in order to compile your plugin. If successful, you should find the compiled file under
+              `builds\libs\BeginnerPlugin-1.0-SNAPSHOT.jar`
+
+              ```ansi showlinenumbers=false
+              >.\gradlew build
+
+              [32mBUILD SUCCESSFUL[0m in 614ms
+              1 actionable task: 1 executed
+              ```
+          </TabItem>
+          <TabItem label="Linux">
+           You can run `./gradlew build` in the project's root folder in order to compile your plugin. If successful, you should find the compiled file under
+              `builds/libs/BeginnerPlugin-1.0-SNAPSHOT.jar`
+
+              ```ansi showlinenumbers=false
+              $ ./gradlew build
+
+              [32mBUILD SUCCESSFUL[0m in 614ms
+              1 actionable task: 1 executed
+              ```
+          </TabItem>
+      </Tabs>
+  </TabItem>
 </Tabs>
