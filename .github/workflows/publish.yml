@@ -24,7 +24,7 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           projectName: learnpaperdev
-          directory: ./dist
+          directory: .
           # Optional: Supply a deployment name if you want to have GitHub Deployments triggered
           deploymentName: Production
           # Optional: Switch what branch you are publishing to.
