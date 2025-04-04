@@ -411,15 +411,13 @@ public class BeginnerPlugin {
 <Tabs syncKey="setupWay">
   <TabItem label="IntelliJ">
       In the top of the sidebar in the right, notice the small Gradle (Elephant) icon. When you click on that, a menu should appear. When you now expand the entries `BeginnerPlugin >
-      Tasks > build` you can see all of the tasks you can run. When you now double-click the `build` task, Gradle should compile your plugin and you should be able to find the output
-      under `build/libs/BeginnerPlugin-1.0-SNAPSHOT.jar`.
+      Tasks > build` you can see all of the tasks you can run. When you now double-click the `build` task, Gradle will now attempt to compile your plugin.
       <img src={GradleTasks.src}/>
   </TabItem>
   <TabItem label="Gradle CLI">
       <Tabs syncKey="os">
           <TabItem label="Windows">
-              You can run `.\gradlew build` in the project's root folder in order to compile your plugin. If successful, you should find the compiled file under
-              `builds\libs\BeginnerPlugin-1.0-SNAPSHOT.jar`
+              You can run `.\gradlew build` in the project's root folder in order to compile your plugin.
 
               ```ansi showlinenumbers=false
               >.\gradlew build
@@ -429,8 +427,7 @@ public class BeginnerPlugin {
               ```
           </TabItem>
           <TabItem label="Linux">
-           You can run `./gradlew build` in the project's root folder in order to compile your plugin. If successful, you should find the compiled file under
-              `builds/libs/BeginnerPlugin-1.0-SNAPSHOT.jar`
+           You can run `./gradlew build` in the project's root folder in order to compile your plugin.
 
               ```ansi showlinenumbers=false
               $ ./gradlew build
@@ -442,3 +439,17 @@ public class BeginnerPlugin {
       </Tabs>
   </TabItem>
 </Tabs>
+
+If successful, you should find the compiled file under `builds\libs\BeginnerPlugin-1.0-SNAPSHOT.jar`.
+
+<FileTree>
+    - BeginnerPlugin
+        - builds
+            - libs
+                - BeginnerPlugin-1.0-SNAPSHOT.jar
+        - ...
+</FileTree>
+
+## Afterword 🚀
+Finally, after a lot of steps, we got a project up and running! Yet, if you were to drop this into the `plugins` folder of a Paper server, it wouldn't do anything. That is what we
+will be tending to next. After all, this is a Paper plugin guide, and not an IntelliJ guide.
