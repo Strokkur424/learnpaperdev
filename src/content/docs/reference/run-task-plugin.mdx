@@ -1,0 +1,28 @@
+---
+title: Run-Task Gradle Plugin
+description: An extended guide on jpenilla's run-task Gradle plugin!
+prev: false
+next: false
+---
+
+One of PaperMC's developers, Jason Penilla (jpenilla), created a Gradle plugin which saves the tedious task of copying over a freshly build plugin jar to a test server each time you change something. His plugin is called [run-task](https://github.com/jpenilla/run-task). This is a guide on how to use it for setting up a Paper development server.
+
+## Adding the plugin
+First, you want to add the plugin to the `plugins` section in your build script.
+```kt title="build.gradle.kts"
+plugins {
+  // Other plugins
+  id("xyz.jpenilla.run-paper") version "2.3.1"
+}
+```
+
+You then want to modify the `runServer` task, by adding the following code:
+```kt title="build.gradle.kts"
+tasks.runServer {
+    minecraftVersion("1.21.4")
+}
+```
+
+And that is all! You can now start a development server by running the `runServer` Gradle task. It will automatically compile and use the latest version of your plugin.
+Same as with running a normal server for the first time, you will have to accept the EULA the first time you run the `runServer` task. Your server is located under the `run` directory in your
+project's root.
