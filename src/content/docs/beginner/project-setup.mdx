@@ -7,6 +7,8 @@ import { Tabs, TabItem, FileTree, Steps } from "@astrojs/starlight/components";
 import JetBrainsToolbox from "./assets/JetBrainsToolbox.png";
 import EnvironmentVariables from "./assets/EnvironmentVariables.png";
 import EnvironmentVariablesEdit from "./assets/EnvironmentVariablesEdit.png";
+import IntelliJNewProject from "./assets/IntelliJNewProject.png";
+import IntelliJMinecraftDevelopmentPlugin from "./assets/IntelliJMinecraftDevelopmentPlugin.png";
 
 In order to start writing plugins, we first have to setup our project and our IDE. For this, [IntelliJ Idea](https://www.jetbrains.com/idea/)
 is the most widely used one. IntelliJ IDEA provides all tools and plugins necessary for efficient Java development and also provides native support for build tooling, like
@@ -29,6 +31,14 @@ install Gradle with it.
         <details>
           <summary>JetBrains Toolbox App</summary>
           <img src={JetBrainsToolbox.src}/>
+        </details>
+
+        After you have installed IntelliJ, you will want to open it and then open the settings by pressing `ctrl + alt + S`. You then want to navigate to `Plugins` and
+        install the `Minecraft Development` plugin. It is a very widely used plugin for plugin and mod devs.
+
+        <details>
+          <summary>Installing the Minecraft Development plugin</summary>
+          <img src={IntelliJMinecraftDevelopmentPlugin.src}/>
         </details>
 
     </TabItem>
@@ -100,12 +110,111 @@ install Gradle with it.
                 $ curl -s "https://get.sdkman.io" | bash
                 ```
 
-                After you have install SDKMAN!, you can now install Gradle.
+                After you have installed SDKMAN!, you can now install Gradle.
                 ```bash showlinenumbers=false
                 $ sdk install gradle 1.13
                 ```
             </TabItem>
         </Tabs>
     </TabItem>
+
 </Tabs>
 
+## Creating a new project
+
+<Tabs syncKey="setupWay">
+    <TabItem label="IntelliJ">
+        When creating a new project with IntelliJ, you will want to select `Java`. After that, you can fill out most fields however you want. Here is a quick breakdown of
+        what each field does:
+
+        | Field Name                | Usage                                                                                                                            |
+        |---------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+        | Name                      | This is the name of your project/plugin.                                                                                         |
+        | Location                  | Where the project will be located. I usually put my projects under `C:\Dev\`.                                                    |
+        | 🔳 Create Git repository | Whether to initialize a git repository. You may have to install git for this to work.                                            |
+        | Build system              | We will be using `Gradle` throughout this whole guide.                                                                           |
+        | JDK                       | Make sure to choose/install a `JDK 21`, as that is the version required for developing plugins past version 1.20.5.              |
+        | Gradle DSL                | We will be using `Kotlin`, so make sure to choose that.                                                                          |
+        | 🔳 Add sample code       | Whether to include some basic starter code files. You should disable this, as we will be building everything up from the ground. |
+        | Gradle distribution       | You should choose `Wrapper` as that allows your project to be build from the command line even without having Gradle installed.  |
+        | Gradle version            | It is good practise to keep this up-to-date. Make sure to choose **at least** `8.12`.                                            |
+        | GroupId                   | This is essentially an unique identifier for your projects. It typically represents a domain in the reverse order. You may choose any group id, but it is good practise to choose one where you also own the domain. |
+        | ArtifactId                | This setting doesn't affect anything with plugin development. You can just set it to your project name                           |
+
+        <br/>
+        <details>
+            <summary>IntelliJ New Project Window</summary>
+            <img src={IntelliJNewProject.src}/>
+        </details>
+
+        <br/>
+        The project files should look like this now:
+
+        <FileTree>
+        - BeginnerPlugin
+            - .gradle/
+            - .idea/
+            - gradle/
+            - src
+                - main/
+                - test/
+            - build.gradle.kts
+            - gradlew
+            - gradlew.bat
+            - settings.gradle.kts
+        </FileTree>
+    </TabItem>
+
+    <TabItem label="Gradle CLI">
+        When creating a new project with the Gradle CLI, you first want to create the directory, in which you want to create the project, and then run `gradle init`.
+
+        ```bash
+        $ mkdir BeginnerPlugin
+        $ cd BeginnerPlugin
+        $ gradle init
+        ```
+
+        It then will ask a few questions, in which you will want to choose `4`, `BeginnerPlugin`, `1`, and `no` respectively:
+
+        ```bash
+        Select type of build to generate:
+          1: Application
+          2: Library
+          3: Gradle plugin
+          4: Basic (build structure only)
+        Enter selection (default: Application) [1..4] 4
+
+        Project name (default: BeginnerPlugin): BeginnerPlugin
+
+        Select build script DSL:
+          1: Kotlin
+          2: Groovy
+        Enter selection (default: Kotlin) [1..2] 1
+
+        Generate build using new APIs and behavior (some features may change in the next minor release)? (default: no) [yes, no] no
+
+
+        > Task :init
+        Learn more about Gradle by exploring our Samples at https://docs.gradle.org/8.13/samples
+
+        BUILD SUCCESSFUL in 30s
+        1 actionable task: 1 executed
+        ```
+
+        Now, you should have a very basic build structure, which should look something like this:
+
+        <FileTree>
+          - BeginnerPlugin
+            - gradle/
+            - .gitattributes
+            - .gitignore
+            - build.gradle.kts
+            - gradle.properties
+            - gradlew
+            - gradlew.bat
+            - settings.gradle.kts
+        </FileTree>
+
+        You can now safely open this project with IntelliJ IDEA or any other IDE/code editor of your choice.
+    </TabItem>
+</Tabs>
