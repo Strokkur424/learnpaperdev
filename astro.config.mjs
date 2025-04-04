@@ -11,10 +11,13 @@ export default defineConfig({
       social: {
         github: "https://github.com/Strokkur424/learnpaperdev",
       },
+      components: {
+        Footer: "./src/components/Footer.astro",
+      },
       sidebar: [
         {
-          label: "Starter Guides",
-          autogenerate: { directory: "starter" },
+          label: "Beginner Guides",
+          autogenerate: { directory: "beginner" },
         },
         {
           label: "Reference",
@@ -22,6 +25,10 @@ export default defineConfig({
         },
       ],
       customCss: ["./src/custom.css"],
+      expressiveCode: {
+        themes: ["one-dark-pro", "one-light"],
+      },
+      lastUpdated: true,
     }),
   ],
 });
