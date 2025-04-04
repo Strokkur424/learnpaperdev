@@ -20,6 +20,10 @@ export default defineConfig({
           items: [
             { label: "Introduction", link: "/beginner/introduction/" },
             { label: "Project Setup", link: "/beginner/project-setup/" },
+            {
+              label: "Creating a Plugin",
+              link: "/beginner/creating-a-plugin/",
+            },
           ],
         },
         {
