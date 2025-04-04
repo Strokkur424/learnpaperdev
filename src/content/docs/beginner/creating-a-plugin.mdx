@@ -4,8 +4,169 @@ description: First steps on creating a plugin.
 next: false
 ---
 
+import { Aside, Code, FileTree } from "@astrojs/starlight/components";
+
+import StartLog from "./assets/creating-a-plugin/StartLog.log?raw";
+
 In the previous page we have setup our development environment and created a very basic, empty project structure using Gradle. On this page, we will create our first plugin logic
 and successfully run it on a Paper server!
 
 ## Where we left off
-These are the files that should be present in your project directory. Furthermore, your `build.gradle.kts` should have
+
+These are the files that should be present in your project directory. Furthermore, your `build.gradle.kts` should have the following content.
+
+<details>
+  <summary>File structure</summary>
+  <FileTree>
+    - BeginnerPlugin - gradle/ - src - main - java - your - package - name -
+    BeginnerPlugin.java - build.gradle.kts - gradlew - gradlew.bat -
+    settings.gradle.kts
+  </FileTree>
+</details>
+
+<details>
+    <summary>`build.gradle.kts`</summary>
+    ```kts
+    plugins {
+        id("java")
+    }
+
+    group = "your.package.name"
+    version = "1.0-SNAPSHOT"
+
+    repositories {
+        maven("https://repo.papermc.io/repository/maven-public/")
+    }
+
+    dependencies {
+        compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
+    }
+    ```
+
+</details>
+
+## The `JavaPlugin` class
+
+First, we will fill up our `BeginnerPlugin.java` file with a bit of logic. Every Paper plugin needs to have a class with extends the `JavaPlugin` class. It is furthermore considered
+good practice to make your **plugin main class** (this is what you call the class that extends `JavaPlugin`) `final` to avoid any intended or unintended extending.
+
+You then have a few methods you can override. They are listed in the following table:
+
+| Method Signature   | Purpose                                                                   | Good to know                                                                              |
+| ------------------ | ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `void onLoad()`    | First method that is called when the server loads the plugin into memory. | Most Paper API is not available yet, so their usage is not advised.                       |
+| `void onEnable()`  | Called right before the server starts to tick.                            | A lot of Paper API isn't available yet either, but you can register event listeners here. |
+| `void onDisable()` | Called before any plugin is unloaded.                                     | You should use this to close database connections and save data to disk.                  |
+
+Your plugin main class also inherits a few useful methods. Under those, these are the most important ones:
+
+| Method Signature                       | Return value purpose                                                                                           |
+| -------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `ComponentLogger getComponentLogger()` | You can use the `ComponentLogger` to log information into the server console.                                  |
+| `Path getDataPath()`                   | This points to the file path where you should store your plugin configs and data (`/plugins/YourPluginName/`). |
+| `File getDataFile()`                   | Same as `getDataPath()`, except as a `File` object instead.                                                    |
+| `PluginMeta getPluginMeta()`           | Provides useful information about your plugin, like the plugin version or the author.                          |
+
+### Setting up our main class
+
+For the sake of simplicity, we will execute some very simple logging in each phase of our plugins lifetime just to get acquainted with the methods.
+
+```java title="BeginnerPlugin.java"
+package com.learnpaperdev.beginner;
+
+import org.bukkit.plugin.java.JavaPlugin;
+
+public final class BeginnerPlugin extends JavaPlugin {
+
+    @Override
+    public void onLoad() {
+        getComponentLogger().info("Our plugin has loaded!");
+    }
+
+    @Override
+    public void onEnable() {
+        getComponentLogger().warn("Our plugin has been enabled!");
+    }
+
+    @Override
+    public void onDisable() {
+        getComponentLogger().error("Our plugin has been disabled!");
+    }
+}
+```
+
+## `paper-plugin.yml`
+
+With out main class sorted out, there is still one thing left to do: Adding a `paper-plugin.yml`.
+Each Paper plugin needs to have either a `plugin.yml` or `paper-plugin.yml` file which declares the plugin's name, when it should be loaded, where the main class is located, and other metadata.
+
+For this, first create a new folder, `src/main/resources`, and then create a new file, `src/main/resources/paper-plugin.yml`.
+
+<FileTree>
+  - main/java - com/learnpaperdev/beginner - BeginnerPlugin.java - resources -
+  paper-plugin.yml
+</FileTree>
+
+You will then want to fill the `paper-plugin.yml` with the following:
+
+```yml
+name: BeginnerPlugin
+api-version: 1.21.4
+main: com.learnpaperdev.beginner.BeginnerPlugin
+version: 1.0-SNAPSHOT
+```
+
+These 4 entries are all required for the plugin to be loaded.
+
+<Aside title="Why are we using paper-plugin.yml and not plugin.yml?" type="tip">
+    Glad you asked! Plugins defined using `paper-plugin.yml` are officially considered **experimental**. The reason we use them anyways is because of them allowing us to use the plugin bootstrap and
+    the plugin loader, which we will be using very shortly. Furthermore, they load differently from traditional plugins, which for most users is not of big concern, but allows for some fun stuff.
+
+    Another reason is that these will **only load on Paper servers**. Traditional plugins (with `plugin.yml`) will also attempt to load on Spigot servers. But they wouldn't function anyways because of
+    our usage of Paper API. So this also acts as a way to block non-Paper servers from loading our plugin without us needing to implement any additional, potentially ugly checks.
+
+</Aside>
+
+## Running a test server
+
+<Aside title="Java 21" type="caution">
+    Before you can setup a local test server, you should have installed Java. Verify your active Java installation by running the following command. It should look something like this:
+    ```ansi.
+    $ java --version
+
+    java 21.0.6 2025-01-21 LTS
+    Java(TM) SE Runtime Environment (build 21.0.6+8-LTS-188)
+    Java HotSpot(TM) 64-Bit Server VM (build 21.0.6+8-LTS-188, mixed mode, sharing)
+    ```
+
+    If your Java version is below 21, or you somehow managed to get this far without any Java installation at all, you should following the Paper guide on installing/updating Java: https://docs.papermc.io/misc/java-install.
+</Aside>
+
+First, you will want to head over to the Paper downloads page: https://papermc.io/downloads/paper. Download the latest build.
+Once you have done this, place the jar somewhere in a folder. It doesn't matter where, just make sure you can find it again.
+
+Now, you can open a new terminal session in that folder and run the following command (Your filename will be a bit different, as Paper may have released new builds by the time you read this):
+```ansi
+java -jar paper-1.21.4-222.jar nogui
+```
+
+If it runs successfully, it will download the Vanilla jar, apply its patches, and start the server. It should quickly stop itself though, as you need to **agree to the EULA**. Head over to `eula.txt` and set the value to `true`.
+```properties
+eula=true
+```
+
+Rerun the server start command again. It should now successfully start the server. Close it with `stop`.
+And there you have your test server!
+
+## Adding our plugin
+Go back to our project and compile the project. Take the compiled jar (`BeginnerPlugin-1.0-SNAPSHOT.jar`) and drop it into our test server's `plugins` folder.
+When you now start the server, you should notice our logging take place:
+
+<Code code={StartLog} lang="ansi" showLineNumbers="false" collapse="[0-0, 9-27, 30-41, 44-48, 54-85]"/>
+
+And it is that easy!
+
+## Run-Task Gradle plugin
+Having to move over the build plugin jar each time you do a change is annoying. For this, the [run-task](https://github.com/jpenilla/run-task) Gradle plugin exists. I will be using
+that one for the remainder of the Guide, so don't wonder about the extra lines in my `build.gradle.kts` file. You can find a small guide on how to set it up
+[here](/reference/run-task-plugin).
