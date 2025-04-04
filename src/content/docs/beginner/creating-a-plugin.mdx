@@ -18,9 +18,19 @@ These are the files that should be present in your project directory. Furthermor
 <details>
   <summary>File structure</summary>
   <FileTree>
-    - BeginnerPlugin - gradle/ - src - main - java - your - package - name -
-    BeginnerPlugin.java - build.gradle.kts - gradlew - gradlew.bat -
-    settings.gradle.kts
+    - BeginnerPlugin
+        - gradle/
+        - src
+            - main
+                - java
+                    - your
+                        - package
+                            - name
+                                - BeginnerPlugin.java
+        - build.gradle.kts
+        - gradlew
+        - gradlew.bat
+        - settings.gradle.kts
   </FileTree>
 </details>
 
@@ -48,7 +58,7 @@ These are the files that should be present in your project directory. Furthermor
 ## The `JavaPlugin` class
 
 First, we will fill up our `BeginnerPlugin.java` file with a bit of logic. Every Paper plugin needs to have a class with extends the `JavaPlugin` class. It is furthermore considered
-good practice to make your **plugin main class** (this is what you call the class that extends `JavaPlugin`) `final` to avoid any intended or unintended extending.
+good practice to make your **plugin's main class** (this is what you call the class that extends `JavaPlugin`) `final` to avoid any intended or unintended extending.
 
 You then have a few methods you can override. They are listed in the following table:
 
@@ -97,14 +107,17 @@ public final class BeginnerPlugin extends JavaPlugin {
 
 ## `paper-plugin.yml`
 
-With out main class sorted out, there is still one thing left to do: Adding a `paper-plugin.yml`.
-Each Paper plugin needs to have either a `plugin.yml` or `paper-plugin.yml` file which declares the plugin's name, when it should be loaded, where the main class is located, and other metadata.
+With our main class sorted out, there is still one thing left to do: Adding a `paper-plugin.yml`. Each Paper plugin needs to have either a `plugin.yml`
+or `paper-plugin.yml` file which declares the plugin's name, version, where the main class is located, and other metadata.
 
 For this, first create a new folder, `src/main/resources`, and then create a new file, `src/main/resources/paper-plugin.yml`.
 
 <FileTree>
-  - main/java - com/learnpaperdev/beginner - BeginnerPlugin.java - resources -
-  paper-plugin.yml
+  - main/java
+    - com/learnpaperdev/beginner
+        - BeginnerPlugin.java
+    - resources
+        - paper-plugin.yml
 </FileTree>
 
 You will then want to fill the `paper-plugin.yml` with the following:
@@ -123,7 +136,7 @@ These 4 entries are all required for the plugin to be loaded.
     the plugin loader, which we will be using very shortly. Furthermore, they load differently from traditional plugins, which for most users is not of big concern, but allows for some fun stuff.
 
     Another reason is that these will **only load on Paper servers**. Traditional plugins (with `plugin.yml`) will also attempt to load on Spigot servers. But they wouldn't function anyways because of
-    our usage of Paper API. So this also acts as a way to block non-Paper servers from loading our plugin without us needing to implement any additional, potentially ugly checks.
+    our usage of Paper API. So this acts as a way to block non-Paper servers from loading our plugin without us needing to implement any additional, potentially ugly checks.
 
 </Aside>
 
@@ -139,19 +152,19 @@ These 4 entries are all required for the plugin to be loaded.
     Java HotSpot(TM) 64-Bit Server VM (build 21.0.6+8-LTS-188, mixed mode, sharing)
     ```
 
-    If your Java version is below 21, or you somehow managed to get this far without any Java installation at all, you should following the Paper guide on installing/updating Java: https://docs.papermc.io/misc/java-install.
+    If your Java version is below 21, or you somehow managed to get this far without any Java installation at all, you should follow the Paper guide on installing/updating Java: https://docs.papermc.io/misc/java-install.
 </Aside>
 
 First, you will want to head over to the Paper downloads page: https://papermc.io/downloads/paper. Download the latest build.
 Once you have done this, place the jar somewhere in a folder. It doesn't matter where, just make sure you can find it again.
 
 Now, you can open a new terminal session in that folder and run the following command (Your filename will be a bit different, as Paper may have released new builds by the time you read this):
-```ansi
+```ansi showLineNumbers=false
 java -jar paper-1.21.4-222.jar nogui
 ```
 
 If it runs successfully, it will download the Vanilla jar, apply its patches, and start the server. It should quickly stop itself though, as you need to **agree to the EULA**. Head over to `eula.txt` and set the value to `true`.
-```properties
+```properties startLineNumber=3
 eula=true
 ```
 
@@ -164,7 +177,7 @@ When you now start the server, you should notice our logging take place:
 
 <Code code={StartLog} lang="ansi" showLineNumbers="false" collapse="[0-0, 9-27, 30-41, 44-48, 54-85]"/>
 
-And it is that easy!
+And that is all!
 
 ## Run-Task Gradle plugin
 Having to move over the build plugin jar each time you do a change is annoying. For this, the [run-task](https://github.com/jpenilla/run-task) Gradle plugin exists. I will be using
