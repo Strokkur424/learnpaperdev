@@ -17,7 +17,10 @@ export default defineConfig({
       sidebar: [
         {
           label: "Beginner Guides",
-          autogenerate: { directory: "beginner" },
+          items: [
+            { label: "Introduction", link: "/beginner/introduction/" },
+            { label: "Project Setup", link: "/beginner/project-setup/" },
+          ],
         },
         {
           label: "Reference",

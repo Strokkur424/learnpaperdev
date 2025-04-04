@@ -2,3 +2,9 @@
     --sl-sidebar-width: 18rem;
     --sl-content-width: 65rem;
 }
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
