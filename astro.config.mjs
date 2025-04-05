@@ -24,6 +24,10 @@ export default defineConfig({
               label: "Creating a Plugin",
               link: "/beginner/creating-a-plugin/",
             },
+            {
+              label: "Listening to Events",
+              link: "/beginner/listening-to-events/",
+            },
           ],
         },
         {

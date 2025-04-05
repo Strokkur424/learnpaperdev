@@ -1,0 +1,67 @@
+---
+title: Cancelling all damage an entity takes.
+description: This is the page with the solution to the task from the Listening to Events page.
+tableOfContents: false
+---
+
+import { Steps, FileTree } from "@astrojs/starlight/components"
+import FullWidthVideo from "../../components/FullWidthVideo.astro"
+
+import EntityDamageCancelMp4 from "./assets/entity-damage-cancel.mp4"
+
+<Steps>
+
+1. Create a new file
+
+   <FileTree>
+     - com/learnpaperdev/beginner
+       - BeginnerPlugin.java
+       - BlockBreakListener.java
+       - **EntityDamageListener.java**
+   </FileTree>
+
+2. Fill `EntityDamageListener.java`:
+
+   ```java title="EntityDamageListener.java" collapse={1-6}
+   package com.learnpaperdev.beginner;
+
+   import org.bukkit.event.EventHandler;
+   import org.bukkit.event.Listener;
+   import org.bukkit.event.entity.EntityDamageEvent;
+   import org.jspecify.annotations.NullMarked;
+
+   @NullMarked
+   public final class PlayerDamageListener implements Listener {
+
+       @EventHandler
+       void onPlayerTakeDamage(EntityDamageEvent event) {
+           event.setCancelled(true);
+       }
+   }
+   ```
+
+3. Register listener in main class:
+
+   ```java title="BeginnerPlugin.java" startLineNumber=13 {8, 12}
+   @Override
+   public void onEnable() {
+       // We use a PluginManager in order to register events
+       final PluginManager pluginManager = getServer().getPluginManager();
+
+       // Create our listener instance
+       final BlockBreakListener listener = new BlockBreakListener(getComponentLogger());
+       final PlayerDamageListener damageListener = new PlayerDamageListener();
+
+       // #registerEvents requires the listener we want to register, and our plugin instance
+       pluginManager.registerEvents(listener, this);
+       pluginManager.registerEvents(damageListener, this);
+
+       getComponentLogger().warn("Our plugin has been enabled!");
+   }
+   ```
+
+4. Test it by trying to take damage.
+
+   <FullWidthVideo src={EntityDamageCancelMp4}/>
+
+</Steps>
