@@ -18,9 +18,19 @@ These are the files that should be present in your project directory. Furthermor
 <details>
   <summary>File structure</summary>
   <FileTree>
-    - BeginnerPlugin - gradle/ - src - main - java - your - package - name -
-    BeginnerPlugin.java - build.gradle.kts - gradlew - gradlew.bat -
-    settings.gradle.kts
+    - BeginnerPlugin
+        - gradle/
+        - src
+            - main
+                - java
+                    - your
+                        - package
+                            - name
+                                - BeginnerPlugin.java
+        - build.gradle.kts
+        - gradlew
+        - gradlew.bat
+        - settings.gradle.kts
   </FileTree>
 </details>
 
@@ -106,8 +116,11 @@ or `paper-plugin.yml` file which declares the plugin's name, version, where the 
 For this, first create a new folder, `src/main/resources`, and then create a new file, `src/main/resources/paper-plugin.yml`.
 
 <FileTree>
-  - main/java - com/learnpaperdev/beginner - BeginnerPlugin.java - resources -
-  paper-plugin.yml
+  - main/java
+    - com/learnpaperdev/beginner
+        - BeginnerPlugin.java
+    - resources
+        - paper-plugin.yml
 </FileTree>
 
 You will then want to fill the `paper-plugin.yml` with the following:
