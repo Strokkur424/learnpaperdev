@@ -30,8 +30,24 @@
 }
 
 :root {
-    --sl-sidebar-width: 18rem;
-    --sl-content-width: 65rem;
+    --sl-sidebar-width: 17.5em;
+    --sl-content-width: 80%;
+}
+
+.content-panel {
+    padding: var(--sl-content-pad-x);
+}
+
+.content-panel + .content-panel {
+    border-top: 1px solid var(--sl-color-hairline);
+}
+
+.sl-container {
+    max-width: 100%;
+}
+
+.sl-container > :global(* + *) {
+    margin-top: 1.5rem;
 }
 
 .center {
