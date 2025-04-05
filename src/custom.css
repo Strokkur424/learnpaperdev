@@ -52,3 +52,12 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+.sl-markdown-content a:not(:where(.not-content *)) {
+    color: #e05561;
+}
+
+.sl-markdown-content code:not(:where(.not-content *)) {
+    background-color: #282c34;
+    border-radius: 0.35rem;
+}
