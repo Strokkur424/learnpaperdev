@@ -34,6 +34,19 @@
     --sl-content-width: 80%;
 }
 
+.sl-link-button {
+    align-items: center;
+    border: 1px solid transparent;
+    border-radius: 999rem;
+    display: inline-flex;
+    font-size: calc(1.45 * var(--sl-text-sm));
+    gap: 0.5em;
+    line-height: 2.1875;
+    outline-offset: 0.25rem;
+    padding: 0.4375rem 1.125rem;
+    text-decoration: none;
+}
+
 .center {
     display: block;
     margin-left: auto;
