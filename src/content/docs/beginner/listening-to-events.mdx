@@ -6,16 +6,17 @@ next: false
 
 import { FileTree, Aside } from "@astrojs/starlight/components";
 import FullWidthVideo from "../components/FullWidthVideo.astro";
+import JavaDocs from "../components/JavaDocs.astro";
 
 import BlockBreakCancelMp4 from "./assets/listening-to-events/block-break-cancel.mp4"
 
 ## Where we left off
-In the previous chapter, we finished our first ever plugin and even ran it on a test server! We learned about the `JavaPlugin` class, which our plugin's main class extends
+In the previous chapter, we finished our first ever plugin and even ran it on a test server! We learned about the <JavaDocs id="JavaPlugin"/> class, which our plugin's main class extends
 and used the logger for the first time.
 
 In this chapter we will learn about event listeners, how they work, and how you can register them.
 
-## The `Listener` interface
+## The <JavaDocs id="Listener"/> interface
 Each event listener has to implement this interface in order to be accepted as a listener. The interface is declared as follows:
 
 ```java title="Listener.java"
@@ -27,12 +28,12 @@ package org.bukkit.event;
 public interface Listener {}
 ```
 
-As you can see, the `Listener` interface is empty — there are no methods to override. It primarily helps distinguish actual event listeners from just normal classes.
-In order to get the actual listening logic, we have to use the `@EventHandler` annotation on a method. This method has to have **exactly 1 parameter** which extends
-`org.bukkit.event.Event`.
+As you can see, the <JavaDocs id="Listener"/> interface is empty — there are no methods to override. It primarily helps distinguish actual event listeners from just normal classes.
+In order to get the actual listening logic, we have to use the <JavaDocs id="EventHandler" name="@EventHandler"/> annotation on a method. This method has to have **exactly 1 parameter**
+which extends <JavaDocs id="Event"/>.
 
 <Aside title="List of all Events" type="tip">
-    You can lookup all classes which extend `org.bukkit.event.Event` by checking out [Paper's JavaDocs](https://jd.papermc.io/paper/1.21.4/org/bukkit/event/Event.html)
+    You can lookup all classes which extend <JavaDocs id="Event"/> by checking out [Paper's JavaDocs](https://jd.papermc.io/paper/1.21.4/org/bukkit/event/Event.html)
     and looking at the **Direct Known Subclasses**. The JavaDocs are a great resource to look stuff up in general, so you should get acquainted with them.
 </Aside>
 
@@ -71,10 +72,10 @@ There is no limit on how many event handlers you can have in a listener, but it 
 can get quite messy really quickly.
 
 ## Adding listener logic
-Each event usually has methods to retrieve useful information about the event. For example, a `BlockBreakEvent` has a method to return the involved `Block`.
+Each event usually has methods to retrieve useful information about the event. For example, a <JavaDocs id="BlockBreakEvent"/> has a method to return the involved <JavaDocs id="Block"/>.
 You can see these just by checking either the JavaDocs or checking your tab completion inside IntelliJ.
 
-For now, we will only be doing a simple logging operation. But for that we need the `ComponentLogger`, which can only be retrieved from the plugin's main class. Luckily for us,
+For now, we will only be doing a simple logging operation. But for that we need the <JavaDocs id="ComponentLogger"/>, which can only be retrieved from the plugin's main class. Luckily for us,
 we can just create a constructor and add our logger as a parameter, like this:
 
 ```java title="BlockBreakListener.java" collapse={1-8}
@@ -107,12 +108,14 @@ public final class BlockBreakListener implements Listener {
 }
 ```
 
-In case you are confused on the layout of the `logger.warn` call: You can declare a placeholder and pass the value afterwards. This is only the case for `slf4j`-type loggers, which
-the `ComponentLogger` extends.
+In case you are confused on the layout of the <JavaDocs id="slf4jLogger" name="logger.warn" method="warn(java.lang.String,java.lang.Object...)"/> call:
+You can declare a placeholder and pass the value afterwards. This is only the case for `slf4j`-type loggers, which the <JavaDocs id="ComponentLogger"/> extends.
 
-Furthermore, you may be wondering about my usage of `@NullMarked`. In Java, each object can be null. This usually requires attention by the developer in order to make sure that a parameter
-is not actually null. But when you want to assume that each value passed is not null, you can annotate that parameter with `@NotNull`. In fact, IntelliJ itself suggests that in our event
-handler. We know that this method will always be called with a valid object, so there is no need to null checks. Same with our constructor. So we can just annotate the whole class as not null.
+Furthermore, you may be wondering about my usage of <JavaDocs id="NullMarked" name="@NullMarked"/>. In Java, each object can be null. This usually requires attention by the developer
+in order to make sure that a parameter is not actually null. But when you want to assume that each value passed is not null, you can annotate that parameter with
+<JavaDocs id="NonNull" name="@NonNull"/>.
+In fact, IntelliJ itself suggests that in our event handler. We know that this method will always be called with a valid object, so there is no need to null checks. Same with our
+constructor. So we can just annotate the whole class as not null.
 
 
 ## Registering our listener
@@ -145,8 +148,9 @@ When you join your server now (ip: `localhost`) and break a few blocks, you shou
 ```
 
 ## Canceling events
-Certain events can be cancelled. That means that certain expected side effects do not actually happen. All events which implement `Cancellable` can be cancelled.
-Our `BlockBreakEvent` is one of those cancellable events. That means that you can run `event.setCancelled(boolean)` to disallow the block from being broken.
+Certain events can be cancelled. That means that certain expected side effects do not actually happen. All events which implement <JavaDocs id="Cancellable"/> can be cancelled.
+Our <JavaDocs id="BlockBreakEvent"/> is one of those cancellable events. That means that you can run
+<JavaDocs id="Cancellable" method="setCancelled(boolean)" name = "event.setCancelled(boolean)"/> to disallow the block from being broken.
 
 As an example for that, we can modify our event handler to cancel every second block we attempt to break:
 ```java title="BlockBreakListener.java" collapse={1-7}
@@ -201,5 +205,5 @@ And the console should also display the status:
 ## Extra Exercise 👑
 With this being the first content focused page, I can now also give you a task that you can optionally do if you want to exercise on the aspects we have discussed here.
 
-The first task is: You can create and register a new event listener which completely cancels all damage to any entity? (Tip: `EntityDamageEvent`).
+The first task is: You can create and register a new event listener which completely cancels all damage to any entity? (Tip: <JavaDocs id="EntityDamageEvent"/>).
 The solution can be found [here](/beginner/solutions/entity-damage-cancel).
