@@ -1,0 +1,177 @@
+---
+title: "Adventure Series: Components"
+slug: adventure/components
+tableOfContents: false
+next: false
+prev: false
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import JavaDocs from "../components/JavaDocs.astro";
+import FullWidthVideo from "../components/FullWidthVideo.astro";
+
+import MMOnePng from "./assets/MM-1.png";
+import MMTwoPng from "./assets/MM-2.png";
+import MMGradientPng from "./assets/MM-Gradient.png";
+import HoverAndClickMp4 from "./assets/hover-and-click.mp4";
+
+A <JavaDocs id="Component"/> is the most used object in the Adventure library. In a nutshell, it represents any form of formatted text. They operate using a tree structure.
+That means that if a root component, as example, is bold, **unless a sub component says otherwise**, it too will be rendered bold.
+
+There is two primary ways of obtaining a <JavaDocs id="Component"/>:
+
+1. Using a <JavaDocs id="MiniMessage"/> deserializer.
+2. Using the component builder: <JavaDocs id="Component" method="text()" name= "Component.text()"/>.
+
+I personally always recommend deserializing from [MiniMessage](https://docs.advntr.dev/minimessage/format.html). It is a very versatile format which also allows for custom
+placeholders and other fun stuff. It also allows you to easily put your message formats into a config, since you do not need to do any form of string concatenations.
+
+The default MiniMessage (de)serializer can be obtained using <JavaDocs id="MiniMessage" method="miniMessage()" name="MiniMessage.miniMessage()"/>.
+In order to then retrieve a <JavaDocs id="Component"/> from a MiniMessage-serialized string, you need to use <JavaDocs
+  id="MiniMessage"
+  method="deserialize(java.lang.String,net.kyori.adventure.text.minimessage.tag.resolver.TagResolver...)"
+  name="deserialize(String, TagResolver...)"
+/>.
+
+<br/>
+<Aside title="What are TagResolvers?" type="tip">
+    A <JavaDocs id="TagResolver"/> is essentially a declaration for a tag inside a MiniMessage string. For example, `<bold>` is a default tag, which is backed by an internal
+    <JavaDocs id="TagResolver"/> object. You can define custom <JavaDocs id="TagResolver" name="TagResolvers"/> for custom, internal tags. For example, you could define yourself
+    a `<player>` tag in order to retrieve a player's name. It is a very versatile system!
+
+    To learn more about tag resolvers, you should check out their dedicated page!
+
+</Aside>
+
+## Using MiniMessage
+
+The MiniMessage format is explained extensively in [Adventure's own documentation](https://docs.advntr.dev/minimessage/format.html). There are a lot of very interesting tags, like the
+`<translate>` tag for client-side translations. But I will not be noting those down, since they are already documented well enough.
+
+What I will be documenting here though are some of the useful quirks of this format. For once, they follow a tree like structure. That means the following lead to completely
+different results:
+
+- ```xml showLineNumbers=false
+  <bold><red>This text is very red</bold> and now it is white?
+  ```
+
+  <details>
+    <summary>First string preview</summary>
+    <img src={MMOnePng.src} />
+  </details>
+  <br />
+
+- ```xml showLineNumbers=false
+  <red><bold>This text is very red</bold> and now it is white?
+  ```
+  <details>
+    <summary>Seconds string preview</summary>
+    <img src={MMTwoPng.src} /> <br />
+    This one isn't actually white at the end.
+  </details>
+  <br />
+
+You may or may not have noticed that the order in which you open and close tags matters. If an outside tag is closed, so are all inside tags. You can use this to your advantage
+if you need a section to be bold **and** colored, but the next one just white. Just close the first tag you opened!
+
+But this can also oftentimes lead to confusion on why your text is incorrectly formatted. So keep this in mind! You can always check the output of your MiniMessage string
+on [Adventure's MiniMessage Viewer](https://webui.advntr.dev). That's how I got the images for the previews!
+
+Another very interesting feature of MiniMessage, which I'd like to point out, is the `<gradient>` tag. This tag accepts any amount of of the 16 predefined colors or any
+custom hex-based colors and renders the content in a gradient of those colors.
+
+```xml showLineNumbers=false
+<b><gradient:light_purple:aqua:light_purple>This is very nice looking text
+```
+
+<details>
+  <summary>Gradient preview</summary>
+  <img src={MMGradientPng.src} />
+</details>
+
+## Creating simple <JavaDocs id="Component" name="Components"/>
+
+Very simple components can be created using the countless overloads of <JavaDocs id="Component" name="Component.text(...)" method="text(java.lang.String)"/>.
+You can even create components which are translated on the client using
+
+<JavaDocs id="Component" name="Component.translatable(Translatable)" method="translatable(net.kyori.adventure.translation.Translatable)"/>. For example, to display a diamond sword in the
+client's language, you can use this component:
+
+```java
+final Component translated = Component.translatable(ItemType.DIAMOND_SWORD);
+```
+<br/>
+Another useful component type is a key bind component. Those can be obtained using <JavaDocs id="Component" name="Component.keybind(String)"
+method="keybind(java.lang.String)"/>. For example, to display the key bind for `jump`, you would write this code:
+
+```java
+final Component jumpBind = Component.keybind("key.jump");
+```
+
+<br/><br/>
+
+Another set of very useful <JavaDocs id="Component" name="Components"/> are the click and hover components. These allow for actions to happen when a user hover over/clicks on some text.
+Anything that extends <JavaDocs id="HoverEventSource"/> can be used inside a hover event and anything that extends <JavaDocs id="ClickEvent"/> can be used inside a click event.
+
+As example, to create a component which displays an item when hovered over, and if clicked, gives the player that same item, the following code can be used:
+```java
+final ItemStack itemStack = ItemType.DIAMOND_PICKAXE.createItemStack(meta -> {
+    meta.displayName(miniMessage().deserialize("<!i><light_purple><b>Pickaxe"));
+    meta.lore(List.of(miniMessage().deserialize("<!i><dark_gray>» <gold><b>Legendary Pickaxe")));
+});
+
+final Component hoverAndClick = itemStack.getItemMeta().displayName()
+    .hoverEvent(itemStack)
+    .clickEvent(ClickEvent.callback(audience -> {
+        if (!(audience instanceof Player player)) {
+            return;
+        }
+
+        player.give(itemStack);
+    }));
+```
+
+<br/>
+<details>
+    <summary>In-game preview</summary>
+    <FullWidthVideo src={HoverAndClickMp4}/>
+</details>
+
+## Building <JavaDocs id="Component" name="Components"/> in-code
+
+There is a few ways of building components. The first one is using the <JavaDocs id="TextComponentBuilder" name="TextComponent.Builder"/> obtainable
+from <JavaDocs id="Component" method="text()" name="Component.text()"/>.
+
+The first MiniMessage string mentioned above can be build in Java-code like this:
+
+```java showLineNumbers=false
+final Component component = Component.text()
+    .append(Component.text("This text is very red")
+        .decorate(TextDecoration.BOLD)
+        .color(NamedTextColor.RED)
+    )
+    .append(Component.text(" and now it is white?"))
+    .build();
+```
+
+The second MiniMessage string would be build like this:
+
+```java showLineNumbers=false {2}
+final Component secondComponent = Component.text()
+    .color(NamedTextColor.RED)
+    .append(Component.text("This text is very red")
+        .decorate(TextDecoration.BOLD)
+    )
+    .append(Component.text(" and now it is white?"))
+    .build();
+```
+
+Notice the highlighted line. Instead of putting the red color onto the first appended component, we instead apply it to the root component. And since the second appended
+component doesn't specify a color by itself, it just inherits the root component's color. This hopefully also makes it a bit more clear on what the difference between
+the two MiniMessage strings in the section above is.
+
+### Gradients?
+
+Due to the way gradients work, there is no easy way to create gradients using the <JavaDocs id="TextComponentBuilder" name="TextComponent.Builder"/>.
+Gradients are basically just a lot of one-character components which each have slightly different colors from each other to look like a smooth color gradient.
+So you should definitely stick to MiniMessage if you want gradient support.

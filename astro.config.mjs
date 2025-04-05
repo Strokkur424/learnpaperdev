@@ -23,20 +23,28 @@ export default defineConfig({
         {
           label: "Beginner Guide",
           items: [
-            { label: "Introduction", link: "/beginner/introduction/" },
-            { label: "Project Setup", link: "/beginner/project-setup/" },
+            { label: "Introduction", link: "/beginner/introduction" },
+            { label: "Project Setup", link: "/beginner/project-setup" },
             {
               label: "Creating a Plugin",
-              link: "/beginner/creating-a-plugin/",
+              link: "/beginner/creating-a-plugin",
             },
             {
               label: "Listening to Events",
-              link: "/beginner/listening-to-events/",
+              link: "/beginner/listening-to-events",
             },
             {
               label: "Working with Players",
-              link: "/beginner/working-with-players/",
+              link: "/beginner/working-with-players",
             },
+          ],
+        },
+        {
+          label: "Adventure Series",
+          items: [
+            { label: "Audiences", link: "/adventure/audiences" },
+            { label: "Components", link: "/adventure/components" },
+            { label: "Tag Resolvers", link: "/adventure/tag-resolvers" },
           ],
         },
         {
