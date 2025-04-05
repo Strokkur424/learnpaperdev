@@ -33,6 +33,10 @@ export default defineConfig({
               label: "Listening to Events",
               link: "/beginner/listening-to-events/",
             },
+            {
+              label: "Working with Players",
+              link: "/beginner/working-with-players/",
+            },
           ],
         },
         {
