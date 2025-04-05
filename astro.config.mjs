@@ -8,6 +8,9 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "Learn Paper Dev",
+      logo: {
+        src: "./src/assets/logo.svg",
+      },
       social: {
         github: "https://github.com/Strokkur424/learnpaperdev",
       },
