@@ -34,22 +34,6 @@
     --sl-content-width: 80%;
 }
 
-.content-panel {
-    padding: var(--sl-content-pad-x);
-}
-
-.content-panel + .content-panel {
-    border-top: 1px solid var(--sl-color-hairline);
-}
-
-.sl-container {
-    max-width: 100%;
-}
-
-.sl-container > :global(* + *) {
-    margin-top: 1.5rem;
-}
-
 .center {
     display: block;
     margin-left: auto;

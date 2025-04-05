@@ -17,6 +17,7 @@ export default defineConfig({
       components: {
         Footer: "./src/components/Footer.astro",
         Header: "./src/components/Header.astro",
+        ContentPanel: "./src/components/ContentPanel.astro",
       },
       sidebar: [
         {
