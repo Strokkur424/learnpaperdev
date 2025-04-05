@@ -7,8 +7,10 @@ words = [
     "gradlew",
     "intelli",
     "jdk",
+    "jspecify",
     "jvm",
     "kts",
+    "kyori",
     "learnpaperdev",
     "mc's",
     "mkdir",
@@ -16,6 +18,7 @@ words = [
     "penilla",
     "sdkman",
     "showlinenumbers",
+    "slf",
     "yml",
 ]
 flag_words = []

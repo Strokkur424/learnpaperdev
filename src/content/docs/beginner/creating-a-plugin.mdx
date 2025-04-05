@@ -1,10 +1,10 @@
 ---
 title: Creating a Plugin
 description: First steps on creating a plugin.
-next: false
 ---
 
 import { Aside, Code, FileTree } from "@astrojs/starlight/components";
+import JavaDocs from "../components/JavaDocs.astro";
 
 import StartLog from "./assets/creating-a-plugin/StartLog.log?raw";
 
@@ -55,10 +55,13 @@ These are the files that should be present in your project directory. Furthermor
 
 </details>
 
-## The `JavaPlugin` class
+## The <JavaDocs id="JavaPlugin"/> class
 
-First, we will fill up our `BeginnerPlugin.java` file with a bit of logic. Every Paper plugin needs to have a class with extends the `JavaPlugin` class. It is furthermore considered
-good practice to make your **plugin's main class** (this is what you call the class that extends `JavaPlugin`) `final` to avoid any intended or unintended extending.
+First, we will fill up our `BeginnerPlugin.java` file with a bit of logic. Every Paper plugin needs to have a class with extends the <JavaDocs id="JavaPlugin"/> class.
+It is furthermore considered good practice to make your **plugin's main class** (this is what you call the class that extends
+
+<JavaDocs id="JavaPlugin" />) `final` to avoid any intended or unintended
+extending.
 
 You then have a few methods you can override. They are listed in the following table:
 
@@ -70,12 +73,12 @@ You then have a few methods you can override. They are listed in the following t
 
 Your plugin main class also inherits a few useful methods. Under those, these are the most important ones:
 
-| Method Signature                       | Return value purpose                                                                                           |
-| -------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `ComponentLogger getComponentLogger()` | You can use the `ComponentLogger` to log information into the server console.                                  |
-| `Path getDataPath()`                   | This points to the file path where you should store your plugin configs and data (`/plugins/YourPluginName/`). |
-| `File getDataFile()`                   | Same as `getDataPath()`, except as a `File` object instead.                                                    |
-| `PluginMeta getPluginMeta()`           | Provides useful information about your plugin, like the plugin version or the author.                          |
+| Method Signature                                                                                                      | Return value purpose                                                                                           |
+| --------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| <JavaDocs path="org.bukkit.plugin.Plugin" method="getComponentLogger()" name="ComponentLogger getComponentLogger()"/> | You can use the `ComponentLogger` to log information into the server console.                                  |
+| <JavaDocs id="JavaPlugin" name="Path getDataPath()" method="getDataPath()"/>                                          | This points to the file path where you should store your plugin configs and data (`/plugins/YourPluginName/`). |
+| <JavaDocs id="JavaPlugin" name="File getDataFile()" method="getDataFile()"/>                                          | Same as `getDataPath()`, except as a `File` object instead.                                                    |
+| <JavaDocs id="JavaPlugin" name="PluginMeta getPluginMeta()" method="getPluginMeta()"/>                                | Provides useful information about your plugin, like the plugin version or the author.                          |
 
 ### Setting up our main class
 
@@ -144,7 +147,7 @@ These 4 entries are all required for the plugin to be loaded.
 
 <Aside title="Java 21" type="caution">
     Before you can setup a local test server, you should have installed Java. Verify your active Java installation by running the following command. It should look something like this:
-    ```ansi.
+    ```ansi
     $ java --version
 
     java 21.0.6 2025-01-21 LTS
@@ -153,17 +156,20 @@ These 4 entries are all required for the plugin to be loaded.
     ```
 
     If your Java version is below 21, or you somehow managed to get this far without any Java installation at all, you should follow the Paper guide on installing/updating Java: https://docs.papermc.io/misc/java-install.
+
 </Aside>
 
 First, you will want to head over to the Paper downloads page: https://papermc.io/downloads/paper. Download the latest build.
 Once you have done this, place the jar somewhere in a folder. It doesn't matter where, just make sure you can find it again.
 
 Now, you can open a new terminal session in that folder and run the following command (Your filename will be a bit different, as Paper may have released new builds by the time you read this):
+
 ```ansi showLineNumbers=false
 java -jar paper-1.21.4-222.jar nogui
 ```
 
 If it runs successfully, it will download the Vanilla jar, apply its patches, and start the server. It should quickly stop itself though, as you need to **agree to the EULA**. Head over to `eula.txt` and set the value to `true`.
+
 ```properties startLineNumber=3
 eula=true
 ```
@@ -172,14 +178,21 @@ Rerun the server start command again. It should now successfully start the serve
 And there you have your test server!
 
 ## Adding our plugin
+
 Go back to our project and compile the project. Take the compiled jar (`BeginnerPlugin-1.0-SNAPSHOT.jar`) and drop it into our test server's `plugins` folder.
 When you now start the server, you should notice our logging take place:
 
-<Code code={StartLog} lang="ansi" showLineNumbers="false" collapse="[0-0, 9-27, 30-41, 44-48, 54-85]"/>
+<Code
+  code={StartLog}
+  lang="ansi"
+  showLineNumbers="false"
+  collapse="[0-0, 9-27, 30-41, 44-48, 54-85]"
+/>
 
 And that is all!
 
 ## Run-Task Gradle plugin
+
 Having to move over the build plugin jar each time you do a change is annoying. For this, the [run-task](https://github.com/jpenilla/run-task) Gradle plugin exists. I will be using
 that one for the remainder of the Guide, so don't wonder about the extra lines in my `build.gradle.kts` file. You can find a small guide on how to set it up
 [here](/reference/run-task-plugin).
