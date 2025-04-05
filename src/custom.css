@@ -55,6 +55,7 @@
 
 .sl-markdown-content a:not(:where(.not-content *)) {
     color: #e05561;
+    text-decoration: none;
 }
 
 .sl-markdown-content code:not(:where(.not-content *)) {
