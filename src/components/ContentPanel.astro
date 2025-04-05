@@ -1,0 +1,43 @@
+---
+import Default from "@astrojs/starlight/components/ContentPanel.astro";
+
+const isHomepage = Astro.locals.starlightRoute.id === "";
+
+const contentPanel = isHomepage ? "content-panel-2" : "content-panel";
+const slContainer = isHomepage ? "sl-container-2" : "sl-container";
+---
+
+<div class={contentPanel}>
+    <div class={slContainer}><slot /></div>
+</div>
+
+<style>
+    .content-panel-2 {
+        padding-left: 20%;
+        padding-right: 20%;
+    }
+    .content-panel {
+        padding: var(--sl-content-pad-x);
+    }
+
+    .content-panel + .content-panel {
+        border-top: 1px solid var(--sl-color-hairline);
+    }
+
+    .sl-container {
+        max-width: 95%;
+    }
+    .sl-container-2 {
+        max-width: 100%;
+    }
+
+    .sl-container > :global(* + *) {
+        margin-top: 1.5rem;
+    }
+
+    @media (min-width: 72rem) {
+        .sl-container {
+            margin-inline: var(--sl-content-margin-inline, auto);
+        }
+    }
+</style>
