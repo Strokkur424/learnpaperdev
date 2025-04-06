@@ -6,7 +6,15 @@ next: false
 prev: false
 ---
 
-import JavaDocs from "../components/JavaDocs.astro"
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+import JavaDocs from "../components/JavaDocs.astro";
+import PreviewVideo from "../components/PreviewVideo.astro";
+
+import BookMp4 from "./assets/book.mp4";
+import BossBarMp4 from "./assets/bossbar.mp4";
+import SoundMp4 from "./assets/sound.mp4";
+import TitleMp4 from "./assets/title.mp4";
 
 Almost every object, which can work with input, implements the <JavaDocs id="Audience"/> interface. That includes, but is not limited to:
 - <JavaDocs id="Player"/>
@@ -46,3 +54,79 @@ You can create your own forwarding audiences! For this, <JavaDocs id="Audience"/
 This allows for grouping multiple audiences together in order to have to only send a message (or similar) once and it reaching multiple targets.
 
 This is particularly useful for stuff like a party system or certain mini games.
+
+## Constructing a <JavaDocs id="Sound"/>, <JavaDocs id="Title"/>, <JavaDocs id="BossBar"/>, and <JavaDocs id="AdventureBook"/>
+Each of these provide their own way of creating them. You can check the JavaDocs on the specifics, but I have added some basic examples to showcase their functionality.
+
+<Tabs>
+    <TabItem label="Sound">
+        ```java title=""
+        // net.kyori.adventure.sound.Sound
+        final Sound sound = Sound.sound()
+            .pitch(1.5f)
+            .volume(100.0f)
+            .type(org.bukkit.Sound.ENTITY_PLAYER_LEVELUP)
+            .build();
+        Bukkit.getServer().playSound(sound);
+        ```
+
+        <PreviewVideo src={SoundMp4} summary="Preview" muted="false"/>
+    </TabItem>
+    <TabItem label="Title">
+        ```java title=""
+        // net.kyori.adventure.title.Title
+        final Title title = Title.title(
+            Component.text("Big Top Text"),
+            Component.text("small bottom text"),
+            //                Fade-in duration       Stay duration          Fade out duration
+            Title.Times.times(Duration.ofSeconds(5), Duration.ofSeconds(5), Duration.ofSeconds(5))
+        );
+        Bukkit.getServer().showTitle(title);
+        ```
+
+        <PreviewVideo src={TitleMp4} summary="Preview"/>
+    </TabItem>
+    <TabItem label="BossBar">
+        ```java title=""
+        // net.kyori.adventure.bossbar.BossBar
+        final BossBar bossBar = BossBar.bossBar(
+            miniMessage().deserialize("<gradient:aqua:light_purple:aqua><b>A very nice looking bossbar!"),
+            0.75f,
+            BossBar.Color.PURPLE,
+            BossBar.Overlay.PROGRESS,
+            Set.of(BossBar.Flag.CREATE_WORLD_FOG)
+        );
+        Bukkit.getServer().showBossBar(bossBar);
+        ```
+
+        <PreviewVideo src={BossBarMp4} summary="Preview"/>
+    </TabItem>
+    <TabItem label="Book">
+        ```java title=""
+        // net.kyori.adventure.inventory.Book
+        final Book book = Book.builder()
+            .title(miniMessage().deserialize("<gradient:red:blue><b>Police Report"))
+            .author(Component.text("The Police").color(NamedTextColor.GRAY))
+            .addPage(miniMessage().deserialize("""
+                <dark_gray><u><b>Report Day 1</u>
+
+                Events: <red>none</red>
+                Found victims: <red>2</red>
+                Cases solved: <red>none</red>
+
+                """.trim()))
+            .addPage(miniMessage().deserialize("""
+                <dark_gray><u><b>Report Day 2</u>
+
+                Events: <red>1</red>
+                Found victims: <red>none</red>
+                Cases solved: <red>1</red>
+
+                """.trim()))
+            .build();
+        Bukkit.getServer().openBook(book);
+        ```
+
+        <PreviewVideo src={BookMp4} summary="Preview"/>
+    </TabItem>
+</Tabs>

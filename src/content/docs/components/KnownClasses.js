@@ -38,6 +38,11 @@ const map = new Map(
     Audience: "net.kyori.adventure.audience.Audience",
     ForwardingAudience: "net.kyori.adventure.audience.ForwardingAudience",
 
+    Sound: "net.kyori.adventure.sound.Sound",
+    Title: "net.kyori.adventure.title.Title",
+    BossBar: "net.kyori.adventure.bossbar.BossBar",
+    AdventureBook: "net.kyori.adventure.inventory.Book",
+
     MiniMessage: "net.kyori.adventure.text.minimessage.MiniMessage",
     TagResolver:
       "net.kyori.adventure.text.minimessage.tag.resolver.TagResolver",

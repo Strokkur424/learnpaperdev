@@ -1,0 +1,9 @@
+---
+import FullWidthVideo from "./FullWidthVideo.astro";
+const { src, summary, muted } = Astro.props;
+---
+
+<details>
+    <summary>{summary}</summary>
+    <FullWidthVideo src={src} muted={muted} />
+</details>

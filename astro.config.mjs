@@ -42,9 +42,9 @@ export default defineConfig({
         {
           label: "Adventure Series",
           items: [
-            { label: "Audiences", link: "/adventure/audiences" },
             { label: "Components", link: "/adventure/components" },
             { label: "Tag Resolvers", link: "/adventure/tag-resolvers" },
+            { label: "Audiences", link: "/adventure/audiences" },
           ],
         },
         {

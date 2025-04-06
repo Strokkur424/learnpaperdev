@@ -1,10 +1,17 @@
 ---
-const { src } = Astro.props;
+const { src, muted = true } = Astro.props;
 ---
 
-<div>
-    <video width="100%" muted loop controls={true}>
-        <source src={src} type="video/mp4" />
-        Your device does not support video playback.
-    </video>
-</div>
+{
+    muted == true ? (
+        <video width="100%" muted loop controls={true}>
+            <source src={src} type="video/mp4" /> Your device does not support
+            video playback.
+        </video>
+    ) : (
+        <video width="100%" loop controls={true}>
+            <source src={src} type="video/mp4" /> Your device does not support
+            video playback.
+        </video>
+    )
+}
