@@ -1,7 +1,6 @@
 ---
 title: "Adventure Series: Components"
 slug: adventure/components
-tableOfContents: false
 next: false
 prev: false
 ---
@@ -89,11 +88,10 @@ custom hex-based colors and renders the content in a gradient of those colors.
   <img src={MMGradientPng.src} />
 </details>
 
-## Creating simple <JavaDocs id="Component" name="Components"/>
+## Creating simple components
 
 Very simple components can be created using the countless overloads of <JavaDocs id="Component" name="Component.text(...)" method="text(java.lang.String)"/>.
 You can even create components which are translated on the client using
-
 <JavaDocs id="Component" name="Component.translatable(Translatable)" method="translatable(net.kyori.adventure.translation.Translatable)"/>. For example, to display a diamond sword in the
 client's language, you can use this component:
 
@@ -137,7 +135,7 @@ final Component hoverAndClick = itemStack.getItemMeta().displayName()
     <FullWidthVideo src={HoverAndClickMp4}/>
 </details>
 
-## Building <JavaDocs id="Component" name="Components"/> in-code
+## Building components in code
 
 There is a few ways of building components. The first one is using the <JavaDocs id="TextComponentBuilder" name="TextComponent.Builder"/> obtainable
 from <JavaDocs id="Component" method="text()" name="Component.text()"/>.

@@ -1,9 +1,11 @@
 ---
 title: "Adventure Series: Audiences"
 slug: adventure/audiences
-tableOfContents: false
 next: false
 prev: false
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 2
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -48,14 +50,14 @@ More specifically, sending a message to a...
 
 This makes sending messages to multiple players very convenient.
 
-## The <JavaDocs id="ForwardingAudience"/>
+## The Forwarding Audience
 You can create your own forwarding audiences! For this, <JavaDocs id="Audience"/> provides a static method:
 <JavaDocs id="Audience" method="audience(net.kyori.adventure.audience.Audience...)" name="Audience.audience(Audience...)"/>.
 This allows for grouping multiple audiences together in order to have to only send a message (or similar) once and it reaching multiple targets.
 
 This is particularly useful for stuff like a party system or certain mini games.
 
-## Constructing a <JavaDocs id="Sound"/>, <JavaDocs id="Title"/>, <JavaDocs id="BossBar"/>, and <JavaDocs id="AdventureBook"/>
+### Constructing a <JavaDocs id="Sound"/>, <JavaDocs id="Title"/>, <JavaDocs id="BossBar"/>, and <JavaDocs id="AdventureBook"/>
 Each of these provide their own way of creating them. You can check the JavaDocs on the specifics, but I have added some basic examples to showcase their functionality.
 
 <Tabs>

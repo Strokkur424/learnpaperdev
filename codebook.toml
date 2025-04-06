@@ -1,5 +1,7 @@
 dictionaries = []
 words = [
+    "advntr",
+    "astro",
     "astrojs",
     "dsl",
     "gitattributes",
@@ -9,16 +11,20 @@ words = [
     "jdk",
     "jspecify",
     "jvm",
+    "keybind",
     "kts",
     "kyori",
     "learnpaperdev",
     "mc's",
+    "minimessage",
     "mkdir",
     "papermc",
     "penilla",
+    "pickaxe",
     "sdkman",
     "showlinenumbers",
     "slf",
+    "webui",
     "yml",
 ]
 flag_words = []
