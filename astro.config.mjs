@@ -45,6 +45,7 @@ export default defineConfig({
             { label: "Components", link: "/adventure/components" },
             { label: "Tag Resolvers", link: "/adventure/tag-resolvers" },
             { label: "Audiences", link: "/adventure/audiences" },
+            { label: "Common Issues", link: "/adventure/common-issues" },
           ],
         },
         {

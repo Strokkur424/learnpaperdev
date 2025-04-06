@@ -1,0 +1,80 @@
+---
+title: "Adventure Series: Common Issues"
+slug: adventure/common-issues
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import JavaDocs from "../components/JavaDocs.astro";
+
+import ItalicizedLorePng from "./assets/ItalicizedLore.png";
+import UnItalicizedLorePng from "./assets/UnItalicizedLore.png";
+
+<Aside type="danger" title="Note">
+    **Learn Paper Dev** is not at all an official Adventure documentation. I do not guarantee any information to be accurate. For the official
+    Adventure documentation, please visit https://docs.advntr.dev/.
+</Aside>
+
+## Why is my item lore in italics?
+The Vanilla Minecraft client always wraps the lore in <a class="color-dark-purple">*italics and a purple color*</a>. Unless you specifically specify otherwise,
+this style will also be applied to any child elements (our own set lore).
+
+<details>
+    <summary>Visual Preview</summary>
+    <div style="display: flex;">
+        <div style="padding-left: 1rem; padding-right: 1rem; max-width: 50%;">
+            <img alt="italicized and purple lore" style="margin-top: auto; margin-bottom: auto;" src={ItalicizedLorePng.src}/>
+        </div>
+        <div style="margin-top: auto; margin-bottom: auto; max-width: 50%; flex: 1; padding-left: 1rem; padding-right: 1rem;">
+            ```java title="Lore without explicit styling"
+            ItemType.DIAMOND_SWORD.createItemStack(meta -> {
+                meta.lore(List.of(
+                    Component.text("Component without styling")
+                ));
+            });
+            ```
+        </div>
+    </div>
+</details>
+
+In order to circumvent this problem, you have explicitly specify that your component should not have any italics. There are two ways to do this:
+
+- **In MiniMessage**: You can add a `<!i>` or `<!italic>` tag at the start to explicitly disable italics.
+- **In Code**: You can just use <JavaDocs id="Component" name="Component#decorationIfAbsent(TextDecoration, State)" method="decorationIfAbsent(net.kyori.adventure.text.format.TextDecoration,net.kyori.adventure.text.format.TextDecoration.State)"/>:
+
+  ```java showLineNumbers=false
+  final Component noItalics = someComponent.decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE);
+  ```
+
+<Aside type="tip">
+    In order to not have to do this on every components that you construct, you can create a small util method to do this for you:
+    ```java title="ComponentUtils.java"
+    @NullMarked
+    public static List<Component> fixItalics(List<Component> componentList) {
+        // Replace each component with the non-italicized variant of itself
+        return componentList.stream()
+            .map(component -> component.decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE))
+            .toList();
+    }
+    ```
+
+    This should now correctly remove the italics from the lore. You can do the same for the purple color using <JavaDocs id="Component" name="Component#colorIfAbsent(TextColor)"
+    method="colorIfAbsent(net.kyori.adventure.text.format.TextColor)"/>, if you wish the default lore color to be white.
+
+
+    <div style="display: flex;">
+        <div style="padding-left: 1rem; padding-right: 1rem; max-width: 50%;">
+            <img alt="non-italicized and purple lore" style="margin-top: auto; margin-bottom: auto;" src={UnItalicizedLorePng.src}/>
+        </div>
+        <div style="margin-top: auto; margin-bottom: auto; max-width: 50%; flex: 1; padding-left: 1rem; padding-right: 1rem;">
+            ```java
+            final List<Component> rawLore = List.of(
+                Component.text("Component without styling")
+            );
+
+            final ItemStack item = ItemType.DIAMOND_SWORD.createItemStack(meta -> {
+                meta.lore(ComponentUtils.fixItalics(rawLore));
+            });
+            ```
+        </div>
+    </div>
+</Aside>
