@@ -52,6 +52,10 @@ export default defineConfig({
           label: "Reference",
           autogenerate: { directory: "reference" },
         },
+        {
+          label: "API Changelogs",
+          autogenerate: { directory: "changelogs" },
+        },
       ],
       customCss: ["./src/custom.css"],
       expressiveCode: {

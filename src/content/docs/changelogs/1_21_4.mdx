@@ -1,0 +1,413 @@
+---
+title: 1.21.4
+slug: changelogs/1.21.4
+next: false
+---
+
+<details>
+<summary>All API Additions:</summary>
+  - `AbstractArrow#getAttachedBlocks(): List<Block>`
+  - `BannerPatternRegistryEntry`
+  - `BlockType#createBlockDataStates(): Collection<? extends BlockData>`
+  - `Bogged#isSheared(): boolean`
+  - `Bogged#setSheared(boolean flag)`
+  - `Bukkit.createMerchant(): Merchant`
+  - `Bukkit.restart()`
+  - `DamageEffect.getDamageEffect(String key): DamageEffect`
+  - `DamageTypeRegistryEntry`
+  - `DatapackRegistrar`
+  - `DatapackSource.PLUGIN: DatapackSource`
+  - `DiscoveredDatapack`
+  - `ChunkyGenerator#getHeight(HeightMap heightMap, int x, int z): int`
+  - `ClientTickEndEvent extends PlayerEvent`
+  - `CommandSourceStack#withExecutor(Entity entity)`
+  - `CommandSourceStack#withLocation(Location location)`
+  - `Creaking#getHome(): Location`
+  - `Creaking#activate(Player player)`
+  - `Creaking#deactivate()`
+  - `Creaking#isActive()`
+  - `EntityAttemptSmashAttackEvent extends EntityEvent`
+  - `EntityEquipmentChangedEvent extends EntityEvent`
+  - `EntitySerializationFlag`
+  - `Entity#lookAt(double x, double y, double z, LookAnchor entityAnchor)`
+  - `Entity#lookAt(io.papermc.paper.math.Position position, LookAnchor entityAnchor)`
+  - `Entity#spawnAt(Location location): boolean`
+  - `Entity#spawnAt(Location location, CreatureSpawnEvent.SpawnReason reason): boolean`
+  - `HumanEntity#dropItem(int slot): Item`
+  - `HumanEntity#dropItem(int slot, int amount): Item`
+  - `HumanEntity#dropItem(int slot, int amount, boolean throwRandomly, Consumer<Item> entityOperation): Item`
+  - `HumanEntity#dropItem(EquipmentSlot slot): Item`
+  - `HumanEntity#dropItem(EquipmentSlot slot, int amount): Item`
+  - `HumanEntity#dropItem(EquipmentSlot slot, int amount, boolean throwRandomly, Consumer<Item> entityOperation): Item`
+  - `HumanEntity#dropItem(ItemStack): Item`
+  - `HumanEntity#dropItem(ItemStack, boolean throwRandomly, Consumer<Item> entityOperation): Item`
+  - `HumanEntity#getPotentialRespawnLocation(): Location`
+  - `InventoryViewBuilder<V extends InventoryView>`
+  - `ItemMeta#hasCustomName()`
+  - `ItemMeta#customName(): Component`
+  - `ItemMeta#customName(Component customName)`
+  - `ItemStack#copyDataFrom(ItemStack source, Predicate<DataComponentType> filter)`
+  - `ItemStack#editPersistentDataContainer(Consumer<PersistentDataContainer> consumer): boolean`
+  - `ItemStack#effectiveName(): Component`
+  - `JavaPlugin#registerCommand(String label, BasicCommand BasicCommand)`
+  - `JavaPlugin#registerCommand(String label, String description, BasicCommand BasicCommand)`
+  - `JavaPlugin#registerCommand(String label, Collection<String> aliases, BasicCommand BasicCommand)`
+  - `JavaPlugin#registerCommand(String label, String description, Collection<String> aliases, BasicCommand BasicCommand)`
+  - `LifecycleEvents.DATAPACK_DISCOVERY: LifecycleEventType.Prioritizable<BootstrapContext, RegistrarEvent<DatapackRegistrar>>`
+  - `LocationInventoryViewBuilder<V extends InventoryView> extends InventoryViewBuilder<V>`
+  - `Location#addRotation(float yaw, float pitch): Location`
+  - `Location#subtractRotation(float yaw, float pitch): Location`
+  - `Location#setRotation(float yaw, float pitch): Location`
+  - `MaterialTags: MaterialSetTag COMMAND_BLOCKS`
+  - `MerchantInventoryViewBuilder<V extends InventoryView> extends InventoryViewBuilder<V>`
+  - `PlayerClientLoadedWorldEvent extends PlayerEvent`
+  - `PlayerGiveResult`
+  - `Player#getDeathScreenScore(): int`
+  - `Player#give(ItemStack... items): PlayerGiveResult`
+  - `Player#give(Collection<ItemStack> items): PlayerGiveResult`
+  - `Player#give(Collection<ItemStack> items, boolean dropIfFull): PlayerGiveResult`
+  - `Player#setDeathScreenScore(int score)`
+  - `PositionedRayTraceConfigurationBuilder`
+  - `RayTraceTarget`
+  - `RegistryBuilderFactory`
+  - `RegistryEvents.BANNER_PATTERN: RegistryEventProvider<PatternType, BannerPatternRegistryEntry.Builder>`
+  - `RegistryEvents.DAMAGE_TYPE: RegistryEventProvider<DamageType, DamageTypeRegistryEntry.Builder>`
+  - `RegistryKey#typedKey(Key key): TypedKey<T>`
+  - `RegistryKey#typedKey(String key): TypedKey<T>`
+  - `Registry#getTag(TagKey<T> key): Tag<T>`
+  - `Registry#getTags(): Collection<Tag<T>>`
+  - `Server.createMerchant(): Merchant`
+  - `Server#sendRichMessage(String message)`
+  - `Server#sendRichMessage(String message, TagResolver... resolvers)`
+  - `Server#sendPlainMessage(String message)`
+  - `Sheep#isSheared(): boolean`
+  - `Sheep#setSheared(boolean flag)`
+  - `Skull#customName(): Component`
+  - `Skull#customName(Component component)`
+  - `Tag.ITEMS_STONE_CRAFTING_MATERIALS: Tag<Material>`
+  - `TrialSpawner#getCooldownEnd(): long`
+  - `TrialSpawner#setCooldownEnd(long ticks)`
+  - `TrialSpawner#getNextSpawnAttempt(): long`
+  - `TrialSpawner#setNextSpawnAttempt(long ticks)`
+  - `TypedKey.create(RegistryKey<T> registryKey, String key): <T>`
+  - `UnsafeValues#serializeEntity(Entity entity): byte[]`
+  - `UnsafeValues#serializeEntity(Entity entity, EntitySerializationFlag... serializationFlag): byte[]`
+  - `UnsafeValues#deserializeEntity(byte[] data, World world): Entity`
+  - `UnsafeValues#deserializeEntity(byte[] data, World world, boolean preserveUUID): Entity`
+  - `UnsafeValues#deserializeEntity(byte[] data, World world, boolean preserveUUID, boolean preservePassengers): Entity`
+  - `Vault#getActivationRange(): double`
+  - `Vault#setActivationRange(double deactivationRange)`
+  - `Vault#getDeactivationRange(): double`
+  - `Vault#setDeactivationRange(double deactivationRange)`
+  - `Vault#getKeyItem(): ItemStack`
+  - `Vault#setKeyItem(ItemStack key)`
+  - `Vault#getLootTable(): LootTable`
+  - `Vault#setLootTable(LootTable lootTable)`
+  - `Vault#getDisplayedLootTable(): LootTable`
+  - `Vault#setDisplayedLootTable(LootTable lootTable)`
+  - `Vault#getNextStateUpdateTime(): long`
+  - `Vault#setNextStateUpdateTime(long nextStateUpdateTime)`
+  - `Vault#getRewardedPlayers(): Collection<UUID>`
+  - `Vault#addRewardedPlayer(UUID playerUUID)`
+  - `Vault#removeRewardedPlayer(UUID playerUUID)`
+  - `Vault#hasRewardedPlayer(UUID playerUUID)`
+  - `Vault#getConnectedPlayers(): Set<UUID>`
+  - `Vault#hasConnectedPlayers(UUID playerUUID)`
+  - `Vault#getDisplayedItem(): ItemStack`
+  - `Vault#setDisplayedItem(ItemStack displayedItem)`
+  - `World#rayTrace(Consumer<PositionedRayTraceConfigurationBuilder> builderConsumer): RayTraceResult`
+  - `World#save(boolean flush)`
+  - `WritableRegistry#register(TypedKey<T> key, Consumer<? super B> value)`
+  - `WritableRegistry#registerWith(TypedKey<T> key, Consumer<RegistryBuilderFactory<T, B>> value)`
+</details>
+
+## [`#221`](https://github.com/PaperMC/Paper/pull/12224) Add ItemStack#copyDataFrom
+Additions:
+- `ItemStack#copyDataFrom(ItemStack source, Predicate<DataComponentType> filter)`
+
+## [`#219`](https://github.com/PaperMC/Paper/pull/12330) Add flush parameter to World#save <a class="color-gray">(My own PR!)</a>
+Additions:
+- `World#save(boolean flush)`
+
+## [`#218`](https://github.com/PaperMC/Paper/pull/12311) ChunkGenerator - add getHeight to ChunkData
+Additions:
+- `ChunkyGenerator#getHeight(HeightMap heightMap, int x, int z): int`
+
+## [`#214`](https://github.com/PaperMC/Paper/pull/12302) Skull - get/set customName
+Additions:
+- `Skull#customName(): Component`
+- `Skull#customName(Component component)`
+
+## [`#205`](https://github.com/PaperMC/Paper/pull/12199) Add client tick end event
+Additions:
+- `ClientTickEndEvent extends PlayerEvent`
+
+## [`#196`](https://github.com/PaperMC/paper/issues/12243) Player - Expose player score
+Additions:
+- `Player#getDeathScreenScore(): int`
+- `Player#setDeathScreenScore(int score)`
+
+## [`#182`](https://github.com/PaperMC/Paper/pull/12094) Add methods for Creaking
+Additions:
+- `Creaking#getHome(): Location`
+- `Creaking#activate(Player player)`
+- `Creaking#deactivate()`
+- `Creaking#isActive()`
+
+## [`#180`](https://github.com/PaperMC/Paper/pull/12189) Deprecate server config getters
+Additions:
+- `Bukkit.restart()`
+
+Deprecations:
+- `Bukkit.spigot(): Server.Spigot`
+- All of `Server.Spigot`
+- `Server#spigot(): Spigot`
+- `Server#restart()`
+
+## [`#170`](https://github.com/PaperMC/Paper/pull/12142) add simpler javaplugin command registration
+Additions:
+- `JavaPlugin#registerCommand(String label, BasicCommand BasicCommand)`
+- `JavaPlugin#registerCommand(String label, String description, BasicCommand BasicCommand)`
+- `JavaPlugin#registerCommand(String label, Collection<String> aliases, BasicCommand BasicCommand)`
+- `JavaPlugin#registerCommand(String label, String description, Collection<String> aliases, BasicCommand BasicCommand)`
+
+## [`#157`](https://github.com/PaperMC/Paper/pull/12011) Add EntityEquipmentChangedEvent
+Additions:
+- `EntityEquipmentChangedEvent extends EntityEvent`
+
+Obsolete API:
+- `PlayerArmorChangeEvent`
+
+## [`#155`](https://github.com/PaperMC/paper/issues/12113) Add EntityAttemptSmashAttackEvent
+Additions:
+- `EntityAttemptSmashAttackEvent extends EntityEvent`
+
+## [`#153`](https://github.com/PaperMC/paper/issues/12022) add method on ItemStack to edit pdc
+Additions:
+- `ItemStack#editPersistentDataContainer(Consumer<PersistentDataContainer> consumer): boolean`
+
+## [`#150`](https://github.com/PaperMC/paper/issues/12025) Add TrialSpawner methods for end of cooldown and next mob spawn time
+Additions:
+- `TrialSpawner#getCooldownEnd(): long`
+- `TrialSpawner#setCooldownEnd(long ticks)`
+- `TrialSpawner#getNextSpawnAttempt(): long`
+- `TrialSpawner#setNextSpawnAttempt(long ticks)`
+
+## [`#149`](https://github.com/PaperMC/Paper/pull/12068) Add Vault block API
+Additions:
+- `Vault#getActivationRange(): double`
+- `Vault#setActivationRange(double deactivationRange)`
+- `Vault#getDeactivationRange(): double`
+- `Vault#setDeactivationRange(double deactivationRange)`
+- `Vault#getKeyItem(): ItemStack`
+- `Vault#setKeyItem(ItemStack key)`
+- `Vault#getLootTable(): LootTable`
+- `Vault#setLootTable(LootTable lootTable)`
+- `Vault#getDisplayedLootTable(): LootTable`
+- `Vault#setDisplayedLootTable(LootTable lootTable)`
+- `Vault#getNextStateUpdateTime(): long`
+- `Vault#setNextStateUpdateTime(long nextStateUpdateTime)`
+- `Vault#getRewardedPlayers(): Collection<UUID>`
+- `Vault#addRewardedPlayer(UUID playerUUID)`
+- `Vault#removeRewardedPlayer(UUID playerUUID)`
+- `Vault#hasRewardedPlayer(UUID playerUUID)`
+- `Vault#getConnectedPlayers(): Set<UUID>`
+- `Vault#hasConnectedPlayers(UUID playerUUID)`
+- `Vault#getDisplayedItem(): ItemStack`
+- `Vault#setDisplayedItem(ItemStack displayedItem)`
+
+## [`#148`](https://github.com/PaperMC/Paper/pull/12099) Add proper attached blocks API to AbstractArrow
+Additions:
+- `AbstractArrow#getAttachedBlocks(): List<Block>`
+
+Deprecations:
+- `AbstractArrow#getAttachedBlock(): Block`
+
+## [`#144`](https://github.com/PaperMC/paper/issues/12024) Deprecate Server#setSpawnRadius
+Deprecations:
+- `Bukkit.setSpawnRadius(int value)`
+- `Server#setSpawnRadius(int value)`
+
+## [`#140`](https://github.com/PaperMC/Paper/pull/12016) Make Sittable interface extend Entity
+Extensions:
+- `Sittable` now extends `Entity`
+
+## [`#136`](https://github.com/PaperMC/Paper/pull/12041) Deprecate UnsafeValues#getSpawnEggLayerColor
+Deprecations:
+- `UnsafeValues#getSpawnEggLayerColor(EntityType entityType, int layer): Color`
+
+## [`#127`](https://github.com/PaperMC/Paper/pull/11995) Add Player#give
+Additions:
+- `PlayerGiveResult`
+- `Player#give(ItemStack... items): PlayerGiveResult`
+- `Player#give(Collection<ItemStack> items): PlayerGiveResult`
+- `Player#give(Collection<ItemStack> items, boolean dropIfFull): PlayerGiveResult`
+
+## [`#126`](https://github.com/PaperMC/Paper/pull/11940) Add PlayerLoadedWorldEvent
+Additions:
+- `PlayerClientLoadedWorldEvent extends PlayerEvent`
+
+## [`#123`](https://github.com/PaperMC/Paper/pull/11907) Add RayTraceConfigurationBuilder
+Additions:
+- `PositionedRayTraceConfigurationBuilder`
+- `RayTraceTarget`
+- `World#rayTrace(Consumer<PositionedRayTraceConfigurationBuilder> builderConsumer): RayTraceResult`
+
+## [`#107`](https://github.com/PaperMC/Paper/pull/11961) Remove deprecation from EntityRemoveEvent
+Removed deprecation:
+- `EntityRemoveEvent`
+
+## [`#104`](https://github.com/PaperMC/Paper/pull/11958) Expose all possible block data states
+Additions:
+- `BlockType#createBlockDataStates(): Collection<? extends BlockData>`
+
+## [`#101`](https://github.com/PaperMC/Paper/pull/11959) Deprecate Turtle#isDigging
+Deprecations:
+- `Turtle#isDigging(): boolean`
+
+## [`#99`](https://github.com/PaperMC/Paper/pull/11838) Add EntityEffectTickEvent
+Additions
+- `EntityEffectTickEvent extends EntityEvent implements Cancellable`
+
+## [`#97`](https://github.com/PaperMC/Paper/pull/11950) Rename getPotentialBedLocation to getPotentialRespawnLocation
+Additions:
+- `HumanEntity#getPotentialRespawnLocation(): Location`
+
+Deprecations:
+- `HumanEntity#getPotentialBedLocation(): Location`
+
+## [`#95`](https://github.com/PaperMC/Paper/pull/11868) Feat: Add 'with' methods to CommandSourceStack <a class="color-gray">(My own PR!)</a>
+Additions:
+- `CommandSourceStack#withExecutor(Entity entity)`
+- `CommandSourceStack#withLocation(Location location)`
+
+## [`#94`](https://github.com/PaperMC/Paper/pull/11816) MenuType API addition InventoryView Builders
+Additions:
+- `Bukkit.createMerchant(): Merchant`
+- `Server.createMerchant(): Merchant`
+- `InventoryViewBuilder<V extends InventoryView>`
+- `LocationInventoryViewBuilder<V extends InventoryView> extends InventoryViewBuilder<V>`
+- `MerchantInventoryViewBuilder<V extends InventoryView> extends InventoryViewBuilder<V>`
+
+Deprecations:
+- `Bukkit.createMerchant(Component title): Merchant`
+- `Server#createMerchant(Component title): Merchant`
+- `HumanEntity#openWorkbench(Location location, boolean force): InventoryView`
+- `HumanEntity#openEnchanting(Location location, boolean force): InventoryView`
+- `HumanEntity#openMerchant(Villager trader, boolean force): InventoryView`
+- `HumanEntity#openMerchant(Merchant merchant, boolean force): InventoryView`
+- `HumanEntity#openAnvil(Location location, boolean force): InventoryView`
+- `HumanEntity#openCartographyTable(Location location, boolean force): InventoryView`
+- `HumanEntity#openGrindstone(Location location, boolean force): InventoryView`
+- `HumanEntity#openLoom(Location location, boolean force): InventoryView`
+- `HumanEntity#openSmithingTable(Location location, boolean force): InventoryView`
+- `HumanEntity#openStonecutter(Location location, boolean force): InventoryView`
+
+## [`#75`](https://github.com/PaperMC/Paper/pull/11908) Add pattern methods for orientation in Location
+Additions:
+- `Location#addRotation(float yaw, float pitch): Location`
+- `Location#subtractRotation(float yaw, float pitch): Location`
+- `Location#setRotation(float yaw, float pitch): Location`
+
+## [`#69`](https://github.com/PaperMC/Paper/pull/11872) Add sendRich/PlainMessage methods to Server
+Additions:
+- `Server#sendRichMessage(String message)`
+- `Server#sendRichMessage(String message, TagResolver... resolvers)`
+- `Server#sendPlainMessage(String message)`
+
+## [`#64`](https://github.com/PaperMC/Paper/pull/11810) Extend HumanEntity#dropItem API <a class="color-gray">(My own PR!)</a>
+Obsolete API:
+- `HumanEntity#dropItem(boolean dropAll): boolean`
+
+Additions:
+- `HumanEntity#dropItem(int slot): Item`
+- `HumanEntity#dropItem(int slot, int amount): Item`
+- `HumanEntity#dropItem(int slot, int amount, boolean throwRandomly, Consumer<Item> entityOperation): Item`
+- `HumanEntity#dropItem(EquipmentSlot slot): Item`
+- `HumanEntity#dropItem(EquipmentSlot slot, int amount): Item`
+- `HumanEntity#dropItem(EquipmentSlot slot, int amount, boolean throwRandomly, Consumer<Item> entityOperation): Item`
+- `HumanEntity#dropItem(ItemStack): Item`
+- `HumanEntity#dropItem(ItemStack, boolean throwRandomly, Consumer<Item> entityOperation): Item`
+
+## [`#63`](https://github.com/PaperMC/Paper/pull/11804) Add datapack registration lifecycle event
+Additions:
+- `DatapackRegistrar`
+- `DiscoveredDatapack`
+- `DatapackSource.PLUGIN: DatapackSource`
+- `LifecycleEvents.DATAPACK_DISCOVERY: LifecycleEventType.Prioritizable<BootstrapContext, RegistrarEvent<DatapackRegistrar>>`
+
+Extensions:
+- `Datapack` now extends `DiscoveredDatapack`
+
+## [`#59`](https://github.com/PaperMC/Paper/pull/11783) Add DamageType RegistryEvent
+Additions:
+- `DamageTypeRegistryEntry`
+- `RegistryEvents.DAMAGE_TYPE: RegistryEventProvider<DamageType, DamageTypeRegistryEntry.Builder>`
+- `DamageEffect.getDamageEffect(String key): DamageEffect`
+
+## [`#49`](https://github.com/PaperMC/Paper/pull/11803) Banner pattern registry modification
+Additions:
+- `BannerPatternRegistryEntry`
+- `RegistryEvents.BANNER_PATTERN: RegistryEventProvider<PatternType, BannerPatternRegistryEntry.Builder>`
+
+## [`#48`](https://github.com/PaperMC/Paper/pull/11807) Expand on entity serialization API
+Additions:
+- `EntitySerializationFlag`
+- `UnsafeValues#serializeEntity(Entity entity): byte[]`
+- `UnsafeValues#serializeEntity(Entity entity, EntitySerializationFlag... serializationFlag): byte[]`
+- `UnsafeValues#deserializeEntity(byte[] data, World world): Entity`
+- `UnsafeValues#deserializeEntity(byte[] data, World world, boolean preserveUUID): Entity`
+- `UnsafeValues#deserializeEntity(byte[] data, World world, boolean preserveUUID, boolean preservePassengers): Entity`
+- `Entity#spawnAt(Location location): boolean`
+- `Entity#spawnAt(Location location, CreatureSpawnEvent.SpawnReason reason): boolean`
+
+## [`#47`](https://github.com/PaperMC/Paper/pull/11796) For new registry values, allow copying from existing
+Additions:
+- `RegistryBuilderFactory`
+- `RegistryKey#typedKey(Key key): TypedKey<T>`
+- `RegistryKey#typedKey(String key): TypedKey<T>`
+- `WritableRegistry#register(TypedKey<T> key, Consumer<? super B> value)`
+- `WritableRegistry#registerWith(TypedKey<T> key, Consumer<RegistryBuilderFactory<T, B>> value)`
+- `TypedKey.create(RegistryKey<T> registryKey, String key): <T>`
+
+## [`#42`](https://github.com/PaperMC/Paper/pull/11823) Deprecate #furnace_materials item tag
+Additions:
+- `Tag.ITEMS_STONE_CRAFTING_MATERIALS: Tag<Material>`
+
+Deprecations:
+- `Tag.ITEMS_FURNACE_MATERIALS: Tag<Material>`
+
+## [`#40`](https://github.com/PaperMC/Paper/pull/11795) Add Registry#getTags
+Additions:
+- `Registry#getTag(TagKey<T> key): Tag<T>`
+- `Registry#getTags(): Collection<Tag<T>>`
+
+## [`#39`](https://github.com/PaperMC/Paper/pull/11770) Add effective name to ItemStack
+Additions:
+- `ItemStack#effectiveName(): Component`
+
+## [`#34`](https://github.com/PaperMC/Paper/pull/11775) Port basic lookAt methods from Player to Entity
+Additions:
+- `Entity#lookAt(double x, double y, double z, LookAnchor entityAnchor)`
+- `Entity#lookAt(io.papermc.paper.math.Position position, LookAnchor entityAnchor)`
+
+## [`#11`](https://github.com/PaperMC/Paper/pull/11715) Readd shear methods from bukkit Shearable
+Additions:
+- `Bogged#isSheared(): boolean`
+- `Bogged#setSheared(boolean flag)`
+- `Sheep#isSheared(): boolean`
+- `Sheep#setSheared(boolean flag)`
+
+## [`#9`](https://github.com/PaperMC/Paper/pull/11720) Add command block material tags
+Additions:
+- `MaterialTags: MaterialSetTag COMMAND_BLOCKS`
+
+## [`#5`](https://github.com/PaperMC/Paper/pull/11685) Add ItemMeta customName methods
+Additions:
+- `ItemMeta#hasCustomName()`
+- `ItemMeta#customName(): Component`
+- `ItemMeta#customName(Component customName)`
+
+Obsolete API:
+- `ItemMeta#displayName()`
+- `ItemMeta#displayName(Component displayName)`
