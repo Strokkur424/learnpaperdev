@@ -18,16 +18,16 @@ import BossBarMp4 from "./assets/bossbar.mp4";
 import SoundMp4 from "./assets/sound.mp4";
 import TitleMp4 from "./assets/title.mp4";
 
-Almost every object, which can work with input, implements the <JavaDocs id="Audience"/> interface. That includes, but is not limited to:
+Almost every object, which can work with input, implements/extends the <JavaDocs id="Audience"/> interface. That includes, but is not limited to:
 - <JavaDocs id="Player"/>
 - <JavaDocs id="CommandSender"/>
-- <JavaDocs id="Entity"/> (and all its subclasses)
+- <JavaDocs id="Entity"/> (and thus all its subclasses)
 - <JavaDocs id="Server"/>
 - <JavaDocs id="World"/>
 - <JavaDocs id="Team"/>
 
-There are a lot of methods declared in the <JavaDocs id="Audience"/> interface. Too many to list them all. It is recommended to just check out the JavaDocs on that.
-The most important ones are these:
+There are a lot of methods declared in the <JavaDocs id="Audience"/> interface. Too many to list them all. It is recommended to just check out the JavaDocs, but the
+most important ones are:
 
 - <JavaDocs id="Audience" method="sendMessage(net.kyori.adventure.text.ComponentLike)" name = "sendMessage(ComponentLike)"/>
 - <JavaDocs id="Audience" method="sendActionBar(net.kyori.adventure.text.ComponentLike)" name = "sendActionBar(ComponentLike)"/>
@@ -38,9 +38,9 @@ The most important ones are these:
 - <JavaDocs id="Audience" method="showBossBar(net.kyori.adventure.bossbar.BossBar)" name = "showBossBar(BossBar)"/>
 - <JavaDocs id="Audience" method="openBook(net.kyori.adventure.inventory.Book)" name = "openBook(Book)"/>
 
-## Server/World/Team
+## Paper's Server/World/Team Objects
 These objects have a special implementation of the <JavaDocs id="Audience"/> interface: The <JavaDocs id="ForwardingAudience"/>.
-That means, instead of executing a a method for themselves, it executes it for all players backed by the individual object.
+That means, instead of executing a method for themselves, it executes it for all audiences backed by the individual object.
 
 More specifically, sending a message to a...
 
@@ -50,7 +50,7 @@ More specifically, sending a message to a...
 
 This makes sending messages to multiple players very convenient.
 
-## The Forwarding Audience
+## Creating Forwarding Audiences
 You can create your own forwarding audiences! For this, <JavaDocs id="Audience"/> provides a static method:
 <JavaDocs id="Audience" method="audience(net.kyori.adventure.audience.Audience...)" name="Audience.audience(Audience...)"/>.
 This allows for grouping multiple audiences together in order to have to only send a message (or similar) once and it reaching multiple targets.

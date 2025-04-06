@@ -11,34 +11,31 @@ import HoverStyle from "./assets/HoverStyle.png";
 import InsertingPlaceholder from "./assets/InsertingPlaceholder.png";
 
 <JavaDocs id="TagResolver" name="TagResolvers" /> are a way to declare custom
-tags for your MiniMessage-serialized string. Most places which take in
+tags for your MiniMessage string. Most places which take in
 <JavaDocs id="TagResolver" name="TagResolvers" /> usually take in a varargs one.
 That means that you can just put in however many you need. In case you *do*
-require to have them all condensed in just one, Adventure provides the
-<JavaDocs
+require to have them all condensed in just one, Adventure provides the <JavaDocs
   id="TagResolver"
   method="resolver(net.kyori.adventure.text.minimessage.tag.resolver.TagResolver...)"
   name="TagResolver.resolver(TagResolver...)"
-/>
-method for convenience.
+/> method for convenience.
 
 ## Placeholders
 
-The simplest form of <JavaDocs id="TagResolver" name="TagResolvers"/> are <JavaDocs id="Placeholder" name="Placeholders"/>. These allow to directly insert
-
-<JavaDocs id="Component" name="Components" /> or strings into the MiniMessage
-format.
+The simplest form of <JavaDocs id="TagResolver" name="TagResolvers"/> are <JavaDocs id="Placeholder" name="Placeholders"/>. These allow the direct insertion of
+<JavaDocs id="Component" name="Components"/> or strings into serialized component. Each placeholder takes in the tag name as its first parameter and a value
+as their second parameter. Tags should always follow the `snake_case_naming_scheme` and only contain alphabetical characters and underscores.
 
 There are three inserting placeholder, and one styling placeholder. The styling one will, instead of adding text content, modify the style of text.
 
-### Using Inserting Placeholders
+### Using insertion placeholders
 
 The most common use of placeholders are the inserting ones. You can use these whenever you have a <JavaDocs id="Component"/> and want to embed it into your MiniMessage string.
 This might look like this:
 
-```java showLineNumbers=false
+```java showLineNumbers=false {2}
 final Component msg = miniMessage().deserialize("I am currently holding a <aqua><item></aqua>!",
-    Placeholder.component("item", Component.translatable(ItemType.DIAMOND_PICKAXE))
+    Placeholder.component("item", Component.text("Diamond Pickaxe"))
 );
 ```
 
@@ -47,7 +44,7 @@ final Component msg = miniMessage().deserialize("I am currently holding a <aqua>
   <img src={InsertingPlaceholder.src} />
 </details>
 
-### Using Styling Placeholders
+### Using style placeholders
 
 Styling placeholders can be used like this:
 
@@ -79,7 +76,7 @@ final Component component = miniMessage().deserialize("<red><custom_style>Hey o/
 
 ## Constructing a TagResolver using Tags
 
-These resolvers work similar to the <JavaDocs id="Placeholder"/> ones. The first parameter of the <JavaDocs id="TagResolver"
+These resolvers work similarly to the <JavaDocs id="Placeholder"/> ones. The first parameter of the <JavaDocs id="TagResolver"
 method="resolver(java.lang.String,net.kyori.adventure.text.minimessage.tag.Tag)" name="resolver(String, Tag)"/>
 method is, once again, the name of the tag. The second parameter is the <JavaDocs id="Tag"/> itself.
 
@@ -91,9 +88,11 @@ will also be used on the child component, unless it specifies its own style.
 Unstyled text, <inserted_component> now the text shares the inserted component's style</inserted_component> and now it doesn't.
 ```
 
-The second pair of methods are the <JavaDocs id="Tag" method="selfClosingInserting(net.kyori.adventure.text.Component)" name="selfClosingInserting"/> ones. This tag works similarly to the
-`inserting` one, but it does not need closing, as it closes automatically. That also means that no styling will be applied to other components.
+<br/>
+The second pair of methods are the <JavaDocs id="Tag" method="selfClosingInserting(net.kyori.adventure.text.Component)" name="selfClosingInserting"/> ones.
+These work similarly to the `inserting` ones, but do not need closing. That also means that no styling will be applied to other components.
 
+<br/>
 The <JavaDocs id="Tag" method="styling(net.kyori.adventure.text.format.StyleBuilderApplicable...)" name="styling"/> tag works the same way as <JavaDocs
   id="Placeholder"
   method="styling(java.lang.String,net.kyori.adventure.text.format.StyleBuilderApplicable...)"
@@ -102,8 +101,9 @@ The <JavaDocs id="Tag" method="styling(net.kyori.adventure.text.format.StyleBuil
 
 ## Complicated Tag Resolvers
 
-One of the more complex ways to retrieve a <JavaDocs id="TagResolver"/>, but also one of the most versatile ones, are using a `BiFunction<ArgumentQueue, Context, Tag>`. This allows for
-argument input and a lot more control flow. A very good example of its use, made by [`@mbaxter`](https://github.com/mbax), is the following `papi` tag resolver for `PlaceholderAPI`:
+One of the more complex ways to retrieve a <JavaDocs id="TagResolver"/>, but also one of the most versatile ones, is using a `BiFunction<ArgumentQueue, Context, Tag>`. This allows for
+argument input and a lot more control flow. A very good example of its use, made by [`@mbaxter`](https://github.com/mbax), is the following `papi` tag resolver for `PlaceholderAPI`.
+This allows parsing placeholder api placeholders in MiniMessage (`%player_name%` turns into `<papi:player_name>`).
 
 ```java
 /**

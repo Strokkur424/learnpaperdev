@@ -14,16 +14,19 @@ import MMTwoPng from "./assets/MM-2.png";
 import MMGradientPng from "./assets/MM-Gradient.png";
 import HoverAndClickMp4 from "./assets/hover-and-click.mp4";
 
-A <JavaDocs id="Component"/> is the most used object in the Adventure library. In a nutshell, it represents any form of formatted text. They operate using a tree structure.
-That means that if a root component, as example, is bold, **unless a sub component says otherwise**, it too will be rendered bold.
+A <JavaDocs id="Component"/> is the most used object in the Adventure library. In a nutshell, it represents any form of formatted text. They operate using a tree structure,
+which means that if a root component is styled bold, **unless a sub component says otherwise**, it too will be rendered bold.
 
 There is two primary ways of obtaining a <JavaDocs id="Component"/>:
 
 1. Using a <JavaDocs id="MiniMessage"/> deserializer.
-2. Using the component builder: <JavaDocs id="Component" method="text()" name= "Component.text()"/>.
+2. Using one of the overloads of <JavaDocs id="Component" method="text(java.lang.String)" name="Component.text(...)"/>.
+3. Using the component builder: <JavaDocs id="Component" method="text()" name="Component.text()"/>.
+
+## Using MiniMessage
 
 I personally always recommend deserializing from [MiniMessage](https://docs.advntr.dev/minimessage/format.html). It is a very versatile format which also allows for custom
-placeholders and other fun stuff. It also allows you to easily put your message formats into a config, since you do not need to do any form of string concatenations.
+placeholders and other fun stuff. It furthermore allows you to easily put your message formats into a config, since you do not need to do any form of string concatenations.
 
 The default MiniMessage (de)serializer can be obtained using <JavaDocs id="MiniMessage" method="miniMessage()" name="MiniMessage.miniMessage()"/>.
 In order to then retrieve a <JavaDocs id="Component"/> from a MiniMessage-serialized string, you need to use <JavaDocs
@@ -38,16 +41,13 @@ In order to then retrieve a <JavaDocs id="Component"/> from a MiniMessage-serial
     <JavaDocs id="TagResolver"/> object. You can define custom <JavaDocs id="TagResolver" name="TagResolvers"/> for custom, internal tags. For example, you could define yourself
     a `<player>` tag in order to retrieve a player's name. It is a very versatile system!
 
-    To learn more about tag resolvers, you should check out their dedicated page!
-
+    To learn more about tag resolvers, you should check out their [dedicated page](/adventure/tag-resolvers)!
 </Aside>
 
-## Using MiniMessage
+The MiniMessage format is explained very extensively in [Adventure's own documentation](https://docs.advntr.dev/minimessage/format.html). There are a lot of very interesting tags, like the
+`<translate>` tag for client-side translations, but I will not be noting those down, since they are already documented well enough.
 
-The MiniMessage format is explained extensively in [Adventure's own documentation](https://docs.advntr.dev/minimessage/format.html). There are a lot of very interesting tags, like the
-`<translate>` tag for client-side translations. But I will not be noting those down, since they are already documented well enough.
-
-What I will be documenting here though are some of the useful quirks of this format. For once, they follow a tree like structure. That means the following lead to completely
+What I will be documenting here though are some of the useful quirks of this format. For once, they follow a tree like structure. That means the following strings lead to completely
 different results:
 
 - ```xml showLineNumbers=false
@@ -90,15 +90,17 @@ custom hex-based colors and renders the content in a gradient of those colors.
 
 ## Creating simple components
 
-Very simple components can be created using the countless overloads of <JavaDocs id="Component" name="Component.text(...)" method="text(java.lang.String)"/>.
-You can even create components which are translated on the client using
+Very simple components can be created using the countless overloads of <JavaDocs id="Component" name="Component.text(...)" method="text(java.lang.String)"/>. These take in either a
+primitive value or a String or Object and return a <JavaDocs id="Component"/> with no styling; just the parameter input input.
+
+Furthermore, you can even create components which are translated on the client using
 <JavaDocs id="Component" name="Component.translatable(Translatable)" method="translatable(net.kyori.adventure.translation.Translatable)"/>. For example, to display a diamond sword in the
 client's language, you can use this component:
 
 ```java
 final Component translated = Component.translatable(ItemType.DIAMOND_SWORD);
 ```
-<br/>
+
 Another useful component type is a key bind component. Those can be obtained using <JavaDocs id="Component" name="Component.keybind(String)"
 method="keybind(java.lang.String)"/>. For example, to display the key bind for `jump`, you would write this code:
 
@@ -106,10 +108,12 @@ method="keybind(java.lang.String)"/>. For example, to display the key bind for `
 final Component jumpBind = Component.keybind("key.jump");
 ```
 
-<br/><br/>
+<br/>
+All components can be styled! That means you can apply a custom color (using <JavaDocs id="Component" name="#color(TextColor)" method="color(net.kyori.adventure.text.format.TextColor)"/>)
+or a text decoration (using <JavaDocs id="Component" name="#decorate(TextDecoration)" method="decorate(net.kyori.adventure.text.format.TextDecoration)"/>).
 
-Another set of very useful <JavaDocs id="Component" name="Components"/> are the click and hover components. These allow for actions to happen when a user hover over/clicks on some text.
-Anything that extends <JavaDocs id="HoverEventSource"/> can be used inside a hover event and anything that extends <JavaDocs id="ClickEvent"/> can be used inside a click event.
+Furthermore, you can add click and hover events to <JavaDocs id="Component" name="Components"/>. Anything that extends <JavaDocs id="HoverEventSource"/> can be used as a hover event provider
+and anything that extends <JavaDocs id="ClickEvent"/> can be used as a click event provider.
 
 As example, to create a component which displays an item when hovered over, and if clicked, gives the player that same item, the following code can be used:
 ```java
@@ -137,10 +141,10 @@ final Component hoverAndClick = itemStack.getItemMeta().displayName()
 
 ## Building components in code
 
-There is a few ways of building components. The first one is using the <JavaDocs id="TextComponentBuilder" name="TextComponent.Builder"/> obtainable
+The main way to build components is using the <JavaDocs id="TextComponentBuilder" name="TextComponent.Builder"/> obtainable
 from <JavaDocs id="Component" method="text()" name="Component.text()"/>.
 
-The first MiniMessage string mentioned above can be build in Java-code like this:
+The first MiniMessage string mentioned above can be build using the builder like this:
 
 ```java showLineNumbers=false
 final Component component = Component.text()
