@@ -55,9 +55,14 @@
 
 .sl-markdown-content a:not(:where(.not-content *)) {
     color: #e05561;
+    text-decoration: none;
 }
 
 .sl-markdown-content code:not(:where(.not-content *)) {
     background-color: #282c34;
     border-radius: 0.35rem;
+}
+
+.color-dark-purple {
+    color: #aa00aa !important;
 }

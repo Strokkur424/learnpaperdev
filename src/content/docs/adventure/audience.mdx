@@ -1,0 +1,134 @@
+---
+title: "Adventure Series: Audiences"
+slug: adventure/audiences
+next: false
+prev: false
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 2
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+import JavaDocs from "../components/JavaDocs.astro";
+import PreviewVideo from "../components/PreviewVideo.astro";
+
+import BookMp4 from "./assets/book.mp4";
+import BossBarMp4 from "./assets/bossbar.mp4";
+import SoundMp4 from "./assets/sound.mp4";
+import TitleMp4 from "./assets/title.mp4";
+
+Almost every object, which can work with input, implements/extends the <JavaDocs id="Audience"/> interface. That includes, but is not limited to:
+- <JavaDocs id="Player"/>
+- <JavaDocs id="CommandSender"/>
+- <JavaDocs id="Entity"/> (and thus all its subclasses)
+- <JavaDocs id="Server"/>
+- <JavaDocs id="World"/>
+- <JavaDocs id="Team"/>
+
+There are a lot of methods declared in the <JavaDocs id="Audience"/> interface. Too many to list them all. It is recommended to just check out the JavaDocs, but the
+most important ones are:
+
+- <JavaDocs id="Audience" method="sendMessage(net.kyori.adventure.text.ComponentLike)" name = "sendMessage(ComponentLike)"/>
+- <JavaDocs id="Audience" method="sendActionBar(net.kyori.adventure.text.ComponentLike)" name = "sendActionBar(ComponentLike)"/>
+- <JavaDocs id="Audience" method="sendPlayerListHeader(net.kyori.adventure.text.ComponentLike)" name = "sendPlayerListHeader(ComponentLike)"/>
+- <JavaDocs id="Audience" method="sendPlayerListFooter(net.kyori.adventure.text.ComponentLike)" name = "sendPlayerListFooter(ComponentLike)"/>
+- <JavaDocs id="Audience" method="playSound(net.kyori.adventure.sound.Sound)" name = "playSound(Sound)"/>
+- <JavaDocs id="Audience" method="showTitle(net.kyori.adventure.title.Title)" name = "showTitle(Title)"/>
+- <JavaDocs id="Audience" method="showBossBar(net.kyori.adventure.bossbar.BossBar)" name = "showBossBar(BossBar)"/>
+- <JavaDocs id="Audience" method="openBook(net.kyori.adventure.inventory.Book)" name = "openBook(Book)"/>
+
+## Paper's Server/World/Team Objects
+These objects have a special implementation of the <JavaDocs id="Audience"/> interface: The <JavaDocs id="ForwardingAudience"/>.
+That means, instead of executing a method for themselves, it executes it for all audiences backed by the individual object.
+
+More specifically, sending a message to a...
+
+...<JavaDocs id="Server"/> sends the message to every player and the console. <br/>
+...<JavaDocs id="World"/> sends the message to every player in that world. <br/>
+...<JavaDocs id="Team"/> sends the message to every player in that team.
+
+This makes sending messages to multiple players very convenient.
+
+## Creating Forwarding Audiences
+You can create your own forwarding audiences! For this, <JavaDocs id="Audience"/> provides a static method:
+<JavaDocs id="Audience" method="audience(net.kyori.adventure.audience.Audience...)" name="Audience.audience(Audience...)"/>.
+This allows for grouping multiple audiences together in order to have to only send a message (or similar) once and it reaching multiple targets.
+
+This is particularly useful for stuff like a party system or certain mini games.
+
+### Constructing a <JavaDocs id="Sound"/>, <JavaDocs id="Title"/>, <JavaDocs id="BossBar"/>, and <JavaDocs id="AdventureBook"/>
+Each of these provide their own way of creating them. You can check the JavaDocs on the specifics, but I have added some basic examples to showcase their functionality.
+
+<Tabs>
+    <TabItem label="Sound">
+        ```java title=""
+        // net.kyori.adventure.sound.Sound
+        final Sound sound = Sound.sound()
+            .pitch(1.5f)
+            .volume(100.0f)
+            .type(org.bukkit.Sound.ENTITY_PLAYER_LEVELUP)
+            .build();
+        Bukkit.getServer().playSound(sound);
+        ```
+
+        <PreviewVideo src={SoundMp4} summary="Preview" muted="false"/>
+    </TabItem>
+    <TabItem label="Title">
+        ```java title=""
+        // net.kyori.adventure.title.Title
+        final Title title = Title.title(
+            Component.text("Big Top Text"),
+            Component.text("small bottom text"),
+            //                Fade-in duration       Stay duration          Fade out duration
+            Title.Times.times(Duration.ofSeconds(5), Duration.ofSeconds(5), Duration.ofSeconds(5))
+        );
+        Bukkit.getServer().showTitle(title);
+        ```
+
+        <PreviewVideo src={TitleMp4} summary="Preview"/>
+    </TabItem>
+    <TabItem label="BossBar">
+        ```java title=""
+        // net.kyori.adventure.bossbar.BossBar
+        final BossBar bossBar = BossBar.bossBar(
+            miniMessage().deserialize("<gradient:aqua:light_purple:aqua><b>A very nice looking bossbar!"),
+            0.75f,
+            BossBar.Color.PURPLE,
+            BossBar.Overlay.PROGRESS,
+            Set.of(BossBar.Flag.CREATE_WORLD_FOG)
+        );
+        Bukkit.getServer().showBossBar(bossBar);
+        ```
+
+        <PreviewVideo src={BossBarMp4} summary="Preview"/>
+    </TabItem>
+    <TabItem label="Book">
+        ```java title=""
+        // net.kyori.adventure.inventory.Book
+        final Book book = Book.builder()
+            .title(miniMessage().deserialize("<gradient:red:blue><b>Police Report"))
+            .author(Component.text("The Police").color(NamedTextColor.GRAY))
+            .addPage(miniMessage().deserialize("""
+                <dark_gray><u><b>Report Day 1</u>
+
+                Events: <red>none</red>
+                Found victims: <red>2</red>
+                Cases solved: <red>none</red>
+
+                """.trim()))
+            .addPage(miniMessage().deserialize("""
+                <dark_gray><u><b>Report Day 2</u>
+
+                Events: <red>1</red>
+                Found victims: <red>none</red>
+                Cases solved: <red>1</red>
+
+                """.trim()))
+            .build();
+        Bukkit.getServer().openBook(book);
+        ```
+
+        <PreviewVideo src={BookMp4} summary="Preview"/>
+    </TabItem>
+</Tabs>
