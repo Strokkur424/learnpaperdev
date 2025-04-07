@@ -1,11 +1,14 @@
 ---
 import V_1_21_1 from "../data/1_21_1.json";
+import V_1_21_3 from "../data/1_21_3.json";
 
 const { version_id } = Astro.props;
 
 let activeObj: any = null;
 if (version_id == "1.21.1") {
     activeObj = V_1_21_1;
+} else if (version_id == "1.21.3") {
+    activeObj = V_1_21_3;
 }
 
 let halfParsed: Array<any> | null = activeObj == null ? null : activeObj;
@@ -37,6 +40,20 @@ let removed: Array<string> | null = new Array<string>;
     ?.forEach(e => e.removed.forEach(one => removed.push(one)));
 
 removed.sort();
+
+let renamed: Array<string> | null = new Array<string>;
+  halfParsed
+    ?.filter(e => e.renamed != null)
+    ?.forEach(e => e.renamed.forEach(one => renamed.push(one)));
+
+renamed.sort();
+
+let noInternal: Array<string> | null = new Array<string>;
+  halfParsed
+    ?.filter(e => e.noInternal != null)
+    ?.forEach(e => e.noInternal.forEach(one => noInternal.push(one)));
+
+noInternal.sort();
 ---
 
 {
@@ -51,7 +68,6 @@ removed.sort();
                         </details>
                     )
                 }
-
                 {
                     deprecations.length == 0 ? "" : (
                         <details>
@@ -60,7 +76,6 @@ removed.sort();
                         </details>
                     )
                 }
-
                 {
                     extensions.length == 0 ? "" : (
                         <details>
@@ -69,12 +84,27 @@ removed.sort();
                         </details>
                     )
                 }
-
                 {
                     removed.length == 0 ? "" : (
                         <details>
                             <summary>All API Removals</summary>
                             {removed.map(e => <li><code>{e}</code></li>)}
+                        </details>
+                    )
+                }
+                {
+                    renamed.length == 0 ? "" : (
+                        <details>
+                            <summary>All Renamed Classes</summary>
+                            {renamed.map(e => <li>{e}</li>)}
+                        </details>
+                    )
+                }
+                {
+                    noInternal.length == 0 ? "" : (
+                        <details>
+                            <summary>No Longer Internal</summary>
+                            {noInternal.map(e => <li><code>{e}</code></li>)}
                         </details>
                     )
                 }
@@ -132,6 +162,26 @@ removed.sort();
                     <ul>
                         {e.removed.map((rem) => (
                             <li><code>{rem}</code></li>
+                        ))}
+                    </ul>
+                )}
+                {e.renamed == null ? (
+                    ""
+                ) : (
+                    <p>Renamed:</p>
+                    <ul>
+                        {e.renamed.map((ren) => (
+                            <li>{ren}</li>
+                        ))}
+                    </ul>
+                )}
+                {e.noInternal == null ? (
+                    ""
+                ) : (
+                    <p>No longer internal:</p>
+                    <ul>
+                        {e.noInternal.map((noi) => (
+                            <li><code>{noi}</code></li>
                         ))}
                     </ul>
                 )}
