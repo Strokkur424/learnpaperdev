@@ -59,6 +59,7 @@ export default defineConfig({
             { label: "1.21.3", link: "/changelogs/1.21.3" },
             { label: "1.21.2", link: "/changelogs/1.21.2" },
             { label: "1.21.1", link: "/changelogs/1.21.1" },
+            { label: "1.21", link: "/changelogs/1.21" },
           ],
         },
       ],

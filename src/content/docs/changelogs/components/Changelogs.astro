@@ -1,0 +1,143 @@
+---
+import { versions } from "sharp";
+import V_1_21_1 from "../data/1_21_1.json";
+import { undefined } from "astro:schema";
+
+const { version_id } = Astro.props;
+
+let activeObj: any = null;
+if (version_id == "1.21.1") {
+    activeObj = V_1_21_1;
+}
+
+let halfParsed: Array<any> | null = activeObj == null ? null : activeObj;
+
+let additions: Array<string> | null = new Array<string>;
+  halfParsed
+    ?.filter(e => e.additions != null)
+    ?.forEach(e => e.additions.forEach(one => additions.push(one)));
+
+additions.sort();
+
+let deprecations: Array<string> | null = new Array<string>;
+  halfParsed
+    ?.filter(e => e.deprecations != null)
+    ?.forEach(e => e.deprecations.forEach(one => deprecations.push(one)));
+
+deprecations.sort();
+
+let extensions: Array<string> | null = new Array<string>;
+  halfParsed
+    ?.filter(e => e.extensions != null)
+    ?.forEach(e => e.extensions.forEach(one => extensions.push(one)));
+
+extensions.sort();
+
+let removed: Array<string> | null = new Array<string>;
+  halfParsed
+    ?.filter(e => e.removed != null)
+    ?.forEach(e => e.removed.forEach(one => removed.push(one)));
+
+removed.sort();
+---
+
+{
+    halfParsed == null ? "" : (
+      <details>
+          <summary>All API Changes</summary>
+                {
+                    additions.length == 0 ? "" : (
+                        <details>
+                            <summary>All API Additions</summary>
+                            {additions.map(e => <li><code>{e}</code></li>)}
+                        </details>
+                    )
+                }
+
+                {
+                    deprecations.length == 0 ? "" : (
+                        <details>
+                            <summary>All API Deprecations</summary>
+                            {deprecations.map(e => <li><code>{e}</code></li>)}
+                        </details>
+                    )
+                }
+
+                {
+                    extensions.length == 0 ? "" : (
+                        <details>
+                            <summary>All Class Inheritance Changes</summary>
+                            {extensions.map(e => <li>{e}</li>)}
+                        </details>
+                    )
+                }
+
+                {
+                    removed.length == 0 ? "" : (
+                        <details>
+                            <summary>All API Removals</summary>
+                            {removed.map(e => <li><code>{e}</code></li>)}
+                        </details>
+                    )
+                }
+      </details>
+    )
+}
+{
+    halfParsed == null ? (
+        <p>An internal error occurred.</p>
+    ) : (
+        halfParsed.map((e) => (
+            <p>
+                <h2>
+                    <a href={e.link}>
+                        <code>#{e.id}</code>
+                    </a>{" "}
+                    {e.name}
+                </h2>
+                <br />
+                {e.extra == null ?  "" : e.extra}
+                {e.additions == null ? (
+                    ""
+                ) : (
+                    <p>Additions:</p>
+                    <ul>
+                        {e.additions.map((add) => (
+                            <li><code>{add}</code></li>
+                        ))}
+                    </ul>
+                )}
+                {e.deprecations == null ? (
+                    ""
+                ) : (
+                    <p>Deprecations:</p>
+                    <ul>
+                        {e.deprecations.map((dep) => (
+                            <li><code>{dep}</code></li>
+                        ))}
+                    </ul>
+                )}
+                {e.extensions == null ? (
+                    ""
+                ) : (
+                    <p>Extensions:</p>
+                    <ul>
+                        {e.extensions.map((ext) => (
+                            <li>{ext}</li>
+                        ))}
+                    </ul>
+                )}
+                {e.removed == null ? (
+                    ""
+                ) : (
+                    <p>Removed:</p>
+                    <ul>
+                        {e.removed.map((rem) => (
+                            <li><code>{rem}</code></li>
+                        ))}
+                    </ul>
+                )}
+            </p>
+        ))
+    )
+}
