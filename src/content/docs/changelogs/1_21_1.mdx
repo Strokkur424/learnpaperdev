@@ -4,6 +4,71 @@ description: This page lists all of the relevant API changes in 1.21.1
 slug: changelogs/1.21.1
 ---
 
+
+<details>
+    <summary>All API Addtions:</summary>
+    - `BrewingStand#setRecipeBrewTime(int recipeBrewTime)`
+    - `BrewingStand#getRecipeBrewTime(): int`
+    - `BrewingStartEvent#getRecipeBrewTime(): int`
+    - `BrewingStartEvent#setRecipeBrewTime(int recipeBrewTime)`
+    - `BrewingStartEvent#getBrewingTime(): int`
+    - `BrewingStartEvent#setBrewingTime(int brewingTime)`
+    - `BrewingStandView#getRecipeBrewTime(): int`
+    - `BrewingStandView#setRecipeBrewTime(int recipeBrewTime)`
+    - `Bed#setOccupied(boolean occupied)`
+    - `Bukkit.getWorld(Key worldKey): World`
+    - `CompassMeta#isLodestoneCompass(): boolean`
+    - `CompassMeta#clearLodestone()`
+    - `Datapack#getTitle(): Component`
+    - `Datapack#getDescription(): Component`
+    - `Datapack#isRequired(): boolean`
+    - `Datapack#getRequiredFeatures(): Set<FeatureFlag>`
+    - `Datapack#getSource(): DatapackSource`
+    - `Datapack#computeDisplayName(): Component`
+    - `DatapackManager#refreshPacks()`
+    - `DatapackManager#getPack(String name): Datapack`
+    - `DatapackSource`
+    - `DecoratedPot#isCracked(): boolean`
+    - `DecoratedPot#setCracked(boolean cracked)`
+    - `EntityEffect.TAMING_FAILED`
+    - `EntityEffect.TAMING_SUCCEEDED`
+    - `EntityEffect.ARMADILLO_PEEK`
+    - `EntityEffect.BODY_BREAK`
+    - `Entity#broadcastHurtAnimation(Collection<Player> players)`
+    - `EnchantmentView#setEnchantmentSeed(int seed)`
+    - `Enchantment#description: Component`
+    - `Enchantment#getSupportedItems(): RegistryKeySet<ItemType>`
+    - `Enchantment#getPrimaryItems(): RegistryKeySet<ItemType>`
+    - `Enchantment#getWeight(): int`
+    - `Enchantment#getExclusiveWith(): RegistryKeySet<Enchantment>`
+    - `FeatureDependant`
+    - `FeatureFlagSetHolder`
+    - `FeatureFlag.ALL_FLAGS: Index<Key, FeatureFlag>`
+    - `FireworkMeta#hasPower(): boolean`
+    - `ItemFactory#enchantWithLevels(ItemStack itemStack, int levels, RegistryKeySet<Enchantment> keySet, Random random): ItemStack`
+    - `ItemStack#enchantWithLevels(int levels, RegistryKeySet<Enchantment> keySet, Random random): ItemStack`
+    - `ItemStack.serializeItemsAsBytes(Collection<ItemStack> items): byte[]`
+    - `ItemStack.serializeItemsAsBytes(ItemStack[] items): byte[]`
+    - `ItemStack#deserializeItemsFromBytes(byte[] bytes): ItemStack[]`
+    - `LifecycleEvents.TAGS: TagEventTypeProvider`
+    - `Leashable`
+    - `OfflinePlayer#getPersistentDataContainer()`
+    - `org.jspecify` is now included in the API.
+    - `PlayerInsertLecternBookEvent extends PlayerEvent implements Cancellable`
+    - `Player#sendEntityEffect(EntityEffect effect, Entity target)`
+    - `PreFlattenTagRegistrar<T> extends Registrar`
+    - `PostFlattenTagRegistrar<T> extends Registrar`
+    - `<T extends Projectile> ProjectileSource#launchProjective(Class<? extends T> projectile, Vector velocity, Consumer<? super T> function): T`
+    - `Server#getWorld(Key worldKey): World`
+    - `Sign#getAllowedEditorUniqueId(): UUID`
+    - `Sign#setAllowedEditorUniqueId(UUID uuid)`
+    - `TileStateInventoryHolder extends TileState, BlockInventoryHolder`
+    - `TagEventTypeProvider`
+    - `TagEntry<T> extends Keyed`
+    - `UnsafeValues#serializeItemAsJson(ItemStack itemStack): JsonObject`
+    - `UnsafeValues#deserializeItemFromJson(JsonObject data): ItemStack`
+</details>
+
 ## [`#125`](https://github.com/PaperMC/Paper/pull/11501) Updated Upstream (Bukkit/CraftBukkit)
 *There have been minor API changes. View them in the [PR description](https://github.com/PaperMC/Paper/pull/11501).*
 
