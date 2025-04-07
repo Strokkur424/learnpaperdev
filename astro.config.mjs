@@ -54,7 +54,12 @@ export default defineConfig({
         },
         {
           label: "API Changelogs",
-          autogenerate: { directory: "changelogs" },
+          items: [
+            { label: "1.21.4", link: "/changelogs/1.21.4" },
+            { label: "1.21.3", link: "/changelogs/1.21.3" },
+            { label: "1.21.2", link: "/changelogs/1.21.2" },
+            { label: "1.21.1", link: "/changelogs/1.21.1" },
+          ],
         },
       ],
       customCss: ["./src/custom.css"],
