@@ -9,7 +9,7 @@ const { version_id, next, prev } = Astro.props;
 const changeLogs: ChangeLogs  = getChangeLogs(version_id);
 ---
 
-<StarlightPage headings={changeLogs.headings} frontmatter={{ title: "API Changelogs", slug: "/changelogs/" + version_id + "/", next: next, prev: prev}}>
+<StarlightPage headings={changeLogs.headings} frontmatter={{ title: "API Changes in " + version_id, slug: "/changelogs/" + version_id + "/", next: next, prev: prev}}>
 {
     <details>
         <summary>All API Changes</summary>
