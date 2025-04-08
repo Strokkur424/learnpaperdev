@@ -74,7 +74,7 @@
     "id": 51,
     "link": "https://github.com/PaperMC/Paper/pull/11641",
     "name": "Make TypedKey an actual Key",
-    "extensions": ["TypedKey<T>` now extends `Key` (extended `Keyed` before)"]
+    "extensions": ["`TypedKey<T>` now extends `Key` (extended `Keyed` before)"]
   },
   {
     "id": 48,
@@ -92,7 +92,7 @@
     "id": 42,
     "link": "https://github.com/PaperMC/Paper/pull/11625",
     "name": "Add PlayerItemGroupCooldownEvent",
-    "renamed": ["PlayerItemCooldownEvent` to `PlayerItemGroupCooldownEvent"],
+    "renamed": ["`PlayerItemCooldownEvent` to `PlayerItemGroupCooldownEvent`"],
     "additions": [
       "PlayerItemCooldownEvent extends PlayerItemGroupCooldownEvent"
     ]
