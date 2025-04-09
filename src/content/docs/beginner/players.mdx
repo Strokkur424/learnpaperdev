@@ -9,6 +9,7 @@ import PreviewImage from "../components/PreviewImage.astro";
 import PreviewVideo from "../components/PreviewVideo.astro";
 
 import BlockBreakMessagePng from "./assets/players/block-break-message.png";
+import PlayerListPng from "./assets/players/player-list.png";
 import SneakFlyingMp4 from "./assets/players/sneak-flying.mp4";
 
 One of the most used objects when developing for Paper is the <JavaDocs id="Player"/> object. It represents a player who is playing on your server. Through it you can send the player messages,
@@ -151,6 +152,98 @@ public void onEnable() {
     // #registerEvents requires the listener we want to register, and our plugin instance
     pluginManager.registerEvents(listener, this);
     pluginManager.registerEvents(new PlayerSneakListener(), this);
+
+    getComponentLogger().warn("Our plugin has been enabled!");
+}
+```
+
+## Modifying the player list
+The player list (tab list) can be modified using the follow methods:
+- <JavaDocs id="Audience" method="sendPlayerListHeader(net.kyori.adventure.text.Component)" name="Player#sendPlayerListHeader(Component header)" />
+- <JavaDocs id="Audience" method="sendPlayerListFooter(net.kyori.adventure.text.Component)" name="Player#sendPlayerListFooter(Component footer)" />
+
+For modifying both at once, you can use:
+- <JavaDocs id="Audience" method="sendPlayerListHeaderAndFooter(net.kyori.adventure.text.Component,net.kyori.adventure.text.Component)" name="Player#sendPlayerListHeaderAndFooter(Component header, Component footer)" />
+
+There is also the possibility of setting a player's tab list display name: <JavaDocs id="Player" method="playerListName()" />.
+
+### Setting the player's list on player join
+We can write another listener which modifies the player's player list whenever they join the server. We can even style the player's name! In this case, we will
+apply a **random gradient** whenever a player joins. Sounds fun, doesn't it? For this we will add a new event handler for the <JavaDocs id="PlayerJoinEvent" />.
+The code that we have to write is pretty straight-forward. The one part that you may be unfamiliar with is the usage of the pre-process <JavaDocs id="Tag" />.
+We use it in order to be able to put a tag into the parameters of the `<gradient>` tag, as otherwise, it would just use `<first_color>` and `<second_color>` as literal
+parameters, which is not what we want!
+
+<PreviewImage src={PlayerListPng} summary="Player List Preview"/>
+
+```java title="PlayerJoinListener.java" collapse={1-14}
+package com.learnpaperdev.beginner;
+
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.minimessage.tag.Tag;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.jspecify.annotations.NullMarked;
+
+import java.util.Random;
+
+import static net.kyori.adventure.text.minimessage.MiniMessage.miniMessage;
+
+@NullMarked
+public class PlayerJoinListener implements Listener {
+
+    private final Random random = new Random();
+
+    @EventHandler
+    void onPlayerJoin(PlayerJoinEvent event) {
+        final Player player = event.getPlayer();
+
+        final Component header = miniMessage().deserialize("""
+                <b><gradient:red:white>A Very Cool Title</b>
+                """,
+            Placeholder.component("player", player.name())
+        );
+
+        final Component footer = miniMessage().deserialize("""
+
+            <gray>Enjoy your time here!</gray>"""
+        );
+
+        player.sendPlayerListHeaderAndFooter(header, footer);
+
+        final TextColor firstColor = TextColor.color(random.nextInt(0xFFFFFF));
+        final TextColor secondColor = TextColor.color(random.nextInt(0xFFFFFF));
+
+        final Component playerName = miniMessage().deserialize("<b><gradient:<first_color>:<second_color>><playername>",
+            TagResolver.resolver("first_color", Tag.preProcessParsed(firstColor.asHexString())),
+            TagResolver.resolver("second_color", Tag.preProcessParsed(secondColor.asHexString())),
+            Placeholder.component("playername", player.name())
+        );
+
+        player.playerListName(playerName);
+    }
+}
+```
+
+And again, don't forget to register this new listener.
+```java title="BeginnerPlugin.java" {12} collapse={3-7} startLineNumber=13
+@Override
+public void onEnable() {
+    // We use a PluginManager in order to register events
+    final PluginManager pluginManager = getServer().getPluginManager();
+
+    // Create our listener instance
+    final BlockBreakListener listener = new BlockBreakListener(getComponentLogger());
+
+    // #registerEvents requires the listener we want to register, and our plugin instance
+    pluginManager.registerEvents(listener, this);
+    pluginManager.registerEvents(new PlayerSneakListener(), this);
+    pluginManager.registerEvents(new PlayerJoinListener(), this);
 
     getComponentLogger().warn("Our plugin has been enabled!");
 }

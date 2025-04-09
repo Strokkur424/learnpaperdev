@@ -34,6 +34,7 @@ export const known: Map<string, string> = new Map(
     cancellable: "org.bukkit.event.Cancellable",
     eventhandler: "org.bukkit.event.EventHandler",
     blockbreakevent: "org.bukkit.event.block.BlockBreakEvent",
+    playerjoinevent: "org.bukkit.event.player.PlayerJoinEvent",
     entitydamageevent: "org.bukkit.event.entity.EntityDamageEvent",
 
     nonnull: "org.jspecify.annotations.NonNull",
