@@ -1,10 +1,10 @@
 ---
-import { known } from "./KnownClasses.js";
+import { known } from "./KnownClasses.ts";
 
 let { version = "1.21.4", path, method, name, id } = Astro.props;
 
 if (path == null && id != null) {
-    path = known.get(id);
+    path = known.get(id.toLowerCase());
 }
 
 let project = "paper";
