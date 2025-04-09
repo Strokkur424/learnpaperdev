@@ -44,7 +44,7 @@ to the player. Internally, this converts the string to a component and then uses
 You can optionally include [`TagResolvers` for custom tags](/adventure/tag-resolvers). The last method is for sending a non-parsed message to the client. This one will make no attempt to parse
 the string's contents — what you put in is what gets send!
 
-### Example: Updating our block destroy listener
+### Updating our block destroy listener
 
 In our event handler in `BlockBreakListener.java`, we can replace the logger call with a `player#sendRichMessage`. Now you don't have to check the console!
 
@@ -98,8 +98,7 @@ You can modify a <JavaDocs id="Location" /> with multiple methods and method ove
 - <JavaDocs id="Location" method="toHighestLocation()" />
 
 
-
-### Example: Applying a velocity when a player sneaks
+### Applying a velocity when a player sneaks
 
 When getting the location from <JavaDocs id="Player" method="getEyeLocation()"/>, you can get they player's current facing direction with <JavaDocs id="Location" method="getDirection()"/>.
 You can then work with that direction. One example can be to check if the player is looking at something, which would be done with a ray trace. Since that is too complicated for us for now,
