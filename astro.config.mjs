@@ -35,7 +35,11 @@ export default defineConfig({
             },
             {
               label: "Working with Players",
-              link: "/beginner/working-with-players",
+              link: "/beginner/players",
+            },
+            {
+              label: "Items",
+              link: "/beginner/items",
             },
           ],
         },
