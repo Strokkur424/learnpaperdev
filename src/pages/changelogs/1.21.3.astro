@@ -1,0 +1,16 @@
+---
+import ChangeLogsComponent from "../../components/ChangeLogsComponent.astro";
+import { getChangeLogs } from "../../components/ChangeLogs.tsx";
+
+const version_id: string = "1.21.3";
+
+export function getStaticPaths() {
+    return getChangeLogs(version_id).staticPaths.map((path) => {
+        params: {
+            id: path;
+        }
+    });
+}
+---
+
+<ChangeLogsComponent version_id={version_id} prev={false} />
