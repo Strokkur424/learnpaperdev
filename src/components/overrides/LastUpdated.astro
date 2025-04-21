@@ -22,7 +22,10 @@ const info = await getCommitInfo(filePath);
       {info && (
         <span class="nowrap">
           by <a href={info.committer.href}>{info.committer.name}</a>
-          in <a href={`https://github.com/${REPO}/commit/${info.hash}`}>{info.hash.substring(0, 7)}</a>
+          in{" "}
+          <a href={`https://github.com/${REPO}/commit/${info.hash}`}>
+            {info.hash.substring(0, 7)}
+          </a>
         </span>
       )}
     </p>
@@ -30,7 +33,8 @@ const info = await getCommitInfo(filePath);
 }
 
 <style>
-  a, a:visited {
+  a,
+  a:visited {
     color: var(--sl-color-accent-high);
   }
 

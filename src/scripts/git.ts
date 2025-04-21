@@ -30,11 +30,17 @@ const options: RequestInit = token
 export const REPO = "Strokkur424/learnpaperdev";
 const cache = new Map<string, CommitterInfo>();
 
-export const getCommitInfo = async (filePath: string): Promise<CommitInfo | null> => {
+export const getCommitInfo = async (
+  filePath: string
+): Promise<CommitInfo | null> => {
   let email: string, hash: string;
   try {
-    email = execSync(`git log -1 --pretty="format:%ae" -- "${filePath}"`).toString();
-    hash = execSync(`git log -1 --pretty="format:%H" -- "${filePath}"`).toString();
+    email = execSync(
+      `git log -1 --pretty="format:%ae" -- "${filePath}"`
+    ).toString();
+    hash = execSync(
+      `git log -1 --pretty="format:%H" -- "${filePath}"`
+    ).toString();
   } catch (e) {
     return null;
   }
@@ -46,14 +52,19 @@ export const getCommitInfo = async (filePath: string): Promise<CommitInfo | null
 
   let name: string;
   try {
-    name = execSync(`git log -1 --pretty="format:%an" -- "${filePath}"`).toString();
+    name = execSync(
+      `git log -1 --pretty="format:%an" -- "${filePath}"`
+    ).toString();
   } catch (e) {
     return null;
   }
 
   const info: CommitterInfo = { name, href: `mailto:${email}` };
 
-  const res = await fetch(`https://api.github.com/repos/${REPO}/commits/${hash}`, options);
+  const res = await fetch(
+    `https://api.github.com/repos/${REPO}/commits/${hash}`,
+    options
+  );
   if (res.ok) {
     const commit = await res.json();
     info.href = commit.author.html_url;

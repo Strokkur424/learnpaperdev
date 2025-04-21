@@ -4,82 +4,82 @@ import { known } from "./KnownClasses.js";
 let { version = "1.21.4", path, method, name, id } = Astro.props;
 
 if (path == null && id != null) {
-    path = known.get(id);
+  path = known.get(id);
 }
 
 let project = "paper";
 if (path == null) {
-    project = "null";
+  project = "null";
 } else if (path.startsWith("net.kyori.adventure.text.logger")) {
-    project = "text-logger-slf4j";
+  project = "text-logger-slf4j";
 } else if (path.startsWith("net.kyori.adventure.text.minimessage")) {
-    project = "text-minimessage";
+  project = "text-minimessage";
 } else if (path.startsWith("net.kyori.adventure")) {
-    project = "api";
+  project = "api";
 } else if (path.startsWith("org.jspecify")) {
-    project = "jspecify";
+  project = "jspecify";
 } else if (path.startsWith("org.slf4j")) {
-    project = "slf4j";
+  project = "slf4j";
 }
 
 function buildFilePath() {
-    if (path == null) {
-        return "about:blank";
-    }
+  if (path == null) {
+    return "about:blank";
+  }
 
-    let modifiedPath = path.replaceAll(".", "/").replaceAll("\\/", ".");
-    if (project == "paper") {
-        return (
-            "https://jd.papermc.io/paper/" +
-            version +
-            "/" +
-            modifiedPath +
-            ".html" +
-            (method != null ? "#" + method : "")
-        );
-    }
+  let modifiedPath = path.replaceAll(".", "/").replaceAll("\\/", ".");
+  if (project == "paper") {
+    return (
+      "https://jd.papermc.io/paper/" +
+      version +
+      "/" +
+      modifiedPath +
+      ".html" +
+      (method != null ? "#" + method : "")
+    );
+  }
 
-    if (
-        project == "text-logger-slf4j" ||
-        project == "api" ||
-        project == "text-minimessage"
-    ) {
-        return (
-            "https://jd.advntr.dev/" +
-            project +
-            "/latest/" +
-            modifiedPath +
-            ".html" +
-            (method != null ? "#" + method : "")
-        );
-    }
+  if (
+    project == "text-logger-slf4j" ||
+    project == "api" ||
+    project == "text-minimessage"
+  ) {
+    return (
+      "https://jd.advntr.dev/" +
+      project +
+      "/latest/" +
+      modifiedPath +
+      ".html" +
+      (method != null ? "#" + method : "")
+    );
+  }
 
-    if (project == "jspecify") {
-        return "https://jspecify.dev/docs/api/" + modifiedPath + ".html";
-    }
+  if (project == "jspecify") {
+    return "https://jspecify.dev/docs/api/" + modifiedPath + ".html";
+  }
 
-    if (project == "slf4j") {
-        return (
-            "https://www.slf4j.org/api/" +
-            modifiedPath +
-            ".html" +
-            (method != null ? "#" + method : "")
-        );
-    }
+  if (project == "slf4j") {
+    return (
+      "https://www.slf4j.org/api/" +
+      modifiedPath +
+      ".html" +
+      (method != null ? "#" + method : "")
+    );
+  }
 }
 
 let fullPath = buildFilePath();
 
 let finalName = name;
 if (name == null && path != null) {
-    let splitPath = path.split(".");
-    const className = splitPath[splitPath.length - 1];
+  let splitPath = path.split(".");
+  const className = splitPath[splitPath.length - 1];
 
-    if (method == null) {
-        finalName = className;
-    } else {
-        finalName = className + "#" + method;
-    }
+  if (method == null) {
+    finalName = className;
+  } else {
+    finalName = className + "#" + method;
+  }
 }
 ---
 

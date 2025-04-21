@@ -9,7 +9,7 @@ const versionConversion: Map<string, any> = new Map(
     "1.21.3": V_1_21_3,
     "1.21.4": V_1_21_4,
     "1.21.5": V_1_21_5,
-  }),
+  })
 );
 
 export interface SidebarsProps {
@@ -46,7 +46,7 @@ export interface VersionTemplate {
 
 function flattenValues(
   change: ChangeLogs,
-  inter: (ver: VersionTemplate) => Array<string> | null,
+  inter: (ver: VersionTemplate) => Array<string> | null
 ): Array<string> {
   let out: Array<string> = new Array<string>();
   change.data
@@ -91,28 +91,28 @@ export class ChangeLogs {
     this.data = temp as Array<VersionTemplate>;
 
     this.flatAdditions = flattenValues(this, (ver) =>
-      ver.additions == undefined ? null : ver.additions,
+      ver.additions == undefined ? null : ver.additions
     );
     this.flatDeprecations = flattenValues(this, (ver) =>
-      ver.deprecations == undefined ? null : ver.deprecations,
+      ver.deprecations == undefined ? null : ver.deprecations
     );
     this.flatExtensions = flattenValues(this, (ver) =>
-      ver.extensions == undefined ? null : ver.extensions,
+      ver.extensions == undefined ? null : ver.extensions
     );
     this.flatRemoved = flattenValues(this, (ver) =>
-      ver.removed == undefined ? null : ver.removed,
+      ver.removed == undefined ? null : ver.removed
     );
     this.flatObsolete = flattenValues(this, (ver) =>
-      ver.obsolete == undefined ? null : ver.obsolete,
+      ver.obsolete == undefined ? null : ver.obsolete
     );
     this.flatRenamed = flattenValues(this, (ver) =>
-      ver.renamed == undefined ? null : ver.renamed,
+      ver.renamed == undefined ? null : ver.renamed
     );
     this.flatNoInternal = flattenValues(this, (ver) =>
-      ver.noInternal == undefined ? null : ver.noInternal,
+      ver.noInternal == undefined ? null : ver.noInternal
     );
     this.flatLibraries = flattenValues(this, (ver) =>
-      ver.libraries == undefined ? null : ver.libraries,
+      ver.libraries == undefined ? null : ver.libraries
     );
 
     this.headings = this.data.map((e) => createHeadingObj(e));
