@@ -11,9 +11,13 @@ export default defineConfig({
       logo: {
         src: "./src/assets/logo.svg",
       },
-      social: {
-        github: "https://github.com/Strokkur424/learnpaperdev",
-      },
+      social: [
+        {
+          icon: "github",
+          label: "GitHub",
+          href: "https://github.com/Strokkur424/learnpaperdev",
+        },
+      ],
       components: {
         Footer: "./src/components/Footer.astro",
         Header: "./src/components/Header.astro",
