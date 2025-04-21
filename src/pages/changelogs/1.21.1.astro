@@ -4,14 +4,15 @@ import { getChangeLogs } from "../../components/ChangeLogs.tsx";
 
 const version_id: string = "1.21.1";
 
-export function getStaticPaths() {
-    return getChangeLogs(version_id).staticPaths.map((path) => {
-        params: {
-            id: path;
-        }
-        props: path;
-    });
-}
+// This does not work!
+// export function getStaticPaths() {
+//     return getChangeLogs(version_id).staticPaths.map((path) => {
+//         params: {
+//             id: path;
+//         }
+//         props: path;
+//     });
+// }
 ---
 
 <ChangeLogsComponent version_id={version_id} next={false} />

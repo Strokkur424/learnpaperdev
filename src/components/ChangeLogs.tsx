@@ -53,7 +53,7 @@ function flattenValues(
 function createHeadingObj(build: VersionTemplate): SidebarsProps {
   return {
     depth: 2,
-    slug: (build.id + " " + build.name).toLowerCase().replaceAll(" ", "-"),
+    slug: build.id.toString(),
     text: build.name,
   };
 }

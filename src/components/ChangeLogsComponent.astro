@@ -1,5 +1,5 @@
 ---
-import type { ChangeLogs, SidebarsProps, VersionTemplate } from "./ChangeLogs.tsx";
+import type { ChangeLogs } from "./ChangeLogs.tsx";
 import { getChangeLogs } from "./ChangeLogs.tsx";
 
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
@@ -66,7 +66,7 @@ const changeLogs: ChangeLogs  = getChangeLogs(version_id);
 {
     changeLogs.data.map((e) => (
         <p>
-            <h2>
+            <h2 id={`${e.id}`}>
                 <a href={e.link}>
                     <code>#{e.id}</code>
                 </a>{" "}
