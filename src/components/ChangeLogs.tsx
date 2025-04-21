@@ -1,10 +1,12 @@
 import V_1_21_1 from "../assets/changelogs/1_21_1.json";
 import V_1_21_3 from "../assets/changelogs/1_21_3.json";
+import V_1_21_5 from "../assets/changelogs/1_21_5.json";
 
 const versionConversion: Map<string, any> = new Map(
   Object.entries({
     "1.21.1": V_1_21_1,
     "1.21.3": V_1_21_3,
+    "1.21.5": V_1_21_5,
   }),
 );
 
