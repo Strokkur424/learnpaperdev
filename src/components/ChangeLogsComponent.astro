@@ -1,6 +1,5 @@
 ---
-import type { ChangeLogs } from "./ChangeLogs.tsx";
-import { getChangeLogs } from "./ChangeLogs.tsx";
+import { type ChangeLogs, getChangeLogs } from "./ChangeLogs.ts";
 
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import { marked } from "marked";
@@ -46,6 +45,14 @@ const changeLogs: ChangeLogs  = getChangeLogs(version_id);
                   )
               }
               {
+                  changeLogs.flatObsolete.length == 0 ? "" : (
+                      <details>
+                          <summary>Now Obsolete</summary>
+                          {changeLogs.flatObsolete.map(e => <li><code>{e}</code></li>)}
+                      </details>
+                  )
+              }
+              {
                   changeLogs.flatRenamed.length == 0 ? "" : (
                       <details>
                           <summary>All Renamed Classes</summary>
@@ -58,6 +65,14 @@ const changeLogs: ChangeLogs  = getChangeLogs(version_id);
                       <details>
                           <summary>No Longer Internal</summary>
                           {changeLogs.flatNoInternal.map(e => <li><code>{e}</code></li>)}
+                      </details>
+                  )
+              }
+              {
+                  changeLogs.flatLibraries.length == 0 ? "" : (
+                      <details>
+                          <summary>Library Changes</summary>
+                          {changeLogs.flatLibraries.map(e => <li set:html={marked.parseInline(e)}></li>)}
                       </details>
                   )
               }
@@ -113,6 +128,16 @@ const changeLogs: ChangeLogs  = getChangeLogs(version_id);
                     ))}
                 </ul>
             )}
+            {e.obsolete == null ? (
+                ""
+            ) : (
+                <p>Obsolete API:</p>
+                <ul>
+                    {e.obsolete.map((obs) => (
+                        <li><code>{obs}</code></li>
+                    ))}
+                </ul>
+            )}
             {e.renamed == null ? (
                 ""
             ) : (
@@ -130,6 +155,16 @@ const changeLogs: ChangeLogs  = getChangeLogs(version_id);
                 <ul>
                     {e.noInternal.map((noi) => (
                         <li><code>{noi}</code></li>
+                    ))}
+                </ul>
+            )}
+            {e.libraries == null ? (
+                ""
+            ) : (
+                <p>Libraries:</p>
+                <ul>
+                    {e.libraries.map((lib) => (
+                    <li set:html={marked.parseInline(lib)}></li>
                     ))}
                 </ul>
             )}

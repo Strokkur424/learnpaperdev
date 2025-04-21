@@ -1,11 +1,13 @@
 import V_1_21_1 from "../assets/changelogs/1_21_1.json";
 import V_1_21_3 from "../assets/changelogs/1_21_3.json";
+import V_1_21_4 from "../assets/changelogs/1_21_4.json";
 import V_1_21_5 from "../assets/changelogs/1_21_5.json";
 
 const versionConversion: Map<string, any> = new Map(
   Object.entries({
     "1.21.1": V_1_21_1,
     "1.21.3": V_1_21_3,
+    "1.21.4": V_1_21_4,
     "1.21.5": V_1_21_5,
   }),
 );
@@ -36,8 +38,10 @@ export interface VersionTemplate {
   deprecations?: string[];
   extensions?: string[];
   removed?: string[];
+  obsolete?: string[];
   renamed?: string[];
   noInternal?: string[];
+  libraries?: string[];
 }
 
 function flattenValues(
@@ -62,17 +66,19 @@ function createHeadingObj(build: VersionTemplate): SidebarsProps {
 
 export class ChangeLogs {
   version: string;
-  data: Array<VersionTemplate>;
+  data: VersionTemplate[];
 
-  flatAdditions: Array<string>;
-  flatDeprecations: Array<string>;
-  flatExtensions: Array<string>;
-  flatRemoved: Array<string>;
-  flatRenamed: Array<string>;
-  flatNoInternal: Array<string>;
+  flatAdditions: string[];
+  flatDeprecations: string[];
+  flatExtensions: string[];
+  flatRemoved: string[];
+  flatObsolete: string[];
+  flatRenamed: string[];
+  flatNoInternal: string[];
+  flatLibraries: string[];
 
-  headings: Array<SidebarsProps>;
-  staticPaths: Array<string>;
+  headings: SidebarsProps[];
+  staticPaths: string[];
 
   constructor(version: string) {
     this.version = version;
@@ -96,11 +102,17 @@ export class ChangeLogs {
     this.flatRemoved = flattenValues(this, (ver) =>
       ver.removed == undefined ? null : ver.removed,
     );
+    this.flatObsolete = flattenValues(this, (ver) =>
+      ver.obsolete == undefined ? null : ver.obsolete,
+    );
     this.flatRenamed = flattenValues(this, (ver) =>
       ver.renamed == undefined ? null : ver.renamed,
     );
     this.flatNoInternal = flattenValues(this, (ver) =>
       ver.noInternal == undefined ? null : ver.noInternal,
+    );
+    this.flatLibraries = flattenValues(this, (ver) =>
+      ver.libraries == undefined ? null : ver.libraries,
     );
 
     this.headings = this.data.map((e) => createHeadingObj(e));

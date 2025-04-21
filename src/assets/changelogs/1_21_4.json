@@ -1,0 +1,431 @@
+[
+  {
+    "id": 224,
+    "link": "https://github.com/PaperMC/Paper/pull/12391",
+    "name": "Bump to adventure 4.20.0",
+    "libraries": ["Bumped `Adventure` to `4.20`"]
+  },
+  {
+    "id": 221,
+    "link": "https://github.com/PaperMC/Paper/pull/12224",
+    "name": "Add ItemStack#copyDataFrom",
+    "additions": [
+      "ItemStack#copyDataFrom(ItemStack source, Predicate<DataComponentType> filter)"
+    ]
+  },
+  {
+    "id": 219,
+    "link": "https://github.com/PaperMC/Paper/pull/12330",
+    "name": "Add flush parameter to World#save",
+    "additions": ["World#save(boolean flush)"]
+  },
+  {
+    "id": 218,
+    "link": "https://github.com/PaperMC/Paper/pull/12311",
+    "name": "ChunkGenerator - add getHeight to ChunkData",
+    "additions": [
+      "ChunkyGenerator#getHeight(HeightMap heightMap, int x, int z): int"
+    ]
+  },
+  {
+    "id": 214,
+    "link": "https://github.com/PaperMC/Paper/pull/12302",
+    "name": "Skull - get/set customName",
+    "additions": [
+      "Skull#customName(): Component",
+      "Skull#customName(Component component)"
+    ]
+  },
+  {
+    "id": 205,
+    "link": "https://github.com/PaperMC/Paper/pull/12199",
+    "name": "Add client tick end event",
+    "additions": ["ClientTickEndEvent extends PlayerEvent"]
+  },
+  {
+    "id": 196,
+    "link": "https://github.com/PaperMC/paper/issues/12243",
+    "name": "Player - Expose player score",
+    "additions": [
+      "Player#getDeathScreenScore(): int",
+      "Player#setDeathScreenScore(int score)"
+    ]
+  },
+  {
+    "id": 182,
+    "link": "https://github.com/PaperMC/Paper/pull/12094",
+    "name": "Add methods for Creaking",
+    "additions": [
+      "Creaking#getHome(): Location",
+      "Creaking#activate(Player player)",
+      "Creaking#deactivate()",
+      "Creaking#isActive()"
+    ]
+  },
+  {
+    "id": 180,
+    "link": "https://github.com/PaperMC/Paper/pull/12189",
+    "name": "Deprecate server config getters",
+    "additions": ["Bukkit.restart()"],
+    "deprecations": [
+      "Bukkit.spigot(): Server.Spigot",
+      "All of Server.Spigot",
+      "Server#spigot(): Spigot",
+      "Server#restart()"
+    ]
+  },
+  {
+    "id": 170,
+    "link": "https://github.com/PaperMC/Paper/pull/12142",
+    "name": "add simpler javaplugin command registration",
+    "additions": [
+      "JavaPlugin#registerCommand(String label, BasicCommand BasicCommand)",
+      "JavaPlugin#registerCommand(String label, String description, BasicCommand BasicCommand)",
+      "JavaPlugin#registerCommand(String label, Collection<String> aliases, BasicCommand BasicCommand)",
+      "JavaPlugin#registerCommand(String label, String description, Collection<String> aliases, BasicCommand BasicCommand)"
+    ]
+  },
+  {
+    "id": 157,
+    "link": "https://github.com/PaperMC/Paper/pull/12011",
+    "name": "Add EntityEquipmentChangedEvent",
+    "additions": ["EntityEquipmentChangedEvent extends EntityEvent"],
+    "obsolete": ["PlayerArmorChangeEvent"]
+  },
+  {
+    "id": 155,
+    "link": "https://github.com/PaperMC/paper/issues/12113",
+    "name": "Add EntityAttemptSmashAttackEvent",
+    "additions": ["EntityAttemptSmashAttackEvent extends EntityEvent"]
+  },
+  {
+    "id": 153,
+    "link": "https://github.com/PaperMC/paper/issues/12022",
+    "name": "add method on ItemStack to edit pdc",
+    "additions": [
+      "ItemStack#editPersistentDataContainer(Consumer<PersistentDataContainer> consumer): boolean"
+    ]
+  },
+  {
+    "id": 150,
+    "link": "https://github.com/PaperMC/paper/issues/12025",
+    "name": "Add TrialSpawner methods for end of cooldown and next mob spawn time",
+    "additions": [
+      "TrialSpawner#getCooldownEnd(): long",
+      "TrialSpawner#setCooldownEnd(long ticks)",
+      "TrialSpawner#getNextSpawnAttempt(): long",
+      "TrialSpawner#setNextSpawnAttempt(long ticks)"
+    ]
+  },
+  {
+    "id": 149,
+    "link": "https://github.com/PaperMC/Paper/pull/12068",
+    "name": "Add Vault block API",
+    "additions": [
+      "Vault#getActivationRange(): double",
+      "Vault#setActivationRange(double deactivationRange)",
+      "Vault#getDeactivationRange(): double",
+      "Vault#setDeactivationRange(double deactivationRange)",
+      "Vault#getKeyItem(): ItemStack",
+      "Vault#setKeyItem(ItemStack key)",
+      "Vault#getLootTable(): LootTable",
+      "Vault#setLootTable(LootTable lootTable)",
+      "Vault#getDisplayedLootTable(): LootTable",
+      "Vault#setDisplayedLootTable(LootTable lootTable)",
+      "Vault#getNextStateUpdateTime(): long",
+      "Vault#setNextStateUpdateTime(long nextStateUpdateTime)",
+      "Vault#getRewardedPlayers(): Collection<UUID>",
+      "Vault#addRewardedPlayer(UUID playerUUID)",
+      "Vault#removeRewardedPlayer(UUID playerUUID)",
+      "Vault#hasRewardedPlayer(UUID playerUUID)",
+      "Vault#getConnectedPlayers(): Set<UUID>",
+      "Vault#hasConnectedPlayers(UUID playerUUID)",
+      "Vault#getDisplayedItem(): ItemStack",
+      "Vault#setDisplayedItem(ItemStack displayedItem)"
+    ]
+  },
+  {
+    "id": 148,
+    "link": "https://github.com/PaperMC/Paper/pull/12099",
+    "name": "Add proper attached blocks API to AbstractArrow",
+    "additions": ["AbstractArrow#getAttachedBlocks(): List<Block>"],
+    "deprecations": ["AbstractArrow#getAttachedBlock(): Block"]
+  },
+  {
+    "id": 144,
+    "link": "https://github.com/PaperMC/paper/issues/12024",
+    "name": "Deprecate Server#setSpawnRadius",
+    "deprecations": [
+      "Bukkit.setSpawnRadius(int value)",
+      "Server#setSpawnRadius(int value)"
+    ]
+  },
+  {
+    "id": 140,
+    "link": "https://github.com/PaperMC/Paper/pull/12016",
+    "name": "Make Sittable interface extend Entity",
+    "extensions": ["`Sittable` now extends `Entity`"]
+  },
+  {
+    "id": 136,
+    "link": "https://github.com/PaperMC/Paper/pull/12041",
+    "name": "Deprecate UnsafeValues#getSpawnEggLayerColor",
+    "deprecations": [
+      "UnsafeValues#getSpawnEggLayerColor(EntityType entityType, int layer): Color"
+    ]
+  },
+  {
+    "id": 127,
+    "link": "https://github.com/PaperMC/Paper/pull/11995",
+    "name": "Add Player#give",
+    "additions": [
+      "PlayerGiveResult",
+      "Player#give(ItemStack... items): PlayerGiveResult",
+      "Player#give(Collection<ItemStack> items): PlayerGiveResult",
+      "Player#give(Collection<ItemStack> items, boolean dropIfFull): PlayerGiveResult"
+    ]
+  },
+  {
+    "id": 126,
+    "link": "https://github.com/PaperMC/Paper/pull/11940",
+    "name": "Add PlayerLoadedWorldEvent",
+    "additions": ["PlayerClientLoadedWorldEvent extends PlayerEvent"]
+  },
+  {
+    "id": 123,
+    "link": "https://github.com/PaperMC/Paper/pull/11907",
+    "name": "Add RayTraceConfigurationBuilder",
+    "additions": [
+      "PositionedRayTraceConfigurationBuilder",
+      "RayTraceTarget",
+      "World#rayTrace(Consumer<PositionedRayTraceConfigurationBuilder> builderConsumer): RayTraceResult"
+    ]
+  },
+  {
+    "id": 107,
+    "link": "https://github.com/PaperMC/Paper/pull/11961",
+    "name": "Remove deprecation from EntityRemoveEvent",
+    "removed deprecation": ["EntityRemoveEvent"]
+  },
+  {
+    "id": 104,
+    "link": "https://github.com/PaperMC/Paper/pull/11958",
+    "name": "Expose all possible block data states",
+    "additions": [
+      "BlockType#createBlockDataStates(): Collection<? extends BlockData>"
+    ]
+  },
+  {
+    "id": 101,
+    "link": "https://github.com/PaperMC/Paper/pull/11959",
+    "name": "Deprecate Turtle#isDigging",
+    "deprecations": ["Turtle#isDigging(): boolean"]
+  },
+  {
+    "id": 99,
+    "link": "https://github.com/PaperMC/Paper/pull/11838",
+    "name": "Add EntityEffectTickEvent",
+    "additions": [
+      "EntityEffectTickEvent extends EntityEvent implements Cancellable"
+    ]
+  },
+  {
+    "id": 97,
+    "link": "https://github.com/PaperMC/Paper/pull/11950",
+    "name": "Rename getPotentialBedLocation to getPotentialRespawnLocation",
+    "additions": ["HumanEntity#getPotentialRespawnLocation(): Location"],
+    "deprecations": ["HumanEntity#getPotentialBedLocation(): Location"]
+  },
+  {
+    "id": 95,
+    "link": "https://github.com/PaperMC/Paper/pull/11868",
+    "name": "Feat: Add 'with' methods to CommandSourceStack",
+    "additions": [
+      "CommandSourceStack#withExecutor(Entity entity)",
+      "CommandSourceStack#withLocation(Location location)"
+    ]
+  },
+  {
+    "id": 94,
+    "link": "https://github.com/PaperMC/Paper/pull/11816",
+    "name": "MenuType API addition InventoryView Builders",
+    "additions": [
+      "Bukkit.createMerchant(): Merchant",
+      "Server.createMerchant(): Merchant",
+      "InventoryViewBuilder<V extends InventoryView>",
+      "LocationInventoryViewBuilder<V extends InventoryView> extends InventoryViewBuilder<V>",
+      "MerchantInventoryViewBuilder<V extends InventoryView> extends InventoryViewBuilder<V>"
+    ],
+    "deprecations": [
+      "Bukkit.createMerchant(Component title): Merchant",
+      "Server#createMerchant(Component title): Merchant",
+      "HumanEntity#openWorkbench(Location location, boolean force): InventoryView",
+      "HumanEntity#openEnchanting(Location location, boolean force): InventoryView",
+      "HumanEntity#openMerchant(Villager trader, boolean force): InventoryView",
+      "HumanEntity#openMerchant(Merchant merchant, boolean force): InventoryView",
+      "HumanEntity#openAnvil(Location location, boolean force): InventoryView",
+      "HumanEntity#openCartographyTable(Location location, boolean force): InventoryView",
+      "HumanEntity#openGrindstone(Location location, boolean force): InventoryView",
+      "HumanEntity#openLoom(Location location, boolean force): InventoryView",
+      "HumanEntity#openSmithingTable(Location location, boolean force): InventoryView",
+      "HumanEntity#openStonecutter(Location location, boolean force): InventoryView"
+    ]
+  },
+  {
+    "id": 75,
+    "link": "https://github.com/PaperMC/Paper/pull/11908",
+    "name": "Add pattern methods for orientation in Location",
+    "additions": [
+      "Location#addRotation(float yaw, float pitch): Location",
+      "Location#subtractRotation(float yaw, float pitch): Location",
+      "Location#setRotation(float yaw, float pitch): Location"
+    ]
+  },
+  {
+    "id": 69,
+    "link": "https://github.com/PaperMC/Paper/pull/11872",
+    "name": "Add sendRich/PlainMessage methods to Server",
+    "additions": [
+      "Server#sendRichMessage(String message)",
+      "Server#sendRichMessage(String message, TagResolver... resolvers)",
+      "Server#sendPlainMessage(String message)"
+    ]
+  },
+  {
+    "id": 64,
+    "link": "https://github.com/PaperMC/Paper/pull/11810",
+    "name": "Extend HumanEntity#dropItem API",
+    "obsolete": ["HumanEntity#dropItem(boolean dropAll): boolean"],
+    "additions": [
+      "HumanEntity#dropItem(int slot): Item",
+      "HumanEntity#dropItem(int slot, int amount): Item",
+      "HumanEntity#dropItem(int slot, int amount, boolean throwRandomly, Consumer<Item> entityOperation): Item",
+      "HumanEntity#dropItem(EquipmentSlot slot): Item",
+      "HumanEntity#dropItem(EquipmentSlot slot, int amount): Item",
+      "HumanEntity#dropItem(EquipmentSlot slot, int amount, boolean throwRandomly, Consumer<Item> entityOperation): Item",
+      "HumanEntity#dropItem(ItemStack): Item",
+      "HumanEntity#dropItem(ItemStack, boolean throwRandomly, Consumer<Item> entityOperation): Item"
+    ]
+  },
+  {
+    "id": 63,
+    "link": "https://github.com/PaperMC/Paper/pull/11804",
+    "name": "Add datapack registration lifecycle event",
+    "additions": [
+      "DatapackRegistrar",
+      "DiscoveredDatapack",
+      "DatapackSource.PLUGIN: DatapackSource",
+      "LifecycleEvents.DATAPACK_DISCOVERY: LifecycleEventType.Prioritizable<BootstrapContext, RegistrarEvent<DatapackRegistrar>>"
+    ],
+    "extensions": ["`Datapack` now extends `DiscoveredDatapack`"]
+  },
+  {
+    "id": 59,
+    "link": "https://github.com/PaperMC/Paper/pull/11783",
+    "name": "Add DamageType RegistryEvent",
+    "additions": [
+      "DamageTypeRegistryEntry",
+      "RegistryEvents.DAMAGE_TYPE: RegistryEventProvider<DamageType, DamageTypeRegistryEntry.Builder>",
+      "DamageEffect.getDamageEffect(String key): DamageEffect"
+    ]
+  },
+  {
+    "id": 49,
+    "link": "https://github.com/PaperMC/Paper/pull/11803",
+    "name": "Banner pattern registry modification",
+    "additions": [
+      "BannerPatternRegistryEntry",
+      "RegistryEvents.BANNER_PATTERN: RegistryEventProvider<PatternType, BannerPatternRegistryEntry.Builder>"
+    ]
+  },
+  {
+    "id": 48,
+    "link": "https://github.com/PaperMC/Paper/pull/11807",
+    "name": "Expand on entity serialization API",
+    "additions": [
+      "EntitySerializationFlag",
+      "UnsafeValues#serializeEntity(Entity entity): byte[]",
+      "UnsafeValues#serializeEntity(Entity entity, EntitySerializationFlag... serializationFlag): byte[]",
+      "UnsafeValues#deserializeEntity(byte[] data, World world): Entity",
+      "UnsafeValues#deserializeEntity(byte[] data, World world, boolean preserveUUID): Entity",
+      "UnsafeValues#deserializeEntity(byte[] data, World world, boolean preserveUUID, boolean preservePassengers): Entity",
+      "Entity#spawnAt(Location location): boolean",
+      "Entity#spawnAt(Location location, CreatureSpawnEvent.SpawnReason reason): boolean"
+    ]
+  },
+  {
+    "id": 47,
+    "link": "https://github.com/PaperMC/Paper/pull/11796",
+    "name": "For new registry values, allow copying from existing",
+    "additions": [
+      "RegistryBuilderFactory",
+      "RegistryKey#typedKey(Key key): TypedKey<T>",
+      "RegistryKey#typedKey(String key): TypedKey<T>",
+      "WritableRegistry#register(TypedKey<T> key, Consumer<? super B> value)",
+      "WritableRegistry#registerWith(TypedKey<T> key, Consumer<RegistryBuilderFactory<T, B>> value)",
+      "TypedKey.create(RegistryKey<T> registryKey, String key): <T>"
+    ]
+  },
+  {
+    "id": 42,
+    "link": "https://github.com/PaperMC/Paper/pull/11823",
+    "name": "Deprecate #furnace_materials item tag",
+    "additions": ["Tag.ITEMS_STONE_CRAFTING_MATERIALS: Tag<Material>"],
+    "deprecations": ["Tag.ITEMS_FURNACE_MATERIALS: Tag<Material>"]
+  },
+  {
+    "id": 40,
+    "link": "https://github.com/PaperMC/Paper/pull/11795",
+    "name": "Add Registry#getTags",
+    "additions": [
+      "Registry#getTag(TagKey<T> key): Tag<T>",
+      "Registry#getTags(): Collection<Tag<T>>"
+    ]
+  },
+  {
+    "id": 39,
+    "link": "https://github.com/PaperMC/Paper/pull/11770",
+    "name": "Add effective name to ItemStack",
+    "additions": ["ItemStack#effectiveName(): Component"]
+  },
+  {
+    "id": 34,
+    "link": "https://github.com/PaperMC/Paper/pull/11775",
+    "name": "Port basic lookAt methods from Player to Entity",
+    "additions": [
+      "Entity#lookAt(double x, double y, double z, LookAnchor entityAnchor)",
+      "Entity#lookAt(io.papermc.paper.math.Position position, LookAnchor entityAnchor)"
+    ]
+  },
+  {
+    "id": 11,
+    "link": "https://github.com/PaperMC/Paper/pull/11715",
+    "name": "Readd shear methods from bukkit Shearable",
+    "additions": [
+      "Bogged#isSheared(): boolean",
+      "Bogged#setSheared(boolean flag)",
+      "Sheep#isSheared(): boolean",
+      "Sheep#setSheared(boolean flag)"
+    ]
+  },
+  {
+    "id": 9,
+    "link": "https://github.com/PaperMC/Paper/pull/11720",
+    "name": "Add command block material tags",
+    "additions": ["MaterialTags: MaterialSetTag COMMAND_BLOCKS"]
+  },
+  {
+    "id": 5,
+    "link": "https://github.com/PaperMC/Paper/pull/11685",
+    "name": "Add ItemMeta customName methods",
+    "additions": [
+      "ItemMeta#hasCustomName()",
+      "ItemMeta#customName(): Component",
+      "ItemMeta#customName(Component customName)"
+    ],
+    "obsolete": [
+      "ItemMeta#displayName()",
+      "ItemMeta#displayName(Component displayName)"
+    ]
+  }
+]

@@ -60,7 +60,7 @@ export default defineConfig({
           label: "API Changelogs",
           items: [
             { label: "1.21.5", link: "/changelogs/1.21.5" },
-            //     { label: "1.21.4", link: "/changelogs/1.21.4" },
+            { label: "1.21.4", link: "/changelogs/1.21.4" },
             { label: "1.21.3", link: "/changelogs/1.21.3" },
             { label: "1.21.2", link: "/changelogs/1.21.2" },
             { label: "1.21.1", link: "/changelogs/1.21.1/" },
