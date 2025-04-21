@@ -1,6 +1,6 @@
 // @ts-check
-import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
+import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
@@ -19,9 +19,10 @@ export default defineConfig({
         },
       ],
       components: {
-        Footer: "./src/components/Footer.astro",
-        Header: "./src/components/Header.astro",
-        ContentPanel: "./src/components/ContentPanel.astro",
+        Header: "./src/components/overrides/Header.astro",
+        Footer: "./src/components/overrides/Footer.astro",
+        LastUpdated: "./src/components/overrides/LastUpdated.astro",
+        ContentPanel: "./src/components/overrides/ContentPanel.astro",
       },
       sidebar: [
         {
