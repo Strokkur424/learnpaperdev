@@ -49,7 +49,7 @@ const map = new Map(
     Placeholder:
       "net.kyori.adventure.text.minimessage.tag.resolver.Placeholder",
     Tag: "net.kyori.adventure.text.minimessage.tag.Tag",
-  }),
+  })
 );
 
 export const known = map;

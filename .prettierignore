@@ -1,0 +1,9 @@
+pnpm-lock.yaml
+pnpm-workspace.yaml
+*.md
+*.mdx
+public/d2
+
+# Prettier has issues with Astro
+src/components/overrides/Head.astro
+src/components/ConfigNode.astro

@@ -1,6 +1,6 @@
 // @ts-check
-import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
+import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,13 +11,18 @@ export default defineConfig({
       logo: {
         src: "./src/assets/logo.svg",
       },
-      social: {
-        github: "https://github.com/Strokkur424/learnpaperdev",
-      },
+      social: [
+        {
+          icon: "github",
+          label: "GitHub",
+          href: "https://github.com/Strokkur424/learnpaperdev",
+        },
+      ],
       components: {
-        Footer: "./src/components/Footer.astro",
-        Header: "./src/components/Header.astro",
-        ContentPanel: "./src/components/ContentPanel.astro",
+        Header: "./src/components/overrides/Header.astro",
+        Footer: "./src/components/overrides/Footer.astro",
+        LastUpdated: "./src/components/overrides/LastUpdated.astro",
+        ContentPanel: "./src/components/overrides/ContentPanel.astro",
       },
       sidebar: [
         {
@@ -51,6 +56,17 @@ export default defineConfig({
         {
           label: "Reference",
           autogenerate: { directory: "reference" },
+        },
+        {
+          label: "API Changelogs",
+          items: [
+            { label: "1.21.5", link: "/changelogs/1.21.5" },
+            { label: "1.21.4", link: "/changelogs/1.21.4" },
+            { label: "1.21.3", link: "/changelogs/1.21.3" },
+            { label: "1.21.2", link: "/changelogs/1.21.2" },
+            { label: "1.21.1", link: "/changelogs/1.21.1/" },
+            //     { label: "1.21", link: "/changelogs/1.21" },
+          ],
         },
       ],
       customCss: ["./src/custom.css"],
