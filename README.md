@@ -26,6 +26,9 @@ The longer answer is: Still no. I want to be able to write stuff my own way and 
 a potential contributor to do stuff exactly how you want them to is hard and takes a lot of time. So it is best for me to just write it myself. That also allows me to build everything
 exactly the way I envision it! Thank you for for understanding.
 
+> [!NOTE]
+> Since lately, I accept PRs to add more API changelogs. Feel free to open a PR if you want to scoot through the Paper build explorer!
+
 What I **do** accept though are issues. If you find that my writing has an issue, or you want to suggest a new guide idea, make sure to open an issue for it! Those help a lot and I am very grateful
 for every issue I get, since that shows involvement in my work.
 
