@@ -1,5 +1,9 @@
 # build output
 dist/
+
+### IntelliJ ###
+/.idea
+
 # generated types
 .astro/
 
