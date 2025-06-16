@@ -1,32 +1,36 @@
+@import "tailwindcss";
+
 /* Dark mode colors. */
 :root {
-  --sl-color-accent-low: #eaeaea;
-  --sl-color-accent: #c80000;
-  --sl-color-accent-high: #bb2121;
-  --sl-color-white: #ffffff;
-  --sl-color-gray-1: #eeeeee;
-  --sl-color-gray-2: #d0d0d0;
-  --sl-color-gray-3: #b4b4b4;
-  --sl-color-gray-4: #585858;
-  --sl-color-gray-5: #383838;
-  --sl-color-gray-6: #252525;
-  --sl-color-black: #101010;
+  --sl-color-accent-low: var(--color-cyan-50);
+  --sl-color-accent: var(--color-cyan-700);
+  --sl-color-accent-high: var(--color-cyan-600);
+  --sl-color-accent-higher: var(--color-cyan-500);
+  --sl-color-white: var(--color-slate-100);
+  --sl-color-gray-1: var(--sl-color-gray-2);
+  --sl-color-gray-2: var(--color-slate-200);
+  --sl-color-gray-3: var(--color-slate-300);
+  --sl-color-gray-4: var(--color-slate-600);
+  --sl-color-gray-5: var(--color-slate-700);
+  --sl-color-gray-6: var(--color-slate-800);
+  --sl-color-black: var(--color-slate-900);
 }
 
 /* Light mode colors. */
 :root[data-theme="light"] {
-  --sl-color-accent-low: #ffc8be;
-  --sl-color-accent: #aa0000;
-  --sl-color-accent-high: #650000;
-  --sl-color-white: #000000;
-  --sl-color-gray-1: #272727;
-  --sl-color-gray-2: #181818;
-  --sl-color-gray-3: #484848;
-  --sl-color-gray-4: #8b8b8b;
-  --sl-color-gray-5: #a2a2a2;
-  --sl-color-gray-6: #dedede;
-  --sl-color-gray-7: #d9d9d9;
-  --sl-color-black: #ebebeb;
+  --sl-color-accent-low: var(--color-cyan-950);
+  --sl-color-accent: var(--color-cyan-700);
+  --sl-color-accent-high: var(--color-cyan-700);
+  --sl-color-accent-higher: var(--color-cyan-600);
+  --sl-color-white: var(--color-cyan-800);
+  --sl-color-gray-1: var(--sl-color-gray-2);
+  --sl-color-gray-2: var(--color-slate-800);
+  --sl-color-gray-3: var(--color-slate-700);
+  --sl-color-gray-4: var(--color-slate-400);
+  --sl-color-gray-5: var(--color-slate-300);
+  --sl-color-gray-6: var(--color-slate-200);
+  --sl-color-black: var(--color-slate-100);
+  --sl-color-hairline: var(--sl-color-gray-6);
 }
 
 :root {
@@ -54,13 +58,13 @@
 }
 
 .sl-markdown-content a:not(:where(.not-content *)) {
-  color: #e05561;
+  color: var(--sl-color-accent-higher);
   text-decoration: none;
 }
 
 .sl-markdown-content code:not(:where(.not-content *)) {
-  background-color: #282c34;
-  border-radius: 0.35rem;
+  background-color: var(--sl-color-gray-6);
+  border-radius: var(--radius-sm);
 }
 
 .color-dark-purple {
@@ -69,4 +73,12 @@
 
 .color-gray {
   color: #aaaaaa !important;
+}
+
+/* highlight sidebar items with accent color */
+.sidebar-content :global(a:not([aria-current="page"]):hover) {
+  color: var(--color-red-800);
+}
+.main-frame :global(.right-sidebar a:hover) {
+  color: var(--color-red-800);
 }
