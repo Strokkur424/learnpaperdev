@@ -105,8 +105,16 @@ When getting the location from <JavaDocs id="Player" method="getEyeLocation()"/>
 You can then work with that direction. One example can be to check if the player is looking at something, which would be done with a ray trace. Since that is too complicated for us for now,
 I instead chose the following, rather fun example:
 
-Whenever the player sneaks (pressed the sneak button) they get a velocity applied to them! We apply the location with the <JavaDocs id="Player" method="ash"/> method, passing in
-the vector of where our player is currently looking. This allows for a very fun flying mechanic! (Tip: to avoid getting kicked, set `allow-flight=true` in your `server.properties`).
+Whenever the player sneaks (pressed the sneak button), they get a velocity applied to them!
+For this, we first retrieve the player's **eye location** with <JavaDocs id="Player" method="getEyeLocation" />,
+whose direction (<JavaDocs id="Location" method="getDirection" />) is the same as the direction the player is
+currently facing.
+
+We then set the player's velocity to the player's directional vector
+(<JavaDocs id="Entity" method="setVelocity(org.bukkit.util.Vector)" name="Entity#setVelocity"/>),
+and off we go flying!
+
+(Tip: to avoid getting kicked, set `allow-flight=true` in your `server.properties`).
 
 <PreviewVideo src={SneakFlyingMp4} summary="Preview Video" />
 
@@ -156,6 +164,39 @@ public void onEnable() {
     getComponentLogger().warn("Our plugin has been enabled!");
 }
 ```
+
+## Teleporting players
+One great use for locations is the ability to teleport entities to that location. For this, you can use the
+<JavaDocs id="Entity" method="teleport(org.bukkit.Location)" name="Entity#teleport(Location)" /> and
+<JavaDocs id="Entity" method="teleportAsync(org.bukkit.Location)" name="Entity#teleportAsync(Location)" /> methods
+respectively.
+
+```java
+Location location = ...;
+Player player = ...;
+
+// Synchronous way
+player.teleport(location);
+player.sendMessage("Success!");
+
+// Asynchronous way
+player.teleportAsync(location).thenRun(
+    () -> player.sendMessage("Success!")
+);
+```
+
+**But what is the difference?**
+
+The difference is that `teleport` runs on the current thread that you are executing it from.
+This also means that if you are teleporting an entity into unloaded chunks, it first has to load those chunks, which is
+all but ideal for performance.
+`teleportAsync` first loads the chunk asynchronously and then teleports the player.
+
+**So when to use which one?**
+
+If you are not sure if the chunk of a location is currently loaded, you should always use `teleportAsync`.
+If you know for sure that a location will be loaded (e.g. because another player is nearby), it is safe to
+use `teleport` directly.
 
 ## Modifying the player list
 The player list (tab list) can be modified using the follow methods:
