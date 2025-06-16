@@ -1,5 +1,5 @@
 ---
-import { idToFullPath } from "./KnownClasses.js";
+import { idToFullPath } from "./KnownClasses.ts";
 
 interface Props {
   version: string;
@@ -41,14 +41,14 @@ if (prop.path == undefined) {
 let fullPath = buildFilePath(prop, getProjectByPath(prop.path));
 
 let finalName = name;
-if (name == null && path != null) {
-  let splitPath = path.split(".");
+if (name == null && prop.path != null) {
+  let splitPath = prop.path.split(".");
   const className = splitPath[splitPath.length - 1];
 
-  if (method == null) {
+  if (prop.method == null) {
     finalName = className;
   } else {
-    finalName = className + "#" + method;
+    finalName = className + "#" + prop.method;
   }
 }
 
