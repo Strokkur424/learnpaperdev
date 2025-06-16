@@ -2,9 +2,12 @@
 import starlight from "@astrojs/starlight";
 import { defineConfig } from "astro/config";
 
+import tailwindcss from "@tailwindcss/vite";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://learnpaperdev.com",
+
   integrations: [
     starlight({
       title: "Learn Paper Dev",
@@ -80,4 +83,8 @@ export default defineConfig({
       lastUpdated: true,
     }),
   ],
+
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });
