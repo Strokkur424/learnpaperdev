@@ -4,7 +4,7 @@ Because free and open-source is the best pricing.
 
 > [!NOTE]
 > Learn Paper Dev is currently under heavy development and does not provide a lot of content just yet.
-> Furthermore, until I buy an actual domain, the website is hosted under https://learnpaperdev.pages.dev.
+> Furthermore, until I buy an actual domain, the website is hosted under https://learn.strokkur.net.
 
 ## Motivation
 Having written for the official [PaperMC docs](https://github.com/PaperMC/docs), I noticed that what annoyed me the most is the long review times and fairly limited scope. I couldn't just
